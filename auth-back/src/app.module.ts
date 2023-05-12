@@ -13,6 +13,8 @@ import { SeedService } from "./seed/seed.service";
       username: "user",
       password: "password",
       database: "auth",
+      autoLoadEntities: true,
+      synchronize: true
     }),
     UsersModule,
     AuthenticationModule,
