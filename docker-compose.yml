@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  e-ticket-front:
+    container_name: e-ticket-front
+    build:
+      context: e-ticket-front
+      dockerfile: Dockerfile
+    volumes:
+      - './e-ticket-front:/front'
+    ports:
+      - "3001:3000"
