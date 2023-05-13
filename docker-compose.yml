@@ -11,6 +11,19 @@ services:
     ports:
       - "3001:3000"
 
+  api-gateway:
+    user: node
+    build:
+      context: api-gateway
+      dockerfile: Dockerfile
+    tty: true
+    stdin_open: true
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./api-gateway:/home/node
+    command: sh -c "npm install && npm run start:dev"
+
   auth-back:
     image: node:19.0.0-alpine
     user: node
@@ -19,8 +32,6 @@ services:
       dockerfile: Dockerfile
     tty: true
     stdin_open: true
-    ports:
-      - "3002:3000"
     volumes:
       - ./auth-back:/home/node
     command: sh -c "npm install && npm run start:dev"

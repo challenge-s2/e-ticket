@@ -1,4 +1,4 @@
-import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
+import {BadRequestException, HttpException, HttpStatus, Injectable} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './users.entity';
@@ -44,7 +44,7 @@ export class UsersService {
   public async registerUser(usersRequest: UsersRequest) {
     const { email } = usersRequest;
     if (await this.getUserByEmail(email)) {
-      throw new HttpException('User already exists', HttpStatus.BAD_REQUEST)
+      throw new BadRequestException('User already exists')
     }
     usersRequest.password = await hash(usersRequest.password, 10);
     usersRequest.role = Role.USER;
