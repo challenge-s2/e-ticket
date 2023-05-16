@@ -12,9 +12,7 @@ Solution à destination des commerçants, afin de proposer un ticket de caisse d
 
 ### Lancer le projet
 
-<code>
-docker-compose up -d
-</code>
+<code>docker-compose up -d</code>
 
 Si le container <code>e-ticket-front</code> ne se lance pas : 
 
