@@ -1,0 +1,23 @@
+div.item_question {
+  padding: 2vh 0;
+  width: 100%;
+
+  div.question_bar {
+    font-size: larger;
+    display: flex;
+    justify-content: space-between;
+
+    span.content_question {
+    }
+    div.icon_down {
+      //importer google icons
+      cursor: pointer;
+    }
+  }
+
+  div.answer {
+    padding: 2vh;
+    transform: translate(20px, 20px)
+  }
+
+}

@@ -1,0 +1,20 @@
+div.container {
+  display: flex;
+
+  div.item {
+    margin: 1vh;
+    width: calc((100vw / 7));
+  }
+
+  div.item:last-child {
+    margin-right: 0;
+  }
+
+  div.item:first-child {
+    margin-left: 0;
+  }
+
+  img {
+    width: 100%;
+  }
+}
