@@ -1,13 +1,15 @@
 import { React, useState } from "react";
 import styles from "./ItemQuestion.module.scss";
+import { CSSTransition } from "react-transition-group";
+import "./ItemQuestion.css"
 
 const ItemQuestion = ({ question, answer }) => {
-
-  const [display, setDisplay] = useState(false);
+  const [showAnswer, setShowAnswer] = useState(false);
+  // const nodeRef = useRef(null);
 
   const handleChangeDisplay = () => {
-    setDisplay(!display);
-    console.log(display);
+    setShowAnswer(!showAnswer);
+    console.log(showAnswer);
   };
   // console.log(question);
   return (
@@ -17,17 +19,19 @@ const ItemQuestion = ({ question, answer }) => {
           <span className={styles.content_question}>{question}</span>
           <button
             className={styles.icon_down + " bttn bttn-prim-out"}
-            onClick={handleChangeDisplay}
+            onClick={() => setShowAnswer(!showAnswer)}
           >
-            \/
+            🔽
           </button>
         </div>
-        <div
-          className={styles.answer}
-          style={{ display: display ? "block" : "none"}}
+        <CSSTransition
+          in={showAnswer}
+          timeout={500}
+          classNames="hideAnswer"
+          unmountOnExit
         >
-          {answer}
-        </div>
+          <div className="answer">{answer}</div>
+        </CSSTransition>
       </div>
     </>
   );

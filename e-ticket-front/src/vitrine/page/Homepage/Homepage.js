@@ -5,6 +5,7 @@ import Menu from "./Menu/Menu";
 import styles from "./Homepage.module.scss"
 import Contributors from "./Contributors/Contributors";
 import Questions from "./Questions/Questions";
+import Footer from "./Footer/Footer";
 
 const Homepage = () => {
   return (
@@ -31,9 +32,10 @@ const Homepage = () => {
             text="Notre solution propose un outil de gestion des produits, des commandes et des tickets de caisse de manière dématérialisé."
             align="left"
           />
+          
         </main>
 
-        <footer>{/* footer */}</footer>
+        <footer><Footer/></footer>
       </div>
     </>
   );
