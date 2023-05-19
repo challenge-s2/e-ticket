@@ -24,15 +24,26 @@ services:
       - ./api-gateway:/home/node
     command: sh -c "npm install && npm run start:dev"
 
-  auth-back:
+  auth-service:
     user: node
     build:
-      context: auth-back
+      context: auth-service
       dockerfile: Dockerfile
     tty: true
     stdin_open: true
     volumes:
-      - ./auth-back:/home/node
+      - ./auth-service:/home/node
+    command: sh -c "npm install && npm run start:dev"
+
+  users-service:
+    user: node
+    build:
+      context: users-service
+      dockerfile: Dockerfile
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./users-service:/home/node
     command: sh -c "npm install && npm run start:dev"
 
   auth-mysql:
