@@ -46,10 +46,10 @@ services:
       - ./users-service:/home/node
     command: sh -c "npm install && npm run start:dev"
 
-  users-mysql:
+  auth-mysql:
     image: mysql:8.0.33
     environment:
-      MYSQL_DATABASE: user
+      MYSQL_DATABASE: auth
       MYSQL_USER: user
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: rootpassword
