@@ -1,26 +1,14 @@
-import {Inject, Injectable} from '@nestjs/common';
-import {map} from "rxjs";
+import {Inject, Injectable} from "@nestjs/common";
 import {ClientProxy} from "@nestjs/microservices";
-import {createUserRequest} from "./user.request";
-import {LoginRequest} from "./login.request";
+import {LoginRequest} from "../users/login.request";
+import {map} from "rxjs";
 
 @Injectable()
-export class AuthService {
-    constructor(@Inject("SERVICE_AUTH") private readonly clientAuthApp: ClientProxy) {}
+export class AuthenticationService {
+    constructor(@Inject("AUTH_SERVICE") private readonly clientAuthApp: ClientProxy) {}
 
     public login(loginRequest: LoginRequest) {
         const pattern = {cmd: 'login'}
         return this.clientAuthApp.send(pattern, loginRequest).pipe(map((message: string) => ({message})))
-    }
-
-    public getAllUsers() {
-        const pattern = {cmd: 'all'};
-        const payload = {};
-        return this.clientAuthApp.send(pattern, payload).pipe(map((message: string) => ({message})))
-    }
-
-    public async createUser(createUserRequest: createUserRequest) {
-        const pattern = {cmd: 'register'};
-        return this.clientAuthApp.send(pattern, createUserRequest).pipe(map((message: string) => ({message})))
     }
 }
