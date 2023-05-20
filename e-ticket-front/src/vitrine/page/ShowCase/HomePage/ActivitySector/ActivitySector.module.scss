@@ -1,7 +1,14 @@
 div.container {
   padding: 0 25vw 10vh;
-  background-color: darkgoldenrod;
+  // background-color: darkgoldenrod;
+  background-color: #fff;
   text-align: center;
+
+  div.close {
+    svg {
+      margin-left: 80%;
+    }
+  }
 
   div.container_item {
     width: calc(3 * 15vw + 6 * 1vw);
@@ -14,7 +21,8 @@ div.container {
     div {
       width: 15vw;
       height: 10vh;
-      background-color: #c09d2b;
+      // background-color: #c09d2b;
+      background-color: #fff;
       margin: 1vh;
       transition: 0.2s;
 

@@ -1,24 +1,17 @@
-import { React, useState } from 'react';
+import { React } from "react";
 import ActivitySector from "./ActivitySector/AcivittySector";
 import BlockText from "./BlockText/BlockText";
 import styles from "./Homepage.module.scss";
 import Contributors from "./Contributors/Contributors";
 import Questions from "./Questions/Questions";
+import FormSector from "./ActivitySector/FormSector/FormSector";
 
 const Homepage = () => {
-
-  const [showForm, setShowForm] = useState(null);
-
-  const handleShowForm = (num) => {
-    setShowForm(num)
-  }
-
   return (
     <>
       <div className={styles.container}>
         {/* Form à afficher que si showForm != null */}
-        { showForm !== null ? <div>form</div> : ''}
-        <ActivitySector handleShowForm={handleShowForm} />
+        <ActivitySector />
         <BlockText
           title="La solution qui facilite la vie des commerçants, le n°1 des tickets dématérialisés !"
           align="center"

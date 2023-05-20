@@ -1,7 +1,8 @@
 import { React, useState } from "react";
 import styles from "./ItemQuestion.module.scss";
 import { CSSTransition } from "react-transition-group";
-import "./ItemQuestion.css"
+import "./ItemQuestion.css";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 const ItemQuestion = ({ question, answer }) => {
   const [showAnswer, setShowAnswer] = useState(false);
@@ -21,12 +22,12 @@ const ItemQuestion = ({ question, answer }) => {
             className={styles.icon_down + " bttn bttn-prim-out"}
             onClick={() => setShowAnswer(!showAnswer)}
           >
-            🔽
+            {showAnswer ? <FaChevronUp /> : <FaChevronDown />}
           </button>
         </div>
         <CSSTransition
           in={showAnswer}
-          timeout={500}
+          timeout={100}
           classNames="hideAnswer"
           unmountOnExit
         >
