@@ -1,0 +1,10 @@
+div.container {
+  padding: 0 25vw 10vh;
+
+  div.cards {
+    padding-top: 5vh;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+}

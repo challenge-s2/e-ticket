@@ -1,10 +1,10 @@
 div.container {
-  padding: 10vh 25vw;
+  padding: 0 25vw 10vh;
   background-color: darkgoldenrod;
   text-align: center;
 
   div.container_item {
-    width: calc(3 * 25vh + 6 * 1vh);
+    width: calc(3 * 15vw + 6 * 1vw);
     margin: 0 auto;
     background-color: #0c2e74;
     display: flex;
@@ -12,7 +12,7 @@ div.container {
     flex-wrap: wrap;
 
     div {
-      width: 25vh;
+      width: 15vw;
       height: 10vh;
       background-color: #c09d2b;
       margin: 1vh;

@@ -1,0 +1,27 @@
+div.container {
+    margin: 5% auto 0;
+    width: 80%;
+    height: 80%;
+  
+    div.first {
+      display: flex;
+      input {
+        flex: 1;
+      }
+    }
+  
+    div.second {
+      display: flex;
+      input {
+        flex: 1;
+      }
+    }
+  
+    div.button {
+      button {
+        margin: 1rem auto 0 auto;
+        width: 20%;
+      }
+    }
+  }
+  

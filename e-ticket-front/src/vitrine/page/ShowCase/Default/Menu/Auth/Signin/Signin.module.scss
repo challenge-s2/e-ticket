@@ -1,0 +1,35 @@
+div.container {
+  margin: 5% auto 0;
+  width: 80%;
+  height: 80%;
+
+  div.name {
+    display: flex;
+    justify-content: space-between;
+    input {
+      width: 46%;
+    }
+  }
+
+  div.email {
+    display: flex;
+    input {
+      flex: 1;
+    }
+  }
+
+  div.passwrd {
+    display: flex;
+    justify-content: space-between;
+    input {
+      width: 46%;
+    }
+  }
+
+  div.button {
+    button {
+      margin: 1rem auto 0 auto;
+      width: 20%;
+    }
+  }
+}
