@@ -5,7 +5,7 @@ const UserCard = ({img, name, description}) => {
   return (
     <>
       <div className={styles.container}>
-        <img src={img} alt="image of a person"/>
+        <img src={img} alt="a person"/>
         <h3 className={styles.name}>{name}</h3>
         <div className={styles.description}>{description}</div>
       </div>

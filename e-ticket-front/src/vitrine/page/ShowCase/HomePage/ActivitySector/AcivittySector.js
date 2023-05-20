@@ -1,48 +1,39 @@
 import { React, useState } from "react";
 import styles from "./ActivitySector.module.scss";
 import FormSector from "./FormSector/FormSector";
-import { FaWindowClose } from "react-icons/fa";
-import { MdClose } from "react-icons/md";
 
 const content = [
   {
     key: 1,
+    name: "Fastfood",
     img: "https://placehold.co/400",
     alt: "image of the activity sector to choose",
     link: "",
   },
   {
     key: 2,
+    name: "Institue de beauté",
     img: "https://placehold.co/400",
     alt: "image of the activity sector to choose",
     link: "",
   },
   {
     key: 3,
+    name: "Vente d'eCigarette",
     img: "https://placehold.co/400",
     alt: "image of the activity sector to choose",
     link: "",
   },
   {
     key: 4,
+    name: "Boulangerie/Patisserie",
     img: "https://placehold.co/400",
     alt: "image of the activity sector to choose",
     link: "",
   },
   {
     key: 5,
-    img: "https://placehold.co/400",
-    alt: "image of the activity sector to choose",
-    link: "",
-  },
-  {
-    key: 6,
-    img: "https://placehold.co/400",
-    alt: "image of the activity sector to choose",
-    link: "",
-  },
-  {
-    key: 7,
+    name: "Autre",
     img: "https://placehold.co/400",
     alt: "image of the activity sector to choose",
     link: "",
@@ -66,10 +57,7 @@ const ActivitySector = () => {
       <div className={styles.container}>
         {activitySector !== null ? (
           <>
-            <div className={styles.close} onClick={() => closeForm()}>
-              <MdClose size={30} />
-            </div>
-            <FormSector number={activitySector} sectors={content} />
+            <FormSector number={activitySector} sectors={content} closeForm={closeForm}/>
           </>
         ) : (
           <></>

@@ -4,7 +4,6 @@ import BlockText from "./BlockText/BlockText";
 import styles from "./Homepage.module.scss";
 import Contributors from "./Contributors/Contributors";
 import Questions from "./Questions/Questions";
-import FormSector from "./ActivitySector/FormSector/FormSector";
 
 const Homepage = () => {
   return (

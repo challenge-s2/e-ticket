@@ -1,5 +1,6 @@
 div.container {
-  padding: 0 25vw 10vh;
+  padding-top: 0;
+  padding-bottom: 10vh;
   // background-color: darkgoldenrod;
   background-color: #fff;
   text-align: center;
@@ -28,6 +29,7 @@ div.container {
 
       img {
         object-fit: cover;
+        cursor: pointer;
         width: 100%;
         height: 100%;
       }
@@ -36,5 +38,37 @@ div.container {
     div:hover {
       transform: scale(1.1);
     }
+  }
+}
+
+@media (max-width: 767px) {
+  div.container {
+    margin: auto;
+    width: 100vw;
+    left: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  div.container {
+    margin: auto;
+    max-width: 768px;
+    width: 100%;
+  }
+}
+
+@media (min-width: 992px) {
+  div.container {
+    margin: auto;
+    max-width: 992px;
+    width: 100%;
+  }
+}
+
+@media (min-width: 1280px) {
+  div.container {
+    margin: auto;
+    max-width: 1280px;
+    width: 100%;
   }
 }

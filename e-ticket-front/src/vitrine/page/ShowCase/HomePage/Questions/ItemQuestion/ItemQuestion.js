@@ -8,11 +8,6 @@ const ItemQuestion = ({ question, answer }) => {
   const [showAnswer, setShowAnswer] = useState(false);
   // const nodeRef = useRef(null);
 
-  const handleChangeDisplay = () => {
-    setShowAnswer(!showAnswer);
-    console.log(showAnswer);
-  };
-  // console.log(question);
   return (
     <>
       <div className={styles.item_question}>

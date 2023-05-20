@@ -1,3 +1,32 @@
 div.container {
+  //   background-color: rgb(104, 104, 104);
+  border: 2px solid black;
+  border-radius: 0.375rem;
+  width: 50%;
+  margin: 0 auto;
+  padding: 2%;
 
+  div.close {
+    svg {
+      margin-left: 90%;
+      width: 10%;
+      cursor: pointer;
+    }
+  }
+  div.container_form {
+    div.name {
+      display: flex;
+      justify-content: space-between;
+      input {
+        width: 43%;
+      }
+    }
+
+    div.email {
+      display: flex;
+      input {
+        flex: 1;
+      }
+    }
+  }
 }
