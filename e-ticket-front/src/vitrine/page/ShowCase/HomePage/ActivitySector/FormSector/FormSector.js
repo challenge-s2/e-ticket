@@ -14,7 +14,7 @@ const FormSector = ({ number, sectors, closeForm }) => {
           {sectors.map((item) => (
             <>
               {item.key === number ? (
-                <option value={item.key} selected>
+                <option value={item.key} key={item.key} selected>
                   {item.name}
                 </option>
               ) : (

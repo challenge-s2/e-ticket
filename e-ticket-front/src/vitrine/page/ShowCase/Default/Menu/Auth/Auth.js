@@ -3,6 +3,8 @@ import styles from "./Auth.module.scss";
 import { useState } from "react";
 import Login from "./Login/Login";
 import Signin from "./Signin/Signin";
+import { CSSTransition } from "react-transition-group";
+import "./Auth.css";
 
 const Auth = () => {
   const [disp, setDisp] = useState(false);
@@ -34,7 +36,7 @@ const Auth = () => {
             <div
               className={styles.left}
               style={{
-                backgroundColor: choice === "signin" ? "#00000015" : "",
+                backgroundColor: choice === "signin" ? "#00000047" : "",
               }}
               onClick={() => setChoice("signin")}
             >
@@ -43,7 +45,7 @@ const Auth = () => {
             <div
               className={styles.right}
               style={{
-                backgroundColor: choice === "login" ? "#00000015" : "",
+                backgroundColor: choice === "login" ? "#00000047" : "",
               }}
               onClick={() => setChoice("login")}
             >
@@ -51,7 +53,24 @@ const Auth = () => {
             </div>
           </div>
           <div className={styles.bottom}>
-            {choice === "login" ? <Login /> : <Signin />}
+            <CSSTransition
+              in={choice === "login"}
+              timeout={300}
+              classNames="login"
+              unmountOnExit
+            >
+              <Login />
+            </CSSTransition>
+
+            <CSSTransition
+              in={choice === "signin"}
+              timeout={300}
+              classNames="signin"
+              unmountOnExit
+            >
+              <Signin />
+            </CSSTransition>
+            {/* {choice === "login" ? <Login /> : <Signin />} */}
           </div>
         </div>
       </div>

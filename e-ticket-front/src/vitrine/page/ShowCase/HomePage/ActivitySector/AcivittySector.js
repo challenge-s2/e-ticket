@@ -1,6 +1,8 @@
 import { React, useState } from "react";
 import styles from "./ActivitySector.module.scss";
 import FormSector from "./FormSector/FormSector";
+import { CSSTransition } from "react-transition-group";
+import "./ActivitySector.css";
 
 const content = [
   {
@@ -49,19 +51,23 @@ const ActivitySector = () => {
 
   const closeForm = () => {
     setActivitySector(null);
-    console.log(activitySector);
   };
 
   return (
     <>
       <div className={styles.container}>
-        {activitySector !== null ? (
-          <>
-            <FormSector number={activitySector} sectors={content} closeForm={closeForm}/>
-          </>
-        ) : (
-          <></>
-        )}
+        <CSSTransition
+          in={activitySector !== null}
+          timeout={300}
+          classNames="form"
+          unmountOnExit
+        >
+          <FormSector
+            number={activitySector}
+            sectors={content}
+            closeForm={closeForm}
+          />
+        </CSSTransition>
         <h1>Sélectionnez votre secteur d'activité :</h1>
         <div className={styles.container_item}>
           {content.map((item, index) => (
