@@ -1,5 +1,6 @@
 import { React } from "react";
 import styles from "./Login.module.scss";
+import {Button, TextField} from "@mui/material";
 
 const Login = ({changePage}) => {
   return (
@@ -8,17 +9,26 @@ const Login = ({changePage}) => {
         <div className={styles.left}>
           <h2>Connectez-vous</h2>
           <div className={styles.mail}>
-            <input type="login" className="innput" placeholder="Adresse mail" />
+            <TextField
+                sx={{width: '50%', marginBottom: '1rem'}}
+                type={"text"}
+                variant={"outlined"}
+                className={"innput"}
+                label={"Adresse mail"}
+                placeholder={"john.doe@gmail.com"}
+            />
           </div>
           <div className={styles.password}>
-            <input
-              type="password"
-              className="innput"
-              placeholder="Mot de passe"
+            <TextField
+                sx={{width: '50%', marginBottom: '1rem'}}
+                type={"password"}
+                variant={"outlined"}
+                className={"innput"}
+                label={"Mot de passe"}
             />
           </div>
           <div className={styles.submit}>
-            <button className="bttn bttn-succ">Connexion</button>
+            <Button variant={"contained"} color={"success"}>Connexion</Button>
           </div>
           <div className={styles.change_to_signin} onClick={() => changePage('signin')}>Vous n'avez pas de compte? Créé en un !</div>
         </div>
