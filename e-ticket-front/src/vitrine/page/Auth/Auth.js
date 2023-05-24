@@ -5,6 +5,9 @@ import Login from "./Login/Login";
 import Signin from "./Signin/Signin";
 import { CSSTransition } from "react-transition-group";
 import "./Auth.css";
+import { IconButton } from "@mui/material";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Link } from "react-router-dom";
 
 const Auth = () => {
   const [choice, setChoice] = useState("login");
@@ -15,6 +18,13 @@ const Auth = () => {
 
   return (
     <>
+      <div className={styles.returnButton}>
+        <Link to="/">
+          <IconButton variant="contained" sx={{textAlign: 'left'}} onClick={() => console.log('test')}>
+            <ArrowBackIcon sx={{fontSize: 60, color: '#353535'}}/>
+          </IconButton>
+        </Link>
+      </div>
       <div className={styles.container}>
         <CSSTransition
           in={choice === "login"}

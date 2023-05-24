@@ -10,7 +10,7 @@ const Login = ({changePage}) => {
           <h2>Connectez-vous</h2>
           <div className={styles.mail}>
             <TextField
-                sx={{width: '50%', marginBottom: '1rem'}}
+                sx={{width: '50%', marginBottom: '2rem'}}
                 type={"text"}
                 variant={"outlined"}
                 className={"innput"}
@@ -20,7 +20,7 @@ const Login = ({changePage}) => {
           </div>
           <div className={styles.password}>
             <TextField
-                sx={{width: '50%', marginBottom: '1rem'}}
+                sx={{width: '50%', marginBottom: '2rem'}}
                 type={"password"}
                 variant={"outlined"}
                 className={"innput"}

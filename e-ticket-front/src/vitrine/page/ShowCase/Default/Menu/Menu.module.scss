@@ -1,36 +1,45 @@
 nav.container {
   width: 100%;
   position: fixed;
-  display: flex;
-  background-color: rgb(211, 211, 211);
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, .1), 0 4px 6px -4px rgba(0, 0, 0, .1);
+  
+  div.wrapper {
+    
+    width: 50%;
+    margin: auto;
+    display: flex;
 
-  div.left {
-    flex: 1;
-    margin: auto 0;
-    font-weight: bold;
-    font-size: x-large;
-    cursor: pointer;
-  }
-
-  div.middle {
-    flex: 5;
-    margin: auto 0;
-    div {
+    div.left {
+      flex: 1;
+      margin: auto 0;
+      font-weight: bold;
+      font-size: x-large;
       cursor: pointer;
     }
-  }
-
-  div.right {
-    flex: 1;
-
-    div.rigth_button_container {
-      margin: 1vh 0;
-
-      // a#login_button {
-      //   cursor: pointer;
-      //   padding-top: 1%;
-      //   width: 50%;
-      // }
+  
+    div.middle {
+      flex: 5;
+      margin: auto 0;
+  
+      div {
+        cursor: pointer;
+      }
+    }
+  
+    div.right {
+      flex: 1;
+  
+      div.rigth_button_container {
+        margin: 1vh 0;
+  
+        // a#login_button {
+        //   cursor: pointer;
+        //   padding-top: 1%;
+        //   width: 50%;
+        // }
+      }
     }
   }
+
 }
