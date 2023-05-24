@@ -46,7 +46,18 @@ services:
       - ./users-service:/home/node
     command: sh -c "npm install && npm run start:dev"
 
-  users-mysql:
+  shops-service:
+    user: node
+    build:
+      context: shops-service
+      dockerfile: Dockerfile
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./shops-service:/home/node
+    command: sh -c "npm install && npm run start:dev"
+
+  user-mysql:
     image: mysql:8.0.33
     environment:
       MYSQL_DATABASE: user
@@ -55,3 +66,17 @@ services:
       MYSQL_ROOT_PASSWORD: rootpassword
     ports:
       - "3306:3306"
+    volumes:
+      - ./db/user:/var/lib/mysql
+
+  shop-mysql:
+    image: mysql:8.0.33
+    environment:
+      MYSQL_DATABASE: shop
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./db/shop:/var/lib/mysql
