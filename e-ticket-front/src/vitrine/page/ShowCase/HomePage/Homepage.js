@@ -4,6 +4,7 @@ import BlockText from "./BlockText/BlockText";
 import styles from "./Homepage.module.scss";
 import Contributors from "./Contributors/Contributors";
 import Questions from "./Questions/Questions";
+import FormSector from "./FormSector/FormSector";
 
 const Homepage = () => {
   return (
@@ -27,6 +28,7 @@ const Homepage = () => {
           text="Notre solution propose un outil de gestion des produits, des commandes et des tickets de caisse de manière dématérialisé."
           align="left"
         />
+        <FormSector/>
       </div>
     </>
   );
