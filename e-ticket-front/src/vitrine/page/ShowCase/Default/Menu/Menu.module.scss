@@ -3,9 +3,10 @@ nav.container {
   position: fixed;
   background-color: rgb(255, 255, 255);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, .1), 0 4px 6px -4px rgba(0, 0, 0, .1);
-  
+  z-index: 10;
+
   div.wrapper {
-    
+
     width: 50%;
     margin: auto;
     display: flex;
@@ -17,22 +18,22 @@ nav.container {
       font-size: x-large;
       cursor: pointer;
     }
-  
+
     div.middle {
       flex: 5;
       margin: auto 0;
-  
+
       div {
         cursor: pointer;
       }
     }
-  
+
     div.right {
       flex: 1;
-  
+
       div.rigth_button_container {
         margin: 1vh 0;
-  
+
         // a#login_button {
         //   cursor: pointer;
         //   padding-top: 1%;

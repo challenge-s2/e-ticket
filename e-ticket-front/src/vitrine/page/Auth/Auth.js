@@ -21,7 +21,7 @@ const Auth = () => {
       <div className={styles.returnButton}>
         <Link to="/">
           <IconButton variant="contained" sx={{textAlign: 'left'}} onClick={() => console.log('test')}>
-            <ArrowBackIcon sx={{fontSize: 60, color: '#353535'}}/>
+            <ArrowBackIcon sx={{fontSize: 50, color: '#353535'}}/>
           </IconButton>
         </Link>
       </div>
