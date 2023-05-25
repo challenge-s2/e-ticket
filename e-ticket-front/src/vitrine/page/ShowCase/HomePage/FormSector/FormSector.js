@@ -49,7 +49,18 @@ const FormSector = () => {
 
           <div className={styles.left}>
             <div className={styles.cont}>
-              Nous sommes disponibles tous les jours, nous vous répondrons dans les plus brefs délais. 
+              <p>Nous sommes disponibles tous les jours, nous vous répondrons dans les plus brefs délais.</p>
+              <br/>
+              <span style={{ textAlign: "left" }}>
+              <p>Nous couvrons un large choix de sercteur d'activité comme :</p>
+              <p>- Fastfood</p>
+              <p>- Institue de beauté</p>
+              <p>- Vente d'eCigarette</p>
+              <p>- Boulangerie/Patisserie</p>
+              <p>Choissiez celui qui vous correspond</p>
+
+              </span>
+              
           </div>
           </div>
           
