@@ -1,0 +1,16 @@
+div.container {
+    margin: 3vw 0;
+    background-color: grey;
+    color: white;
+
+    nav > div {
+        color: white !important;
+        font-size: large;
+    }
+
+    a.link {
+        color: white;
+        display: flex;
+        text-decoration: none;
+    }
+}
