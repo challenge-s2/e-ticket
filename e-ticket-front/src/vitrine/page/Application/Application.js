@@ -16,8 +16,7 @@ const Application = () => {
           </div>
           <div className={styles.container_main_board}>
             <Routes>
-              <Route path="/list-old-commands" element={<ListOldCommand />} />
-              {/* <Route path="/app/new-command"/> */}
+              <Route path="/list-old-commands" element={<ListOldCommand/>}/>
             </Routes>
           </div>
         </div>
