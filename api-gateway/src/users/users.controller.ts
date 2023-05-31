@@ -7,6 +7,7 @@ import {AppFilter} from "../filters/exceptions.filter";
 export class UsersController {
   constructor(public readonly authService: UsersService) {}
 
+  @UseFilters(new AppFilter())
   @Get('getUsers')
   public getUsers() {
     return this.authService.getUsers();

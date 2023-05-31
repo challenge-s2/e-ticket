@@ -1,20 +1,8 @@
 import { Module } from '@nestjs/common';
-import {TypeOrmModule} from "@nestjs/typeorm";
 import {UsersModule} from "./users/users.module";
+import {MongooseModule} from "@nestjs/mongoose";
 
 @Module({
-  imports: [
-    TypeOrmModule.forRoot({
-      type: "mysql",
-      host: "user-mysql",
-      port: 3306,
-      username: "user",
-      password: "password",
-      database: "user",
-      autoLoadEntities: true,
-      synchronize: true
-    }),
-      UsersModule
-  ],
+  imports: [MongooseModule.forRoot('mongodb://user-mongo')],
 })
 export class AppModule {}

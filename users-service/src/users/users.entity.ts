@@ -1,30 +1,21 @@
 import { Role } from "./role.enum";
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import {Prop, Schema} from "@nestjs/mongoose";
+import { v4 as uuidv4 } from 'uuid';
 
-@Entity()
+@Schema()
 export class User {
-    @PrimaryGeneratedColumn("uuid")
-    public id: string;
-
-    @Column({
-        nullable: false,
-        type: "varchar",
-        length: 50,
-        unique: true
+    @Prop({ type: String, default: function genUUID() {
+        return uuidv4();
+    }
     })
-    public email: string;
+    _id;
 
-    @Column({
-        nullable: false,
-        type: "char",
-        length: 60
-    })
-    public password: string;
+    @Prop({ length: 50, isRequired: true, unique: true })
+    email: string;
 
-    @Column({
-        nullable: false,
-        type: "enum",
-        enum: Role,
-    })
-    public role: Role;
+    @Prop({ length: 60, isRequired: false })
+    password: string;
+
+    @Prop({ isRequired: true,})
+    role: Role;
 }

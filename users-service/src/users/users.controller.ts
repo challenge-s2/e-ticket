@@ -1,4 +1,4 @@
-import {Body, Controller, Get, UseFilters} from '@nestjs/common';
+import {Body, Controller, UseFilters} from '@nestjs/common';
 import {MessagePattern} from "@nestjs/microservices";
 import {UsersService} from "./users.service";
 import {UsersRequest} from "./users.request";
@@ -8,9 +8,10 @@ import {AppFilter} from "../filters/exceptions.filter";
 export class UsersController {
     constructor(private readonly userService: UsersService) {}
 
+    @UseFilters(new AppFilter())
     @MessagePattern({ cmd: 'getUsers' })
     getUsers() {
-        return this.userService.getUsers();
+        return { users: this.userService.getUsers() };
     }
 
     @UseFilters(new AppFilter())

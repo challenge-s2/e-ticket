@@ -57,26 +57,16 @@ services:
       - ./shops-service:/home/node
     command: sh -c "npm install && npm run start:dev"
 
-  user-mysql:
-    image: mysql:8.0.33
-    environment:
-      MYSQL_DATABASE: user
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-      MYSQL_ROOT_PASSWORD: rootpassword
+  user-mongo:
+    image: mongo:7.0.0-rc2-jammy
     ports:
-      - "3306:3306"
+      - "27017:27017"
     volumes:
-      - ./db/user:/var/lib/mysql
+      - ./db/user:/data/db
 
-  shop-mysql:
-    image: mysql:8.0.33
-    environment:
-      MYSQL_DATABASE: shop
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-      MYSQL_ROOT_PASSWORD: rootpassword
+  shop-mongo:
+    image: mongo:7.0.0-rc2-jammy
     ports:
-      - "3307:3306"
+      - "27018:27017"
     volumes:
-      - ./db/shop:/var/lib/mysql
+      - ./db/shop:/data/db

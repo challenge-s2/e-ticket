@@ -5,15 +5,16 @@ import {Repository} from "typeorm";
 import {Role} from "./role.enum";
 import {UsersRequest} from "./users.request";
 import {hash} from "bcryptjs";
+import {InjectModel} from "@nestjs/mongoose";
+import {Model} from "mongoose";
 
 @Injectable()
 export class UsersService {
-
-    public constructor(@InjectRepository(User) private readonly userRepository: Repository<User>) {
+    public constructor(@InjectModel(User.name, 'user') private userModel: Model<User>) {
     }
 
     public getUsers() {
-        return this.userRepository.find();
+        return this.userModel.find().exec();
     }
 
     public async createUser(usersRequest: UsersRequest) {
@@ -23,10 +24,10 @@ export class UsersService {
         }
         usersRequest.password = await hash(usersRequest.password, 10);
         usersRequest.role = Role.USER;
-        return this.userRepository.insert(usersRequest)
+        return this.userModel.create(usersRequest)
     }
 
     public getUserByEmail(email: string) {
-        return this.userRepository.findOneBy({ email });
+        return this.userModel.findOne({ email });
     }
 }
