@@ -2,7 +2,6 @@ import {Inject, Injectable} from '@nestjs/common';
 import {map} from "rxjs";
 import {ClientProxy} from "@nestjs/microservices";
 import {createUserRequest} from "./user.request";
-import {LoginRequest} from "./login.request";
 
 @Injectable()
 export class UsersService {

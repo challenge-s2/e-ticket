@@ -1,6 +1,9 @@
 import { Role } from "./role.enum";
-import {Prop, Schema} from "@nestjs/mongoose";
+import {Prop, Schema, SchemaFactory} from "@nestjs/mongoose";
 import { v4 as uuidv4 } from 'uuid';
+import {HydratedDocument} from "mongoose";
+
+export type UserDocument = HydratedDocument<User>
 
 @Schema()
 export class User {
@@ -19,3 +22,5 @@ export class User {
     @Prop({ isRequired: true,})
     role: Role;
 }
+
+export const UserSchema = SchemaFactory.createForClass(User)

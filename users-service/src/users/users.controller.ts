@@ -3,6 +3,7 @@ import {MessagePattern} from "@nestjs/microservices";
 import {UsersService} from "./users.service";
 import {UsersRequest} from "./users.request";
 import {AppFilter} from "../filters/exceptions.filter";
+import {User} from "./users.entity";
 
 @Controller("users")
 export class UsersController {
@@ -11,7 +12,7 @@ export class UsersController {
     @UseFilters(new AppFilter())
     @MessagePattern({ cmd: 'getUsers' })
     getUsers() {
-        return { users: this.userService.getUsers() };
+        return this.userService.getUsers();
     }
 
     @UseFilters(new AppFilter())
