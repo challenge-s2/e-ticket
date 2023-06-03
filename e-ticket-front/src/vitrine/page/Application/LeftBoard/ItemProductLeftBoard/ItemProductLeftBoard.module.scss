@@ -4,9 +4,6 @@ div.container {
   color: rgb(0, 0, 0);
 
   nav {
-    a {
-      text-decoration: none;
-    }
     a > div {
       color: rgb(0, 0, 0) !important;
       padding-top: 1.5vh;
@@ -22,9 +19,5 @@ div.container {
     color: rgb(0, 0, 0);
     display: flex;
     text-decoration: none;
-  }
-
-  a.link, div {
-    color: rgb(0, 0, 0);
   }
 }
