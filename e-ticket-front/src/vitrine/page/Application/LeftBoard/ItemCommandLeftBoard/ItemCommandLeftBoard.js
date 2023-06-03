@@ -33,7 +33,7 @@ const ItemCommandLeftBoard = ({ opened }) => {
           <ListSubheader
             component="div"
             id="nested-list-subheader"
-            sx={{ bgcolor: "#24447b" }}
+            sx={{ bgcolor: "#d6d6d6", padding: "1.5vh 0 !important" }}
             // sx={{ bgcolor: "#4F4F4F" }}
           >
             Commandes
