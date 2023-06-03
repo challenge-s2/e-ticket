@@ -1,10 +1,10 @@
 import React from "react";
 import styles from "./Application.module.scss";
-import Menu from "./Menu/Menu";
 import LeftBoard from "./LeftBoard/LeftBoard";
 import { Routes, Route } from "react-router-dom";
 import ListOldCommand from "./Main/Command/ListOldCommand/ListOldCommand";
 import NewCommand from "./Main/Command/NewCommand/NewCommand";
+import NewProduct from './Main/Product/NewProduct/NewProduct'
 
 const Application = () => {
   return (
@@ -19,6 +19,7 @@ const Application = () => {
             <Routes>
               <Route path="/list-old-commands" element={<ListOldCommand/>}/>
               <Route path="/new-command" element={<NewCommand/>}/>
+              <Route path="/new-product" element={<NewProduct/>}/>
             </Routes>
           </div>
         </div>
