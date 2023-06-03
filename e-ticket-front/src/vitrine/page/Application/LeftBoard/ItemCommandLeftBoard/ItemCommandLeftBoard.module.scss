@@ -1,16 +1,22 @@
 div.container {
-    margin: 3vw 0;
-    background-color: grey;
-    color: white;
+  margin: 3vw 0;
+  // background-color: grey;
+  color: rgb(0, 0, 0);
 
-    nav > div {
-        color: white !important;
-        font-size: large;
+  nav {
+    > div {
+      color: rgb(0, 0, 0) !important;
+      font-size: large;
+      padding-top: 1.5vh;
+      padding-bottom: 1.5vh;
     }
-
-    a.link {
-        color: white;
-        display: flex;
-        text-decoration: none;
+    > div:first-child {
+    margin-bottom: 1.5vh;
     }
+  }
+  a.link {
+    color: rgb(0, 0, 0);
+    display: flex;
+    text-decoration: none;
+  }
 }
