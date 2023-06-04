@@ -6,6 +6,7 @@ import ListOldCommand from "./Main/Command/ListOldCommand/ListOldCommand";
 import NewCommand from "./Main/Command/NewCommand/NewCommand";
 import NewProduct from './Main/Product/NewProduct/NewProduct'
 import ListOfProducts from "./Main/Product/ListOfProducts/ListOfProducts";
+import EditProduct from "./Main/Product/EditProduct/EditProduct";
 
 const Application = () => {
   return (
@@ -23,6 +24,7 @@ const Application = () => {
               
               <Route path="/list-products" element={<ListOfProducts/>}/>
               <Route path="/new-product" element={<NewProduct/>}/>
+              <Route path="/edit-product/:id" element={<EditProduct/>}/>
             </Routes>
           </div>
         </div>

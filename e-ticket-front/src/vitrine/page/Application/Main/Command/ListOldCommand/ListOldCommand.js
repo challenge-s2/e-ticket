@@ -4,127 +4,129 @@ import LastPageIcon from "@mui/icons-material/LastPage";
 import TablePagination from "@mui/material/TablePagination";
 import { Button } from "@mui/material";
 
+import Moment from "moment";
+
 const ListOldCommand = () => {
   const content = [
     {
       id: 1,
       price: 7.5,
       people: "John",
-      date: "2023-15-01 10:20:00",
+      date: "2023-05-02T00:10:00",
     },
     {
       id: 2,
       price: 8.97,
       people: "John",
-      date: "2023-15-01 10:20:00",
+      date: "2023-05-01T10:20:00",
     },
     {
       id: 3,
       price: 48.75,
       people: "John",
-      date: "2023-15-01 10:20:00",
+      date: "2023-05-01T10:20:00",
     },
     {
       id: 4,
       price: 7.78,
       people: "John",
-      date: "2023-15-01 10:20:00",
+      date: "2023-05-01T10:20:00",
     },
     {
       id: 5,
       price: 46.54,
       people: "John",
-      date: "2023-15-01 10:20:00",
+      date: "2023-05-01T10:20:00",
     },
     {
       id: 6,
       price: 2.53,
       people: "John",
-      date: "2023-15-01 10:20:00",
+      date: "2023-05-01T10:20:00",
     },
     {
       id: 7,
       price: 55.42,
       people: "John",
-      date: "2023-15-01 10:20:00",
+      date: "2023-05-01T10:20:00",
     },
     {
       id: 8,
       price: 7.5,
       people: "John",
-      date: "2023-15-01 10:20:00",
+      date: "2023-05-01T10:20:00",
     },
     {
       id: 9,
       price: 8.97,
       people: "John",
-      date: "2023-15-01 10:20:00",
+      date: "2023-05-01T10:20:00",
     },
     {
       id: 10,
       price: 48.75,
       people: "John",
-      date: "2023-15-01 10:20:00",
+      date: "2023-05-01T10:20:00",
     },
     {
       id: 11,
       price: 7.5,
       people: "John",
-      date: "2023-15-01 10:20:00",
+      date: "2023-05-01T10:20:00",
     },
     {
       id: 12,
       price: 8.97,
       people: "John",
-      date: "2023-15-01 10:20:00",
+      date: "2023-05-01T10:20:00",
     },
     {
       id: 13,
       price: 48.75,
       people: "John",
-      date: "2023-15-01 10:20:00",
+      date: "2023-05-01T10:20:00",
     },
     {
       id: 14,
       price: 7.78,
       people: "John",
-      date: "2023-15-01 10:20:00",
+      date: "2023-05-01T10:20:00",
     },
     {
       id: 15,
       price: 46.54,
       people: "John",
-      date: "2023-15-01 10:20:00",
+      date: "2023-05-01T10:20:00",
     },
     {
       id: 16,
       price: 2.53,
       people: "John",
-      date: "2023-15-01 10:20:00",
+      date: "2023-05-01T10:20:00",
     },
     {
       id: 17,
       price: 55.42,
       people: "John",
-      date: "2023-15-01 10:20:00",
+      date: "2023-05-01T10:20:00",
     },
     {
       id: 18,
       price: 7.5,
       people: "John",
-      date: "2023-15-01 10:20:00",
+      date: "2023-05-01T10:20:00",
     },
     {
       id: 19,
       price: 8.97,
       people: "John",
-      date: "2023-15-01 10:20:00",
+      date: "2023-05-01T10:20:00",
     },
     {
       id: 20,
       price: 48.75,
       people: "John",
-      date: "2023-15-01 10:20:00",
+      date: "2023-05-01T10:20:00",
     },
   ];
 
@@ -168,9 +170,9 @@ const ListOldCommand = () => {
                     <tr key={index}>
                       <td>{item.id}</td>
 
-                      <td>{item.price}</td>
+                      <td>{item.price}€</td>
 
-                      <td>{item.date}</td>
+                      <td>{Moment(item.date).format("dddd MM YYYY, HH:mm:ss")}</td>
 
                       <td>{item.people}</td>
 

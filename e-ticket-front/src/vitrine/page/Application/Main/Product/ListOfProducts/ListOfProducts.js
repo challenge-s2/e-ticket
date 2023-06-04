@@ -6,6 +6,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import DoDisturbIcon from "@mui/icons-material/DoDisturb";
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
+import { Link } from "react-router-dom";
 
 import Moment from "moment";
 
@@ -92,10 +93,6 @@ const ListOfProducts = () => {
     setPage(0);
   };
 
-  const editProduct = (product) => {
-    console.log(product); /* TDOD lien vers la page d'édition */
-  }
-
   const banProduct = (product) => {
     console.log(product); /* TDOD connexion avec la BDD */
   }
@@ -141,9 +138,11 @@ const ListOfProducts = () => {
 
                       <td>
                         <ButtonGroup>
-                          <Button variant="contained"  onClick={() => editProduct(item.id)}>
-                            <DriveFileRenameOutlineIcon />
-                          </Button>
+                          <Link to={`/app/edit-product/${item.id}`}>
+                            <Button variant="contained">
+                              <DriveFileRenameOutlineIcon />
+                            </Button>
+                          </Link>
                           <Button variant="outlined" color="error" onClick={() => banProduct(item.id)}>
                             <DoDisturbIcon />
                           </Button>
