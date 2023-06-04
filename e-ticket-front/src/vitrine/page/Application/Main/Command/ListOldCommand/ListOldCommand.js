@@ -3,6 +3,7 @@ import styles from "./ListOldCommand.module.scss";
 import LastPageIcon from "@mui/icons-material/LastPage";
 import TablePagination from "@mui/material/TablePagination";
 import { Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
 import Moment from "moment";
 
@@ -177,9 +178,11 @@ const ListOldCommand = () => {
                       <td>{item.people}</td>
 
                       <td>
-                        <Button variant='contained'>
-                          <LastPageIcon />
-                        </Button>
+                        <Link to={`/app/detail-old-command/${item.id}`}>
+                          <Button variant="contained">
+                            <LastPageIcon />
+                          </Button>
+                        </Link>
                       </td>
                     </tr>
                   ))}

@@ -1,0 +1,54 @@
+div.container {
+  width: 50%;
+  height: 70vh;
+  margin: 10vh auto;
+  background-color: #f5f5f5;
+  border-radius: 0.375rem;
+  padding: 5vh 3vw;
+  box-shadow: 10px 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -4px rgba(0, 0, 0, 0.1);
+
+    div.top {
+      height: 80%;
+      margin-bottom: 2vh;
+      div.list_container {
+        height: 100%;
+        overflow-y: auto;
+        > div {
+          width: auto;
+          padding: 2vh 2vw;
+          display: flex;
+          justify-content: space-between;
+  
+          div.left {
+            margin: auto 0;
+          }
+        }
+  
+        > div:nth-child(2n-1) {
+          background-color: #e3e3e3;
+        }
+      }
+    }
+  
+    div.bottom {
+      height: 15%;
+      border-top: 1px solid black;
+      padding-top: 1.5vh;
+  
+      div.content {
+        display: flex;
+        justify-content: space-between;
+  
+        div.nbOfItem {
+        }
+        div.totalPrice {
+        }
+      }
+  
+      div.complete_command {
+        // margin: auto 0 auto auto;
+      }
+    }
+  
+}

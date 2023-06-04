@@ -10,9 +10,12 @@ div.container {
 
   div.top {
     height: 80%;
+    margin-bottom: 2vh;
     div.list_container {
-      padding-top: 2vh;
-      // overflow-y: scroll;
+      overflow-y: auto;
+      margin-top: 2vh;
+      margin-bottom: 2vh;
+      height: 90%;
       > div {
         width: auto;
         // background-color: brown;

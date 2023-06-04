@@ -7,6 +7,7 @@ import NewCommand from "./Main/Command/NewCommand/NewCommand";
 import NewProduct from './Main/Product/NewProduct/NewProduct'
 import ListOfProducts from "./Main/Product/ListOfProducts/ListOfProducts";
 import EditProduct from "./Main/Product/EditProduct/EditProduct";
+import DetailOldCommand from "./Main/Command/DetailOldCommand/DetailOldCommand";
 
 const Application = () => {
   return (
@@ -21,7 +22,8 @@ const Application = () => {
             <Routes>
               <Route path="/list-old-commands" element={<ListOldCommand/>}/>
               <Route path="/new-command" element={<NewCommand/>}/>
-              
+              <Route path="/detail-old-command/:id" element={<DetailOldCommand/>}/>
+                            
               <Route path="/list-products" element={<ListOfProducts/>}/>
               <Route path="/new-product" element={<NewProduct/>}/>
               <Route path="/edit-product/:id" element={<EditProduct/>}/>
