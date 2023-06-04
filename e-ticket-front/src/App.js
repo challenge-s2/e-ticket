@@ -9,6 +9,7 @@ import NewCommand from "./vitrine/page/Application/Main/Command/NewCommand/NewCo
 import ListOfProducts from "./vitrine/page/Application/Main/Product/ListOfProducts/ListOfProducts";
 import NewProduct from './vitrine/page/Application/Main/Product/NewProduct/NewProduct'
 import EditProduct from "./vitrine/page/Application/Main/Product/EditProduct/EditProduct";
+import DetailOldCommand from "./vitrine/page/Application/Main/Command/DetailOldCommand/DetailOldCommand";
 
 const App = () => {
   return (
@@ -23,6 +24,8 @@ const App = () => {
           <Route path="/app" element={<Application />}>
             <Route path="list-old-commands" element={<ListOldCommand />} />
             <Route path="new-command" element={<NewCommand/>}/>
+            <Route path="detail-old-command/:id" element={<DetailOldCommand/>}/>
+
             <Route path="list-products" element={<ListOfProducts/>}/>
             <Route path="new-product" element={<NewProduct/>}/>
             <Route path="edit-product/:id" element={<EditProduct/>}/>

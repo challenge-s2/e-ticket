@@ -43,6 +43,26 @@ const NewCommand = () => {
       name: "Orange",
       price: 2.08,
     },
+    {
+      id: 7,
+      name: "Kiwii",
+      price: 1.88,
+    },
+    {
+      id: 8,
+      name: "Cerisei",
+      price: 1.92,
+    },
+    {
+      id: 9,
+      name: "Poirei",
+      price: 1.80,
+    },
+    {
+      id: 10,
+      name: "Orangei",
+      price: 2.08,
+    },
   ];
   const [product, setProduct] = useState("");
   const [listOfProducts, setListOfProducts] = useState([]);
