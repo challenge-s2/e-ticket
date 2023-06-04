@@ -1,14 +1,17 @@
 import React, {useState} from "react";
-import styles from "./NewProduct.module.scss";
+import styles from "./EditProduct.module.scss";
 import TextField from '@mui/material/TextField';
 import { Button } from "@mui/material";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation, useParams } from "react-router-dom";
 
-const NewProduct = () => {
+const EditProduct = () => {
 
-  const [name, setName] = useState('');
+  const { id } = useParams();
+  const [name, setName] = useState(id);
   const [price, setPrice] = useState(null);
 
+
+  console.log(useLocation());
   const handleSumbit = () => {
     if(name !== '' && price !== null){
       console.log(name); /* TODO Enregistrer dans la BDD */
@@ -41,4 +44,4 @@ const NewProduct = () => {
   );
 };
 
-export default NewProduct;
+export default EditProduct;
