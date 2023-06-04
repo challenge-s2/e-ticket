@@ -6,6 +6,7 @@ import Auth from "./vitrine/page/Auth/Auth";
 import Application from "./vitrine/page/Application/Application";
 import ListOldCommand from "./vitrine/page/Application/Main/Command/ListOldCommand/ListOldCommand";
 import NewCommand from "./vitrine/page/Application/Main/Command/NewCommand/NewCommand";
+import ListOfProducts from "./vitrine/page/Application/Main/Product/ListOfProducts/ListOfProducts";
 import NewProduct from './vitrine/page/Application/Main/Product/NewProduct/NewProduct'
 
 const App = () => {
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="/app" element={<Application />}>
             <Route path="list-old-commands" element={<ListOldCommand />} />
             <Route path="new-command" element={<NewCommand/>}/>
+            <Route path="list-products" element={<ListOfProducts/>}/>
             <Route path="new-product" element={<NewProduct/>}/>
           </Route>
 

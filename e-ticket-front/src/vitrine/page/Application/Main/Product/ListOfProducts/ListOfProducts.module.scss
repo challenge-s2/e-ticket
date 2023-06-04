@@ -13,19 +13,16 @@ div.container {
       grid-auto-rows: auto;
 
       thead {
-        background-color: rgb(103, 133, 63);
+        background-color: rgb(188, 110, 47);
         color: #fff;
       }
       th,
       td {
         padding: 1rem;
 
-        button {
-          margin-right: 1rem;
 
-          a {
-            color: #fff;
-          }
+        a {
+          color: #fff;
         }
       }
 

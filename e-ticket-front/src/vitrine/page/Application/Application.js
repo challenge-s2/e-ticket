@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import ListOldCommand from "./Main/Command/ListOldCommand/ListOldCommand";
 import NewCommand from "./Main/Command/NewCommand/NewCommand";
 import NewProduct from './Main/Product/NewProduct/NewProduct'
+import ListOfProducts from "./Main/Product/ListOfProducts/ListOfProducts";
 
 const Application = () => {
   return (
@@ -19,6 +20,8 @@ const Application = () => {
             <Routes>
               <Route path="/list-old-commands" element={<ListOldCommand/>}/>
               <Route path="/new-command" element={<NewCommand/>}/>
+              
+              <Route path="/list-products" element={<ListOfProducts/>}/>
               <Route path="/new-product" element={<NewProduct/>}/>
             </Routes>
           </div>

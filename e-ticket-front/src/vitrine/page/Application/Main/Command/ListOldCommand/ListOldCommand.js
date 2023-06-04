@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./ListOldCommand.module.scss";
 import LastPageIcon from "@mui/icons-material/LastPage";
 import TablePagination from "@mui/material/TablePagination";
+import { Button } from "@mui/material";
 
 const ListOldCommand = () => {
   const content = [
@@ -174,10 +175,9 @@ const ListOldCommand = () => {
                       <td>{item.people}</td>
 
                       <td>
-                        <button className="bttn bttn-wng">
-                          {/* <Link to="/app/command-page/1"><va-icon name="last_page"/></Link> */}
+                        <Button variant='contained'>
                           <LastPageIcon />
-                        </button>
+                        </Button>
                       </td>
                     </tr>
                   ))}
