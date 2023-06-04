@@ -7,6 +7,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import AddIcon from "@mui/icons-material/Add";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import InventoryIcon from '@mui/icons-material/Inventory';
 
 import { Link, useLocation } from "react-router-dom";
 
@@ -25,7 +26,7 @@ const ItemProductLeftBoard = ({ opened }) => {
             sx={{ bgcolor: "#026910", padding: "1.5vh 0 !important" }}
             // sx={{ bgcolor: "#d6d6d6", padding: "1.5vh 0 !important" }}
           >
-            Produit
+            <InventoryIcon/> Produit
           </ListSubheader>
         }
       >
