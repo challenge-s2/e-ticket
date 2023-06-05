@@ -5,7 +5,6 @@ import ItemProductLeftBoard from "./ItemProductLeftBoard/ItemProductLeftBoard";
 
 const LeftBoard = () => {
 
-
   return (
     <div className={styles.container}>
       <ItemCommandLeftBoard opened={true} />

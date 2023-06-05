@@ -25,7 +25,7 @@ const ItemCommandLeftBoard = ({ opened }) => {
   return (
     <div className={styles.container}>
       <List
-        sx={{ width: "100%", maxWidth: 360, color: "white"}}
+        sx={{ width: "100%", maxWidth: 360, color: "white", textAlign: 'center'}}
         component="nav"
         aria-labelledby="nested-list-subheader"
         subheader={
@@ -40,7 +40,7 @@ const ItemCommandLeftBoard = ({ opened }) => {
         }
       >
         <Link to={"/app/new-command"} className={styles.link}>
-          <ListItemButton sx= {{backgroundColor: useLocation().pathname === '/app/new-command' ? "#0000000a" : '' }}>
+          <ListItemButton sx= {{borderRight: useLocation().pathname === '/app/new-command' ? "3px solid black" : '' }}>
             <ListItemIcon>
               <AddIcon />
             </ListItemIcon>
@@ -54,11 +54,11 @@ const ItemCommandLeftBoard = ({ opened }) => {
           <ListItemIcon sx={{ marginTop: "1vh", marginBottom: "1vh" }}>
             <ShoppingCartIcon />
           </ListItemIcon>
-          <ListItemText primary="Anciènnes commandes" />
+          <ListItemText primary="Anciennes commandes" />
           {open ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding className={styles.link} sx={{backgroundColor: useLocation().pathname === '/app/list-old-commands' ? "#0000000a" : ""}}>
+            <List component="div" disablePadding className={styles.link} sx={{borderRight: useLocation().pathname === '/app/list-old-commands' ? "3px solid black" : ""}}>
               <Link to={"/app/list-old-commands"}> 
                 <ListItemButton sx={{ pl: 4 }}>
                   <ListItemIcon>

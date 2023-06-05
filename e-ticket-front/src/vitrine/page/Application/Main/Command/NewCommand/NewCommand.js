@@ -10,6 +10,8 @@ import Box from "@mui/material/Box";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from '@mui/icons-material/Delete';
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
 
 const NewCommand = () => {
   const products = [ //Exemple TODO > connexion avec la BDD
@@ -64,7 +66,7 @@ const NewCommand = () => {
       price: 2.08,
     },
   ];
-  const [product, setProduct] = useState("");
+  const [product, setProduct] = useState();
   const [listOfProducts, setListOfProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -93,11 +95,18 @@ const NewCommand = () => {
     setListOfProducts(listOfProducts.filter((ele, index) => index !== listOfProducts.lastIndexOf(productToRemove)));
   };
 
+  const propsInput = {
+    options: products,
+    getOptionLabel: (option) => option.name,
+    getOptionValue: (option) => option.id
+  };
+
   return (
     <>
       <div className={styles.container}>
         <div className={styles.top}>
           <Box sx={{ minWidth: 120, display: "flex" }}>
+
             <FormControl fullWidth>
               <InputLabel id="label_form_add_product">
                 Nouveau produit
@@ -117,6 +126,17 @@ const NewCommand = () => {
                 ))}
               </Select>
             </FormControl>
+
+            {/* <Autocomplete
+              {...propsInput}
+              value={product}
+              onChange={handleChange}
+              id="controllable-input"
+              options={products}
+              sx={{ width: '100%' }}
+              renderInput={(params) => <TextField {...params} label="Nouveau produit" />}
+            /> */}
+
             <Button
               variant="contained"
               color="primary"
@@ -125,6 +145,7 @@ const NewCommand = () => {
             >
               <AddIcon />
             </Button>
+
           </Box>
 
           <div className={styles.list_container}>
