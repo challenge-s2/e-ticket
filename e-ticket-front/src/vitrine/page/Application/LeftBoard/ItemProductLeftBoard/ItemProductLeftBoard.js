@@ -16,14 +16,14 @@ const ItemProductLeftBoard = ({ opened }) => {
   return (
     <div className={styles.container}>
       <List
-        sx={{ width: "100%", maxWidth: 360, color: "white" }}
+        sx={{ width: "100%", maxWidth: 360, color: "white" , textAlign: 'center'}}
         component="nav"
         aria-labelledby="nested-list-subheader"
         subheader={
           <ListSubheader
             component="div"
             id="nested-list-subheader"
-            sx={{ bgcolor: "#026910", padding: "1.5vh 0 !important" }}
+            sx={{bgcolor: "#044395", padding: "1.5vh 0 !important" }}
             // sx={{ bgcolor: "#d6d6d6", padding: "1.5vh 0 !important" }}
           >
             <InventoryIcon/> Produit
@@ -31,7 +31,7 @@ const ItemProductLeftBoard = ({ opened }) => {
         }
       >
         <Link to={"/app/new-product"} className={styles.link}>
-          <ListItemButton sx={{backgroundColor: useLocation().pathname === '/app/new-product' ? "#0000000a" : ""}}>
+          <ListItemButton sx={{borderRight: useLocation().pathname === '/app/new-product' ? '3px solid black' : ''}}>
             <ListItemIcon>
               <AddIcon />
             </ListItemIcon>
@@ -39,7 +39,7 @@ const ItemProductLeftBoard = ({ opened }) => {
           </ListItemButton>
         </Link>
         <Link to={"/app/list-products"} className={styles.link}>
-          <ListItemButton sx={{backgroundColor: useLocation().pathname === '/app/list-products' ? "#0000000a" : ""}}>
+          <ListItemButton sx={{borderRight: useLocation().pathname === '/app/list-products' ? '3px solid black' : ''}}>
             <ListItemIcon>
               <FormatListBulletedIcon />
             </ListItemIcon>
