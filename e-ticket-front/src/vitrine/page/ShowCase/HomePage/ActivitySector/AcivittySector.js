@@ -1,48 +1,54 @@
 import { React, useState } from "react";
 import styles from "./ActivitySector.module.scss";
 import "./ActivitySector.css";
+import boulangerieImg from "../../../../utils/assets/Boulangerie_V0.3.jpg";
+import coffeeShopImg from "../../../../utils/assets/Coffeeshop.jpg";
+import eCigaretteImg from "../../../../utils/assets/eCigarette.jpg";
+import fastfoodImg from "../../../../utils/assets/Fastfood_V0.1.jpg";
+import beatuySalonImg from "../../../../utils/assets/Salon-beaute.jpg";
+import otherImg from "../../../../utils/assets/Autres_V0.1.jpg";
 
 const content = [
   {
     key: 1,
-    name: "Fastfood",
-    img: "https://placehold.co/400",
-    alt: "image of the activity sector to choose",
+    name: "Boulangerie/Patisserie",
+    img: boulangerieImg,
+    alt: "image of a bakery",
     link: "",
   },
   {
     key: 2,
-    name: "Institue de beauté",
-    img: "https://placehold.co/400",
-    alt: "image of the activity sector to choose",
+    name: "Salon de beauté",
+    img: beatuySalonImg,
+    alt: "image of a beauty salon",
     link: "",
   },
   {
     key: 3,
-    name: "Vente d'eCigarette",
-    img: "https://placehold.co/400",
-    alt: "image of the activity sector to choose",
+    name: "Magazin d'eCigarette",
+    img: eCigaretteImg,
+    alt: "image of a eCigarette shop",
     link: "",
   },
   {
     key: 4,
-    name: "Boulangerie/Patisserie",
-    img: "https://placehold.co/400",
-    alt: "image of the activity sector to choose",
+    name: "Fastfood",
+    img: fastfoodImg,
+    alt: "image of a fastfood",
     link: "",
   },
   {
     key: 5,
-    name: "Autre",
-    img: "https://placehold.co/400",
-    alt: "image of the activity sector to choose",
+    name: "Cafétéria",
+    img: coffeeShopImg,
+    alt: "image of a coffee shop",
     link: "",
   },
   {
     key: 6,
     name: "Autre",
-    img: "https://placehold.co/400",
-    alt: "image of the activity sector to choose",
+    img: otherImg,
+    alt: "image of other",
     link: "",
   },
 ];
@@ -53,7 +59,6 @@ const ActivitySector = () => {
   const handleShowForm = (num) => {
     setActivitySector(num);
   };
-
 
   return (
     <>
