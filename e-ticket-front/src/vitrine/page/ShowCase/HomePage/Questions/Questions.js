@@ -1,6 +1,10 @@
 import React from "react";
 import styles from "./Questions.module.scss";
-import ItemQuestion from "./ItemQuestion/ItemQuestion";
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const questions = [
   {
@@ -32,12 +36,22 @@ const Questions = () => {
         <h1>Les questions fréquentes : </h1>
         <div className={styles.contrainer_questions}>
           {questions.map((item) => 
-          // {
-          //   return console.log(item.answer)
-          // }
-          (
-            <ItemQuestion question={item.question} answer={item.answer} key={item.key} />
-          )
+            (
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Typography>{item.question}</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography>
+                    {item.answer}
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
+            )
           )}
         </div>
       </div>
