@@ -40,8 +40,8 @@ const Questions = () => {
               <Accordion>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1a-content"
-                  id="panel1a-header"
+                  aria-controls="content"
+                  id="header"
                 >
                   <Typography>{item.question}</Typography>
                 </AccordionSummary>
