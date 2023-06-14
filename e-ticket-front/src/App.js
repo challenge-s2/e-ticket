@@ -11,6 +11,8 @@ import NewProduct from "./pages/Application/Main/Product/NewProduct/NewProduct";
 import EditProduct from "./pages/Application/Main/Product/EditProduct/EditProduct";
 import DetailOldCommand from "./pages/Application/Main/Command/DetailOldCommand/DetailOldCommand";
 import MyInformations from "./pages/Application/Main/Settings/MyInformations/MyInformations";
+import ProductNotFound from "./pages/Application/Error/404/ProductNotFound";
+import CommandNotFound from "./pages/Application/Error/404/CommandNotFound";
 
 const App = () => {
   return (
@@ -24,14 +26,13 @@ const App = () => {
           <Route path="/app" element={<Application />}>
             <Route path="list-old-commands" element={<ListOldCommand />} />
             <Route path="new-command" element={<NewCommand />} />
-            <Route
-              path="detail-old-command/:id"
-              element={<DetailOldCommand />}
-            />
+            <Route path="detail-old-command/:id" element={<DetailOldCommand />}/>
+            <Route path="detail-old-command/not-found" element={<CommandNotFound />}/>
 
             <Route path="list-products" element={<ListOfProducts />} />
             <Route path="new-product" element={<NewProduct />} />
             <Route path="edit-product/:id" element={<EditProduct />} />
+            <Route path="edit-product/not-found" element={<ProductNotFound />} />
 
             <Route path="my-informations" element={<MyInformations />} />
           </Route>
