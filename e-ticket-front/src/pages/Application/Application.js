@@ -11,6 +11,8 @@ import DetailOldCommand from "./Main/Command/DetailOldCommand/DetailOldCommand";
 import MenuMobile from "./Menu/MenuMobile";
 import LeftBoardMobile from "./LeftBoard/LeftBoardMobile";
 import MyInformations from "./Main/Settings/MyInformations/MyInformations";
+import ProductNotFound from "./Error/404/ProductNotFound";
+import CommandNotFound from "./Error/404/CommandNotFound";
 
 const Application = () => {
   const [openLeftBoardMobile, setOpenLeftBoardMobile] = useState(false);
@@ -43,14 +45,13 @@ const Application = () => {
             <Routes>
               <Route path="/list-old-commands" element={<ListOldCommand />} />
               <Route path="/new-command" element={<NewCommand />} />
-              <Route
-                path="/detail-old-command/:id"
-                element={<DetailOldCommand />}
-              />
+              <Route path="/detail-old-command/:id" element={<DetailOldCommand />}/>
+              <Route path="/detail-old-command/not-found" element={<CommandNotFound />}/>
 
               <Route path="/list-products" element={<ListOfProducts />} />
               <Route path="/new-product" element={<NewProduct />} />
               <Route path="/edit-product/:id" element={<EditProduct />} />
+              <Route path="/edit-product/not-found" element={<ProductNotFound />} />
               <Route path="/my-informations" element={<MyInformations />} />
             </Routes>
           </div>
