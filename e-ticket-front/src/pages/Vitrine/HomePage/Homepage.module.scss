@@ -1,6 +1,12 @@
 div.container {
+  > div:nth-child(2n) {
+    background-color: #0c2e74;
+  }
+  > div:first-child {
+    background-color: #ffffff;
+  }
 
-    >div:nth-child(2n) {
-        background-color: rgb(209, 209, 209);
-    }
+  .last_block_text {
+    color: #fff;
+  }
 }

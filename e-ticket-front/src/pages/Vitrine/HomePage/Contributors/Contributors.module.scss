@@ -1,20 +1,67 @@
 div.container {
   display: flex;
 
-  div.item {
-    margin: 1vh;
-    width: calc((100vw / 7));
+  div.itemsF {
+    animation: slide1 30s linear infinite;
+  }
+  div.itemsS {
+    animation: slide2 30s linear infinite;
   }
 
-  div.item:last-child {
-    margin-right: 0;
+  div.itemsT {
+    animation: slide3 30s linear infinite;
   }
 
-  div.item:first-child {
-    margin-left: 0;
+  div.itemsS,
+  div.itemsF,
+  div.itemsT {
+    display: flex;
+    padding: 2vh 0;
+    div.item {
+      margin: auto 1vh;
+      width: 300px;
+    }
+
+    div.item:last-child {
+      margin-right: 0;
+    }
+
+    div.item:first-child {
+      margin-left: 0;
+    }
+
+    img {
+      width: 50%;
+    }
   }
 
-  img {
-    width: 100%;
+  @keyframes slide1 {
+    0% {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-100vw);
+    }
+  }
+
+  @keyframes slide2 {
+    0% {
+      transform: translateX(100vw);
+    }
+
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slide3 {
+    0% {
+      transform: translateX(200vw);
+    }
+
+    to {
+      transform: translateX(0);
+    }
   }
 }

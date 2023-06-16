@@ -5,6 +5,7 @@ import styles from "./Homepage.module.scss";
 import Contributors from "./Contributors/Contributors";
 import Questions from "./Questions/Questions";
 import FormSector from "./FormSector/FormSector";
+import Typography from "@mui/material/Typography";
 
 const Homepage = () => {
   return (
@@ -12,23 +13,30 @@ const Homepage = () => {
       <div className={styles.container}>
         {/* Form à afficher que si showForm != null */}
         <ActivitySector />
-        <BlockText
-          title="La solution qui facilite la vie des commerçants, le n°1 des tickets dématérialisés !"
-          align="center"
-        />
+        <div className={styles.last_block_text}>
+          <BlockText
+            title="La solution qui facilite la vie des commerçants, le n°1 des tickets dématérialisés !"
+            align="center"
+            step="second"
+          />
+        </div>
         <BlockText
           title="Qu'est ce que c'est ?"
           text="Notre solution propose un outil de gestion des produits, des commandes et des tickets de caisse de manière dématérialisé."
           align="left"
+          step="second"
         />
         <Contributors />
         <Questions />
-        <BlockText
-          title="Qu'est ce que c'est ?"
-          text="Notre solution propose un outil de gestion des produits, des commandes et des tickets de caisse de manière dématérialisé."
-          align="left"
-        />
-        <FormSector/>
+        <div className={styles.last_block_text}>
+          <BlockText
+            title="On s'occupe de tout"
+            text="Aucune modification à faire, Installation simple, Vos clients on le choix, On vous accompagne"
+            align="left"
+            step="second"
+          />
+        </div>
+        <FormSector />
       </div>
     </>
   );
