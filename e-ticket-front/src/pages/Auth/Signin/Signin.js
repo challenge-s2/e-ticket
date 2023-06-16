@@ -1,16 +1,18 @@
 import { React } from "react";
 import styles from "./Signin.module.scss";
-import {Button, TextField} from '@mui/material'
+import { Button, TextField } from "@mui/material";
 
 const Signin = ({ changePage }) => {
   return (
     <>
       <div className={styles.container}>
         <div className={styles.left}>
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/4727/4727424.png"
-            alt="img"
-          />
+          <div>
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/4727/4727424.png"
+              alt="img"
+            />
+          </div>
         </div>
 
         <div className={styles.middle}></div>
@@ -20,7 +22,7 @@ const Signin = ({ changePage }) => {
             <h2>Créer votre compte</h2>
             <div className={styles.name}>
               <TextField
-                sx={{width: '48%', marginBottom: '2rem', marginRight: '4%'}}
+                sx={{ width: "48%", marginBottom: "2rem", marginRight: "4%" }}
                 type={"text"}
                 variant={"outlined"}
                 className={"innput"}
@@ -28,7 +30,7 @@ const Signin = ({ changePage }) => {
                 placeholder={"John"}
               />
               <TextField
-                sx={{width: '48%', marginBottom: '2rem'}}
+                sx={{ width: "48%", marginBottom: "2rem" }}
                 type={"text"}
                 variant={"outlined"}
                 className={"innput"}
@@ -38,7 +40,7 @@ const Signin = ({ changePage }) => {
             </div>
             <div className={styles.email}>
               <TextField
-                sx={{width: '100%', marginBottom: '2rem'}}
+                sx={{ width: "100%", marginBottom: "2rem" }}
                 type={"text"}
                 variant={"outlined"}
                 className={"innput"}
@@ -48,14 +50,14 @@ const Signin = ({ changePage }) => {
             </div>
             <div className={styles.passwrd}>
               <TextField
-                sx={{width: '48%', marginBottom: '2rem', marginRight: '4%'}}
+                sx={{ width: "48%", marginBottom: "2rem", marginRight: "4%" }}
                 type={"password"}
                 variant={"outlined"}
                 className={"innput"}
                 label={"Mot de passe"}
               />
               <TextField
-                sx={{width: '48%', marginBottom: '2rem'}}
+                sx={{ width: "48%", marginBottom: "2rem" }}
                 type={"password"}
                 variant={"outlined"}
                 className={"innput"}
@@ -63,9 +65,16 @@ const Signin = ({ changePage }) => {
               />
             </div>
             <div className={styles.button}>
-              <Button variant={"contained"} color={"primary"}>S'inscrire</Button>
+              <Button variant={"contained"} color={"primary"}>
+                S'inscrire
+              </Button>
             </div>
-            <div className={styles.change_to_login} onClick={() => changePage('login')}>Vous avez déjà un compte ? Connectez vous !</div>
+            <div
+              className={styles.change_to_login}
+              onClick={() => changePage("login")}
+            >
+              Vous avez déjà un compte ? Connectez vous !
+            </div>
           </div>
         </div>
       </div>

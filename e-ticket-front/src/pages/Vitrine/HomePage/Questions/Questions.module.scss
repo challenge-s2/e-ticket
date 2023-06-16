@@ -1,15 +1,42 @@
 div.container {
-    padding: 5vh 25vw;
+  // padding: 5vh 25vw;
 
+  h1 {
+    text-align: left;
+  }
 
-    h1 {
-        text-align: left;
-    }
+  div.contrainer_questions {
+    text-align: left;
+    width: 100%;
+  }
+}
 
-    div.contrainer_questions {
-        text-align: left;
-        width: 100%;
+@media (max-width: 900px) {
+  .container {
+    padding: 5vh 2vw;
+  }
+}
 
-    }
-    
+@media (min-width: 900px) {
+  .container {
+    padding: 5vh 5vw;
+  }
+}
+
+@media (min-width: 900px) {
+  .container {
+    padding: 5vh 10vw;
+  }
+}
+
+@media (min-width: 1100px) {
+  .container {
+    padding: 5vh 15vw;
+  }
+}
+
+@media (min-width: 1300px) {
+  .container {
+    padding: 5vh 20vw;
+  }
 }

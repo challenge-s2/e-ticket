@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./ActivitySector.module.scss";
-import "./ActivitySector.css";
 import boulangerieImg from "../../../../utils/assets/Boulangerie_V0.3.jpg";
 import coffeeShopImg from "../../../../utils/assets/Coffeeshop.jpg";
 import eCigaretteImg from "../../../../utils/assets/eCigarette.jpg";
@@ -63,10 +62,13 @@ const ActivitySector = () => {
         <div className={styles.container_item}>
           {content.map((item, index) => (
             <div className="item-csa" key={index}>
-              <img
-                src={item.img}
-                alt={item.alt}
-              />
+              <a href="#form">
+
+                <img
+                  src={item.img}
+                  alt={item.alt}
+                />
+              </a>
             </div>
           ))}
         </div>

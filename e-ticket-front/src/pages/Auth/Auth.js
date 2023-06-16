@@ -25,7 +25,7 @@ const Auth = () => {
           </IconButton>
         </Link>
       </div>
-      <div className={styles.container}>
+      {/* <div className={styles.container}>
         <CSSTransition
           in={choice === "login"}
           timeout={600}
@@ -43,6 +43,10 @@ const Auth = () => {
         >
           <Signin changePage={changePage} />
         </CSSTransition>
+      </div> */}
+      <div className={styles.container}>
+        <Login changePage={changePage} />
+        <Signin changePage={changePage} />
       </div>
     </>
   );

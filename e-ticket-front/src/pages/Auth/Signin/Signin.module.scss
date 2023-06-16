@@ -4,10 +4,14 @@ div.container {
   display: flex;
 
   div.left {
-    width: 40%;
+    width: 40vw;
     margin: auto;
-    img {
+    > div {
+      margin: 0 auto;
       width: 30%;
+      img {
+        width: 100%;
+      }
     }
   }
   div.middle {
@@ -17,7 +21,7 @@ div.container {
   }
 
   div.right {
-    width: 60%;
+    width: 60vw;
     margin: auto;
 
     div.wrapper {
@@ -32,7 +36,7 @@ div.container {
           width: 100%;
         }
       }
-  
+
       div.email {
         display: flex;
         input {
@@ -40,18 +44,18 @@ div.container {
           width: 100%;
         }
       }
-  
+
       div.passwrd {
         display: flex;
         justify-content: space-between;
         // width: 60%;
         // margin: 0 auto;
-  
+
         input {
           width: 100%;
         }
       }
-  
+
       div.button {
         button {
           margin: 1rem auto 0 auto;
@@ -65,6 +69,5 @@ div.container {
         text-decoration: underline;
       }
     }
-
   }
 }

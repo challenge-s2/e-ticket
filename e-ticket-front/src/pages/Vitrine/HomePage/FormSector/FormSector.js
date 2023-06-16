@@ -43,7 +43,7 @@ const content = [
 const FormSector = () => {
   return (
     <>
-      <div className={styles.container}>
+      <div className={styles.container} id="form">
         <h1>Contactez nous pour découvrir notre solution !</h1>
         <div className={styles.wrapper}>
 
@@ -57,7 +57,7 @@ const FormSector = () => {
               <p>- Institue de beauté</p>
               <p>- Vente d'eCigarette</p>
               <p>- Boulangerie/Patisserie</p>
-              <p>Choissiez celui qui vous correspond</p>
+              <p>Choisissez celui qui vous correspond</p>
 
               </span>
               

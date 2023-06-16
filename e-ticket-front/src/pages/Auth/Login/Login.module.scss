@@ -4,53 +4,51 @@ div.container {
   display: flex;
 
   div.left {
-    // background-color: aquamarine;
-    width: 60%;
+    width: 60vw;
     margin: auto;
-    // flex: 3;
-    div.mail {
-      input {
-        // flex: 1;
-        width: 100%;
-      }
-    }
 
-    div.password {
-      input {
-        // flex: 1;
-        width: 100%;
-      }
-    }
+    div.wrapper_left {
+      width: 50%;
+      margin: 0 25%;
 
-    div.submit {
-      button {
-        margin: 1rem auto 0 auto;
-        // width: 45%;
+      div.mail,
+      div.password {
+        >div {
+          width: 100%;
+          margin-bottom: 2rem;
+        }
+        input {
+          width: 100%;
+        }
       }
-    }
 
-    div.change_to_signin {
-      margin-top: 2vh;
-      font-size: small;
-      cursor: pointer;
-      text-decoration: underline;
+      div.submit {
+        button {
+          margin: 1rem auto 0 auto;
+        }
+      }
+
+      div.change_to_signin {
+        margin-top: 2vh;
+        font-size: small;
+        cursor: pointer;
+        text-decoration: underline;
+      }
     }
   }
 
   div.middle {
     width: 2px;
     background-color: black;
-    // height: 100%;
     margin: 35vh 0;
   }
 
   div.right {
-    // flex: 2;
-    width: 40%;
-    // background-color: brown;
+    width: 40vw;
     margin: auto;
 
     img {
+      margin: 0 35%;
       width: 30%;
     }
   }
