@@ -85,7 +85,7 @@ const MyInformations = () => {
           value={companyName}
           onChange={(e) => setCompanyName(e.target.value)}
           variant="outlined"
-          sx={{ width: "75%" }}
+          sx={{ width: "100%" }}
         />
       </div>
 
@@ -98,12 +98,12 @@ const MyInformations = () => {
           maxRows={4}
           onChange={(e) => setCompanyDescription(e.target.value)}
           variant="outlined"
-          sx={{ width: "75%" }}
+          sx={{ width: "100%" }}
         />
       </div>
 
       <div className={styles.company_type}>
-        <FormControl sx={{ width: "75%" }} size="medium">
+        <FormControl sx={{ width: "100%" }} size="medium">
           <InputLabel id="label">Type d'entreprise</InputLabel>
           <Select
             value={companyType}
@@ -131,7 +131,7 @@ const MyInformations = () => {
             disabled
             onChange={(e) => setCompanyStartDate(e.target.value)}
             variant="outlined"
-            sx={{ width: "75%" }}
+            sx={{ width: "100%" }}
           />
         </LocalizationProvider>
       </div>
@@ -141,7 +141,7 @@ const MyInformations = () => {
           variant="contained"
           color="warning"
           onClick={handleSumbit}
-          sx={{ width: "75%" }}
+          sx={{ width: "100%" }}
         >
           Modifier
         </Button>
