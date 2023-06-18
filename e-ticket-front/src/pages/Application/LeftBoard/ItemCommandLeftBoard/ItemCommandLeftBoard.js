@@ -35,7 +35,7 @@ const ItemCommandLeftBoard = ({ opened }) => {
             sx={{ bgcolor: "#044395", padding: "1.5vh 0 !important" }}
             // sx={{ bgcolor: "#4F4F4F" }}
           >
-            <ShoppingCartIcon /> Commandes
+            <ShoppingCartIcon sx={{verticalAlign: 'middle'}}/> Commandes
           </ListSubheader>
         }
       >

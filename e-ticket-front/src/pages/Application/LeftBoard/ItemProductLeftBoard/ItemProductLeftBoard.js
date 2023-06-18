@@ -26,7 +26,7 @@ const ItemProductLeftBoard = () => {
             sx={{bgcolor: "#044395", padding: "1.5vh 0 !important" }}
             // sx={{ bgcolor: "#d6d6d6", padding: "1.5vh 0 !important" }}
           >
-            <InventoryIcon/> Produit
+            <InventoryIcon sx={{verticalAlign: 'middle'}}/> Produit
           </ListSubheader>
         }
       >

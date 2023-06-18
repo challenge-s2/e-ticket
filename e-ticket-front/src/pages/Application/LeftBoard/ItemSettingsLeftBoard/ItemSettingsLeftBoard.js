@@ -36,7 +36,7 @@ const ItemSettingsLeftBoard = () => {
             sx={{ bgcolor: "#044395", padding: "1.5vh 0 !important" }}
             // sx={{ bgcolor: "#d6d6d6", padding: "1.5vh 0 !important" }}
           >
-            <SettingsIcon /> Paramêtres
+            <SettingsIcon sx={{verticalAlign: 'middle'}}/> Paramêtres
           </ListSubheader>
         }
       >
