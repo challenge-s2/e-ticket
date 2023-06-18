@@ -1,8 +1,15 @@
-import { React } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Login.module.scss";
 import { Button, TextField } from "@mui/material";
 
 const Login = ({ changePage }) => {
+  const [windowSize, setWindowSize] = useState(window.screen.width);
+
+  useEffect(() => {
+    window.addEventListener("resize", () => setWindowSize(window.screen.width));
+  }, []);
+
+
   return (
     <>
       <div className={styles.container}>
@@ -40,13 +47,21 @@ const Login = ({ changePage }) => {
 
           </div>
         </div>
-        <div className={styles.middle}></div>
-        <div className={styles.right}>
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/1052/1052815.png"
-            alt="img"
-          />
-        </div>
+
+        {windowSize >= 1200 ? (
+          <>
+            <div className={styles.middle}></div>
+            <div className={styles.right}>
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/1052/1052815.png"
+                alt="img"
+              />
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
+
       </div>
     </>
   );
