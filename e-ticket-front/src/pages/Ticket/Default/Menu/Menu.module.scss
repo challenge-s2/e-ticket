@@ -1,0 +1,44 @@
+.container {
+  width: 100vw;
+  background-color: #fff;
+
+  .not_connected {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: rgba(250, 204, 20, 0.2);
+
+    .left {
+      vertical-align: middle;
+      font-size: smaller;
+      margin: auto 0;
+
+    }
+
+    .right {
+      margin-left: 5px;
+    }
+  }
+
+  .wrapper {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, .1), 0 4px 6px -4px rgba(0, 0, 0, .1);
+    z-index: 10;
+    position: sticky;
+    width: 100vw;
+    .logo {
+      padding: 15px;
+      
+      img {
+        margin: 0 auto;
+        height: 30px;
+      }
+    }
+
+    .text {
+      display: flex;
+      justify-content: left;
+      padding: 15px;
+
+    }
+  }
+}
