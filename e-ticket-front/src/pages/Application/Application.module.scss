@@ -7,8 +7,9 @@ div.container {
     width: 100vw;
 
     div.container_left_board {
-      width: 16vw;
-      box-shadow: 10px 0 15px -3px rgba(0, 0, 0, .1), 4px 0 6px -4px rgba(0, 0, 0, .1);
+      width: 300px;
+      box-shadow: 10px 0 15px -3px rgba(0, 0, 0, 0.1),
+        4px 0 6px -4px rgba(0, 0, 0, 0.1);
       margin-right: 1vw;
       height: 100vh;
       // background-color: #161824;

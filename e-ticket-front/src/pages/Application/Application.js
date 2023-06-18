@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Application.module.scss";
 import LeftBoard from "./LeftBoard/LeftBoard";
-import { Routes, Route, Navigate, useLocation, Outlet, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import ListOldCommand from "./Main/Command/ListOldCommand/ListOldCommand";
 import NewCommand from "./Main/Command/NewCommand/NewCommand";
 import NewProduct from "./Main/Product/NewProduct/NewProduct";
@@ -17,20 +17,10 @@ import CommandNotFound from "./Error/404/CommandNotFound";
 const Application = () => {
   const [openLeftBoardMobile, setOpenLeftBoardMobile] = useState(false);
   const [windowSize, setWindowSize] = useState(window.screen.width);
-  const location = useLocation();
-  const navigate = useNavigate()
-  // const [redirect, setRedirect] = useState(false)
-
-  // if(location.pathname === "/app/"){
-  //   setRedirect(true);
-  // }
-
 
   useEffect(() => {
-    console.log(location.pathname);
     window.addEventListener("resize", () => setWindowSize(window.screen.width));
   }, []);
-
 
   return (
     <>
