@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Application.module.scss";
 import LeftBoard from "./LeftBoard/LeftBoard";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation, Outlet, useNavigate } from "react-router-dom";
 import ListOldCommand from "./Main/Command/ListOldCommand/ListOldCommand";
 import NewCommand from "./Main/Command/NewCommand/NewCommand";
 import NewProduct from "./Main/Product/NewProduct/NewProduct";
@@ -17,10 +17,20 @@ import CommandNotFound from "./Error/404/CommandNotFound";
 const Application = () => {
   const [openLeftBoardMobile, setOpenLeftBoardMobile] = useState(false);
   const [windowSize, setWindowSize] = useState(window.screen.width);
+  const location = useLocation();
+  const navigate = useNavigate()
+  // const [redirect, setRedirect] = useState(false)
+
+  // if(location.pathname === "/app/"){
+  //   setRedirect(true);
+  // }
+
 
   useEffect(() => {
+    console.log(location.pathname);
     window.addEventListener("resize", () => setWindowSize(window.screen.width));
   }, []);
+
 
   return (
     <>
@@ -45,13 +55,22 @@ const Application = () => {
             <Routes>
               <Route path="/list-old-commands" element={<ListOldCommand />} />
               <Route path="/new-command" element={<NewCommand />} />
-              <Route path="/detail-old-command/:id" element={<DetailOldCommand />}/>
-              <Route path="/detail-old-command/not-found" element={<CommandNotFound />}/>
+              <Route
+                path="/detail-old-command/:id"
+                element={<DetailOldCommand />}
+              />
+              <Route
+                path="/detail-old-command/not-found"
+                element={<CommandNotFound />}
+              />
 
               <Route path="/list-products" element={<ListOfProducts />} />
               <Route path="/new-product" element={<NewProduct />} />
               <Route path="/edit-product/:id" element={<EditProduct />} />
-              <Route path="/edit-product/not-found" element={<ProductNotFound />} />
+              <Route
+                path="/edit-product/not-found"
+                element={<ProductNotFound />}
+              />
               <Route path="/my-informations" element={<MyInformations />} />
             </Routes>
           </div>

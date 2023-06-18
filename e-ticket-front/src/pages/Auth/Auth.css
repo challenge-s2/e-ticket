@@ -1,33 +1,30 @@
-
 /* CSSTransition classes  */
 .signin-enter {
-  transform: translateX(-150%);
+  transform: translateX(-100vw);
 }
 .signin-enter-active {
-  transform: translateX(0%);
+  transform: translateX(0vw);
   transition: all 500ms ease;
 }
 .signin-exit {
-  transform: translateX(0%);
+  transform: translateX(0vw);
 }
 .signin-exit-active {
-  transform: translateX(-150%);
+  transform: translateX(-100vw);
   transition: all 500ms ease;
 }
 
-
 .login-enter {
-  transform: translateX(150%);
+  transform: translateX(100vw);
 }
 .login-enter-active {
-  transform: translateX(0%);
+  transform: translateX(0vw);
   transition: all 500ms ease;
 }
 .login-exit {
-  transform: translateX(0%);
-
+  transform: translateX(0vw);
 }
 .login-exit-active {
-  transform: translateX(150%);
+  transform: translateX(100vw);
   transition: all 500ms ease;
 }

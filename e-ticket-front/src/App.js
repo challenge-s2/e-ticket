@@ -26,13 +26,22 @@ const App = () => {
           <Route path="/app" element={<Application />}>
             <Route path="list-old-commands" element={<ListOldCommand />} />
             <Route path="new-command" element={<NewCommand />} />
-            <Route path="detail-old-command/:id" element={<DetailOldCommand />}/>
-            <Route path="detail-old-command/not-found" element={<CommandNotFound />}/>
+            <Route
+              path="detail-old-command/:id"
+              element={<DetailOldCommand />}
+            />
+            <Route
+              path="detail-old-command/not-found"
+              element={<CommandNotFound />}
+            />
 
             <Route path="list-products" element={<ListOfProducts />} />
             <Route path="new-product" element={<NewProduct />} />
             <Route path="edit-product/:id" element={<EditProduct />} />
-            <Route path="edit-product/not-found" element={<ProductNotFound />} />
+            <Route
+              path="edit-product/not-found"
+              element={<ProductNotFound />}
+            />
 
             <Route path="my-informations" element={<MyInformations />} />
           </Route>
