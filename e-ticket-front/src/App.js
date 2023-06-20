@@ -16,6 +16,7 @@ import CommandNotFound from "./pages/Application/Error/404/CommandNotFound";
 import Ticket from "./pages/Ticket/Ticket";
 import MyTickets from "./pages/Ticket/Main/MyTickets/MyTickets";
 import MyProfil from "./pages/Ticket/Main/MyProfil/MyProfil";
+import TicketPage from "./pages/Ticket/Main/MyTickets/TicketPage/TicketPage";
 
 const App = () => {
   return (
@@ -40,6 +41,7 @@ const App = () => {
 
           <Route path="/ticket" exact element={<Ticket />}>
             <Route path="my-tickets" element={<MyTickets />} />
+            <Route path="my-tickets/page/:id" element={<TicketPage />} />
             <Route path="my-profil" element={<MyProfil />} />
           </Route>
         </Routes>
