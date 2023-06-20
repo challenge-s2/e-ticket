@@ -65,21 +65,21 @@ const Contributors = () => {
         <div className={styles.itemsF}>
           {content.map((item) => (
             <div className={styles.item} key={item.key}>
-              <img src={item.img} alt={item.alt} />
+              <img loading="lazy" src={item.img} alt={item.alt}/>
             </div>
           ))}
         </div>
         <div className={styles.itemsS}>
           {content.map((item) => (
             <div className={styles.item} key={item.key}>
-              <img src={item.img} alt={item.alt} />
+              <img loading="lazy" src={item.img} alt={item.alt}/>
             </div>
           ))}
         </div>
         <div className={styles.itemsT}>
           {content.map((item) => (
             <div className={styles.item} key={item.key}>
-              <img src={item.img} alt={item.alt} />
+              <img loading="lazy" src={item.img} alt={item.alt}/>
             </div>
           ))}
         </div>

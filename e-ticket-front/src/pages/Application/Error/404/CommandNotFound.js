@@ -17,7 +17,7 @@ const CommandNotFound = () => {
       </div>
       <div className={styles.container}>
         <h1>Command not found</h1>
-        <img src={CommandImage} alt="Image of a package"/>
+        <img loading="lazy" src={CommandImage} alt="Image of a package"/>
       </div>
     </>
   )

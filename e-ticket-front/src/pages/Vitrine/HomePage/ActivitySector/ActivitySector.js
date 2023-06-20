@@ -64,7 +64,8 @@ const ActivitySector = () => {
             <div className="item-csa" key={index}>
               <a href="#form">
 
-                <img
+                <img 
+                  loading="lazy"
                   src={item.img}
                   alt={item.alt}
                 />

@@ -17,7 +17,7 @@ const ProductNotFound = () => {
       </div>
       <div className={styles.container}>
         <h1>Product not found</h1>
-        <img src={ProductImage} alt="Image of a package"/>
+        <img loading="lazy" src={ProductImage} alt="Image of a package"/>
         
       </div>
     </>
