@@ -43,6 +43,7 @@ const Application = () => {
           )}
           <div className={styles.container_main_board}>
             <Routes>
+              <Route index element={<NewCommand />} />
               <Route path="/list-old-commands" element={<ListOldCommand />} />
               <Route path="/new-command" element={<NewCommand />} />
               <Route

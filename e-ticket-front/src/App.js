@@ -13,6 +13,10 @@ import DetailOldCommand from "./pages/Application/Main/Command/DetailOldCommand/
 import MyInformations from "./pages/Application/Main/Settings/MyInformations/MyInformations";
 import ProductNotFound from "./pages/Application/Error/404/ProductNotFound";
 import CommandNotFound from "./pages/Application/Error/404/CommandNotFound";
+import Ticket from "./pages/Ticket/Ticket";
+import MyTickets from "./pages/Ticket/Main/MyTickets/MyTickets";
+import MyProfil from "./pages/Ticket/Main/MyProfil/MyProfil";
+import TicketPage from "./pages/Ticket/Main/MyTickets/TicketPage/TicketPage";
 
 const App = () => {
   return (
@@ -26,24 +30,19 @@ const App = () => {
           <Route path="/app" element={<Application />}>
             <Route path="list-old-commands" element={<ListOldCommand />} />
             <Route path="new-command" element={<NewCommand />} />
-            <Route
-              path="detail-old-command/:id"
-              element={<DetailOldCommand />}
-            />
-            <Route
-              path="detail-old-command/not-found"
-              element={<CommandNotFound />}
-            />
-
+            <Route path="detail-old-command/:id" element={<DetailOldCommand />}/>
+            <Route path="detail-old-command/not-found" element={<CommandNotFound />}/>
             <Route path="list-products" element={<ListOfProducts />} />
             <Route path="new-product" element={<NewProduct />} />
             <Route path="edit-product/:id" element={<EditProduct />} />
-            <Route
-              path="edit-product/not-found"
-              element={<ProductNotFound />}
-            />
-
+            <Route path="edit-product/not-found" element={<ProductNotFound />}/>
             <Route path="my-informations" element={<MyInformations />} />
+          </Route>
+
+          <Route path="/ticket" exact element={<Ticket />}>
+            <Route path="my-tickets" element={<MyTickets />} />
+            <Route path="my-tickets/page/:id" element={<TicketPage />} />
+            <Route path="my-profil" element={<MyProfil />} />
           </Route>
         </Routes>
       </div>
