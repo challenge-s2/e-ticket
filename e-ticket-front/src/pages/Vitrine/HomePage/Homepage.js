@@ -6,13 +6,20 @@ import Contributors from "./Contributors/Contributors";
 import Questions from "./Questions/Questions";
 import FormSector from "./FormSector/FormSector";
 import Typography from "@mui/material/Typography";
+import FirstItem from "./FirstItem/FirstItem";
 
 const Homepage = () => {
   return (
     <>
       <div className={styles.container}>
         {/* Form à afficher que si showForm != null */}
-        <ActivitySector />
+        <FirstItem />
+        <BlockText
+          title="Qu'est ce que c'est ?"
+          text="Notre solution propose un outil de gestion des produits, des commandes et des tickets de caisse de manière dématérialisé."
+          align="left"
+          step="second"
+        />
         <div className={styles.last_block_text}>
           <BlockText
             title="La solution qui facilite la vie des commerçants, le n°1 des tickets dématérialisés !"
@@ -20,12 +27,7 @@ const Homepage = () => {
             step="second"
           />
         </div>
-        <BlockText
-          title="Qu'est ce que c'est ?"
-          text="Notre solution propose un outil de gestion des produits, des commandes et des tickets de caisse de manière dématérialisé."
-          align="left"
-          step="second"
-        />
+        <ActivitySector />
         <Contributors />
         <Questions />
         <div className={styles.last_block_text}>
