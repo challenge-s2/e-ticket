@@ -13,8 +13,8 @@ services:
 
   auth:
     build:
-      context: .
-      dockerfile: ./e-ticket-back/apps/auth/Dockerfile
+      context: ./e-ticket-back
+      dockerfile: ./apps/auth/Dockerfile
       target: development
     command: pnpm run start:dev auth
     env_file:
@@ -22,7 +22,7 @@ services:
     ports:
       - "3001:3001"
     volumes:
-      - .:/usr/src/app
+      - ./e-ticket-back:/usr/src/app
 
-    mongo:
-      image: mongo
+  mongo:
+    image: mongo
