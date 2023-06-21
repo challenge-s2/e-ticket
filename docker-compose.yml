@@ -11,72 +11,18 @@ services:
     ports:
       - "3010:3000"
 
-  api-gateway:
-    user: node
+  auth:
     build:
-      context: api-gateway
-      dockerfile: Dockerfile
-    tty: true
-    stdin_open: true
+      context: .
+      dockerfile: ./e-ticket-back/apps/auth/Dockerfile
+      target: development
+    command: pnpm run start:dev auth
+    env_file:
+      - ./e-ticket-back/apps/auth/.env
     ports:
-      - "3000:3000"
+      - "3001:3001"
     volumes:
-      - ./api-gateway:/home/node
-    command: sh -c "npm install && npm run start:dev"
+      - .:/usr/src/app
 
-  auth-service:
-    user: node
-    build:
-      context: auth-service
-      dockerfile: Dockerfile
-    tty: true
-    stdin_open: true
-    volumes:
-      - ./auth-service:/home/node
-    command: sh -c "npm install && npm run start:dev"
-
-  users-service:
-    user: node
-    build:
-      context: users-service
-      dockerfile: Dockerfile
-    tty: true
-    stdin_open: true
-    volumes:
-      - ./users-service:/home/node
-    command: sh -c "npm install && npm run start:dev"
-
-  shops-service:
-    user: node
-    build:
-      context: shops-service
-      dockerfile: Dockerfile
-    tty: true
-    stdin_open: true
-    volumes:
-      - ./shops-service:/home/node
-    command: sh -c "npm install && npm run start:dev"
-
-  user-mysql:
-    image: mysql:8.0.33
-    environment:
-      MYSQL_DATABASE: user
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-      MYSQL_ROOT_PASSWORD: rootpassword
-    ports:
-      - "3306:3306"
-    volumes:
-      - ./db/user:/var/lib/mysql
-
-  shop-mysql:
-    image: mysql:8.0.33
-    environment:
-      MYSQL_DATABASE: shop
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-      MYSQL_ROOT_PASSWORD: rootpassword
-    ports:
-      - "3307:3306"
-    volumes:
-      - ./db/shop:/var/lib/mysql
+    mongo:
+      image: mongo
