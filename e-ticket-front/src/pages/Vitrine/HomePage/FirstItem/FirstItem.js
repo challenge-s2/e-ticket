@@ -16,7 +16,11 @@ const FirstItem = () => {
             Une solution personnalité qui s'adapte à tout type d'entreprise.
             </div>
           <div className={styles.button}>
-            <Button variant='contained' size="large" color='warning'>Contactez-nous</Button>  
+            <a href="#form">
+              <Button variant='contained' size="large" color='warning' >
+                  Contactez-nous
+              </Button>  
+            </a>
           </div>        
         </div>
 
