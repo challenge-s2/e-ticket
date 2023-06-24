@@ -10,7 +10,7 @@ const MenuMobile = ({setOpen}) => {
     return (
         <>
         <Box sx={{ flexGrow: 1}}>
-            <AppBar position="static" onClick={() => setOpen(true)} sx={{backgroundColor: '#80c887' }}>
+            <AppBar position="static" onClick={() => setOpen(true)} sx={{backgroundColor: '#838383' }}>
                 <Toolbar>
                 <IconButton
                     size="large"
