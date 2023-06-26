@@ -30,12 +30,10 @@ const InstallPWA = () => {
   }
   return (
     <Button
-      className="link-button pwa-install-button"
-      color={"primary"}
-      id="setup_button"
-      aria-label="Install app"
-      title="Install app"
-      onClick={onClick}
+        onClick={onClick}
+        color="primary"
+        variant="contained"
+        sx={{ padding: "1vh 1vw", margin: "1vh 1vw", textAlign: 'center' }}
     >
       Installer l'application
     </Button>
