@@ -29,14 +29,18 @@ const InstallPWA = () => {
     return null;
   }
   return (
-    <Button
-        onClick={onClick}
-        color="primary"
-        variant="contained"
-        sx={{ padding: "1vh 1vw", margin: "1vh 1vw", textAlign: 'center' }}
-    >
-      Installer l'application
-    </Button>
+    <>
+        <h1>Installez notre application !</h1>
+        <Button
+            onClick={onClick}
+            color="primary"
+            variant="contained"
+            sx={{ padding: "1vh 1vw", margin: "1vh 1vw", textAlign: 'center' }}
+        >
+        Installer l'application
+        </Button>
+    </>
+    
   );
 };
 
