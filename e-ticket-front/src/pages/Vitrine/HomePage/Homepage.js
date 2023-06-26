@@ -6,6 +6,7 @@ import Contributors from "./Contributors/Contributors";
 import Questions from "./Questions/Questions";
 import FormSector from "./FormSector/FormSector";
 import Typography from "@mui/material/Typography";
+import InstallPWA from "../../../components/InstallPWA";
 
 const Homepage = () => {
   return (
@@ -37,6 +38,10 @@ const Homepage = () => {
           />
         </div>
         <FormSector />
+      </div>
+      <div>
+        <h1>Installez notre application !</h1>
+        <InstallPWA />
       </div>
     </>
   );
