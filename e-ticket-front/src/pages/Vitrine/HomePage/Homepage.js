@@ -40,7 +40,6 @@ const Homepage = () => {
         <FormSector />
       </div>
       <div>
-        <h1>Installez notre application !</h1>
         <InstallPWA />
       </div>
     </>
