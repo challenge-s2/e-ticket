@@ -24,5 +24,27 @@ services:
     volumes:
       - ./e-ticket-back:/usr/src/app
 
+  gateway:
+    build:
+      context: ./e-ticket-back
+      dockerfile: ./apps/gateway/Dockerfile
+      target: development
+    command: pnpm run start:dev gateway
+    ports:
+      - "3003:3003"
+    volumes:
+      - ./e-ticket-back:/usr/src/app
+
+  company:
+    build:
+      context: ./e-ticket-back
+      dockerfile: ./apps/company/Dockerfile
+      target: development
+    command: pnpm run start:dev company
+    ports:
+      - "3004:3004"
+    volumes:
+      - ./e-ticket-back:/usr/src/app
+
   mongo:
     image: mongo

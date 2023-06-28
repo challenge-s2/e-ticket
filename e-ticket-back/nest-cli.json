@@ -25,6 +25,24 @@
       "compilerOptions": {
         "tsConfigPath": "apps/auth/tsconfig.app.json"
       }
+    },
+    "company": {
+      "type": "application",
+      "root": "apps/company",
+      "entryFile": "main",
+      "sourceRoot": "apps/company/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/company/tsconfig.app.json"
+      }
+    },
+    "gateway": {
+      "type": "application",
+      "root": "apps/gateway",
+      "entryFile": "main",
+      "sourceRoot": "apps/gateway/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/gateway/tsconfig.app.json"
+      }
     }
   },
   "monorepo": true,

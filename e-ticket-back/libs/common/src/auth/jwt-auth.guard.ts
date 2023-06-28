@@ -11,19 +11,21 @@ import { AUTH_SERVICE } from '../constants/services';
 import { ClientProxy } from '@nestjs/microservices';
 import { UserDto } from '@app/common/dto';
 import { Reflector } from '@nestjs/core';
+import { Request } from "express";
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
   private readonly logger = new Logger(JwtAuthGuard.name);
   constructor(
-    @Inject(AUTH_SERVICE) private readonly authClient: ClientProxy,
-    private readonly reflector: Reflector,
+    @Inject('AUTH_SERVICE') private readonly authClient: ClientProxy,
+    private readonly reflector: Reflector
   ) {}
 
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
-    const jwt = context.switchToHttp().getRequest().cookies?.Authentication;
+    const request = context.switchToHttp().getRequest();
+    const jwt = this.extractTokenFromHeader(request);
     if (!jwt) {
       return false;
     }
@@ -50,5 +52,10 @@ export class JwtAuthGuard implements CanActivate {
           return of(false);
         }),
       );
+  }
+
+  private extractTokenFromHeader(request: Request): string | undefined {
+    const [type, token] = request.headers.authorization?.split(' ') ?? [];
+    return type === 'Bearer' ? token : undefined;
   }
 }

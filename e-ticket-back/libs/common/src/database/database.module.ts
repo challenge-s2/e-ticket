@@ -4,12 +4,7 @@ import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-    MongooseModule.forRootAsync({
-      useFactory: (configService: ConfigService) => ({
-        uri: configService.get('MONGODB_URI'),
-      }),
-      inject: [ConfigService],
-    }),
+    MongooseModule.forRoot('mongodb://mongo:27017/sleepr'),
   ],
 })
 export class DatabaseModule {

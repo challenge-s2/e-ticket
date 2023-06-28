@@ -1,12 +1,8 @@
-import {
-  Injectable,
-  UnauthorizedException,
-  UnprocessableEntityException,
-} from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UsersRepository } from './users.repository';
-import { compare, hash } from 'bcryptjs';
-import { GetUserDto } from './dto/get-user.dto';
+import {Injectable, UnauthorizedException, UnprocessableEntityException} from '@nestjs/common';
+import {CreateUserDto} from './dto/create-user.dto';
+import {UsersRepository} from './users.repository';
+import {compare, hash} from 'bcryptjs';
+import {GetUserDto} from './dto/get-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -38,7 +34,11 @@ export class UsersService {
     return user;
   }
 
-  async getUser(id: string) {
+  async getUser(getUserDto: GetUserDto) {
+    return this.usersRepository.findOne(getUserDto);
+  }
+
+  async getUserById(id: string) {
     return this.usersRepository.findOne({ _id: id });
   }
 

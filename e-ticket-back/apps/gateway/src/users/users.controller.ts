@@ -1,23 +1,22 @@
-import { Body, Controller } from '@nestjs/common';
+import {Body, Controller, Get, Param, Post} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
-import { MessagePattern } from '@nestjs/microservices';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @MessagePattern({ cmd: 'createUser' })
+  @Post()
   async createUser(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
 
-  @MessagePattern({ cmd: 'getUserById' })
-  async getUserById(id) {
-    return this.usersService.getUserById(id);
+  @Get(':id')
+  async getUserById(@Param('id') id: string) {
+    return this.usersService.getUserById({ _id: id })
   }
 
-  @MessagePattern({ cmd: 'getAllUsers' })
+  @Get()
   async getAllUsers() {
     return this.usersService.getAllUsers();
   }
