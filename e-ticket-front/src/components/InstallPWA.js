@@ -30,6 +30,7 @@ const InstallPWA = () => {
   }
   return (
     <>
+      <div style={{textAlign: 'center'}}>
         <h1>Installez notre application !</h1>
         <Button
             onClick={onClick}
@@ -39,6 +40,7 @@ const InstallPWA = () => {
         >
         Installer l'application
         </Button>
+      </div>
     </>
     
   );
