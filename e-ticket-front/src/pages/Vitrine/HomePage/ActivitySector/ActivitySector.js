@@ -58,13 +58,14 @@ const ActivitySector = () => {
   return (
     <>
       <div className={styles.container}>
-        <h1>Sélectionnez votre secteur d'activité :</h1>
+        <h1>Sélectionnez un secteur d'activité :</h1>
         <div className={styles.container_item}>
           {content.map((item, index) => (
             <div className="item-csa" key={index}>
               <a href="#form">
 
-                <img
+                <img 
+                  loading="lazy"
                   src={item.img}
                   alt={item.alt}
                 />
