@@ -4,10 +4,22 @@ import { Button, TextField } from "@mui/material";
 
 const Signin = ({ changePage }) => {
   const [windowSize, setWindowSize] = useState(window.screen.width);
+  const [userInfo, setUserInfo] = useState({
+    firstname: '',
+    lastname: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  })
 
   useEffect(() => {
     window.addEventListener("resize", () => setWindowSize(window.screen.width));
   }, []);
+
+  const handleSubmit = () => {
+    console.log(userInfo)
+    /* axios.post('localhost:3000/users/createUser', userInfo) */
+  }
 
   return (
     <>
@@ -37,6 +49,8 @@ const Signin = ({ changePage }) => {
                 <TextField
                   sx={{ width: "48%", marginBottom: "2rem", marginRight: "4%" }}
                   type={"text"}
+                  value={userInfo.firstname}
+                  onChange={(e) => setUserInfo((prevValue) => ({...prevValue, firstname: e.target.value}))}
                   variant={"outlined"}
                   className={"innput"}
                   label={"Prénom"}
@@ -45,6 +59,8 @@ const Signin = ({ changePage }) => {
                 <TextField
                   sx={{ width: "48%", marginBottom: "2rem" }}
                   type={"text"}
+                  value={userInfo.lastname}
+                  onChange={(e) => setUserInfo((prevValue) => ({...prevValue, lastname: e.target.value}))}
                   variant={"outlined"}
                   className={"innput"}
                   label={"Nom"}
@@ -57,6 +73,8 @@ const Signin = ({ changePage }) => {
                   <TextField
                     sx={{ width: "100%", marginBottom: "2rem" }}
                     type={"text"}
+                    value={userInfo.firstname}
+                    onChange={(e) => setUserInfo((prevValue) => ({...prevValue, firstname: e.target.value}))}
                     variant={"outlined"}
                     className={"innput"}
                     label={"Prénom"}
@@ -67,6 +85,8 @@ const Signin = ({ changePage }) => {
                 <TextField
                   sx={{ width: "100%", marginBottom: "2rem" }}
                   type={"text"}
+                  value={userInfo.lastname}
+                  onChange={(e) => setUserInfo((prevValue) => ({...prevValue, lastname: e.target.value}))}
                   variant={"outlined"}
                   className={"innput"}
                   label={"Nom"}
@@ -81,6 +101,8 @@ const Signin = ({ changePage }) => {
               <TextField
                 sx={{ width: "100%", marginBottom: "2rem" }}
                 type={"text"}
+                value={userInfo.email}
+                  onChange={(e) => setUserInfo((prevValue) => ({...prevValue, email: e.target.value}))}
                 variant={"outlined"}
                 className={"innput"}
                 label={"Adresse mail"}
@@ -92,6 +114,8 @@ const Signin = ({ changePage }) => {
                 <TextField
                   sx={{ width: "48%", marginBottom: "2rem", marginRight: "4%" }}
                   type={"password"}
+                  value={userInfo.password}
+                  onChange={(e) => setUserInfo((prevValue) => ({...prevValue, password: e.target.value}))}
                   variant={"outlined"}
                   className={"innput"}
                   label={"Mot de passe"}
@@ -99,6 +123,8 @@ const Signin = ({ changePage }) => {
                 <TextField
                   sx={{ width: "48%", marginBottom: "2rem" }}
                   type={"password"}
+                  value={userInfo.confirmPassword}
+                  onChange={(e) => setUserInfo((prevValue) => ({...prevValue, confirmPassword: e.target.value}))}
                   variant={"outlined"}
                   className={"innput"}
                   label={"Confirmer le mot de passe"}
@@ -110,6 +136,8 @@ const Signin = ({ changePage }) => {
                 <TextField
                   sx={{ width: "100%", marginBottom: "2rem"}}
                   type={"password"}
+                  value={userInfo.password}
+                  onChange={(e) => setUserInfo((prevValue) => ({...prevValue, password: e.target.value}))}
                   variant={"outlined"}
                   className={"innput"}
                   label={"Mot de passe"}
@@ -119,6 +147,8 @@ const Signin = ({ changePage }) => {
                 <TextField
                   sx={{ width: "100%", marginBottom: "2rem" }}
                   type={"password"}
+                  value={userInfo.confirmPassword}
+                  onChange={(e) => setUserInfo((prevValue) => ({...prevValue, confirmPassword: e.target.value}))}
                   variant={"outlined"}
                   className={"innput"}
                   label={"Confirmer le mot de passe"}
@@ -127,7 +157,7 @@ const Signin = ({ changePage }) => {
             </>
             }
             <div className={styles.button}>
-              <Button variant={"contained"} color={"primary"}>
+              <Button variant={"contained"} color={"primary"} onClick={handleSubmit}>
                 S'inscrire
               </Button>
             </div>

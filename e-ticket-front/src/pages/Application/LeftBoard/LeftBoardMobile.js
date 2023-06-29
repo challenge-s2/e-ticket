@@ -4,6 +4,7 @@ import ItemCommandLeftBoard from "./ItemCommandLeftBoard/ItemCommandLeftBoard";
 import ItemProductLeftBoard from "./ItemProductLeftBoard/ItemProductLeftBoard";
 import ItemSettingsLeftBoard from "./ItemSettingsLeftBoard/ItemSettingsLeftBoard";
 import Drawer from "@mui/material/Drawer";
+import { Button } from "@mui/material";
 
 const LeftBoardMobile = ({ open, setOpen }) => {
   return (
@@ -12,6 +13,11 @@ const LeftBoardMobile = ({ open, setOpen }) => {
         <ItemCommandLeftBoard opened={true} />
         <ItemProductLeftBoard />
         <ItemSettingsLeftBoard />
+        <div className={styles.logout_button} style={{ display: "flex" }}>
+          <Button variant="contained" color="error" sx={{ margin: "0 auto" }}>
+            Déconnexion
+          </Button>
+        </div>
       </Drawer>
     </div>
   );

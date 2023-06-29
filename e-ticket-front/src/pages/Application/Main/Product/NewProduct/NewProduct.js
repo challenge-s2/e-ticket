@@ -24,15 +24,15 @@ const NewProduct = () => {
       <div className={styles.container}>
 
         <div className={styles.product_name}>
-          <TextField label="Nom du produit" value={name} onChange={(e) => setName(e.target.value)} variant="outlined" sx={{width: '75%'}}/>
+          <TextField label="Nom du produit" value={name} onChange={(e) => setName(e.target.value)} variant="outlined" sx={{width: '100%'}}/>
         </div>
 
         <div className={styles.product_price}>
-          <TextField label="Prix du produit" value={price} onChange={(e) => setPrice(e.target.value)} variant="outlined" sx={{width: '75%'}}/>
+          <TextField label="Prix du produit" value={price} onChange={(e) => setPrice(e.target.value)} variant="outlined" sx={{width: '100%'}}/>
         </div>
 
         <div className={styles.button_submit}>
-          <Button variant="contained" color='primary' onClick={handleSumbit} sx={{width: '75%'}}>Ajouter</Button>
+          <Button variant="contained" color='primary' onClick={handleSumbit} sx={{width: '100%'}}>Ajouter</Button>
         </div>
 
 

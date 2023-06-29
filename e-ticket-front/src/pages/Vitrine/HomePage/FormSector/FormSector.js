@@ -66,26 +66,7 @@ const FormSector = () => {
           
           <div className={styles.container_form}>
 
-            <div className={styles.name}>
-              <TextField
-                  sx={{width: '48%', marginBottom: '2rem', marginRight: '4%'}}
-                  type={"text"}
-                  variant={"outlined"}
-                  className={"innput"}
-                  label={"Prénom"}
-                  placeholder={"John"}
-                />
-                <TextField
-                  sx={{width: '48%', marginBottom: '2rem'}}
-                  type={"text"}
-                  variant={"outlined"}
-                  className={"innput"}
-                  label={"Nom"}
-                  placeholder={"Doe"}
-                />
-            </div>
-
-            <div className={styles.activity_sector}>
+          <div className={styles.activity_sector}>
               <FormControl sx={{ m: 1, width: '100%' , margin: "0"}} size="small">
                 <InputLabel id="demo-simple-select-helper-label">Activité</InputLabel>
                 <Select
@@ -101,14 +82,52 @@ const FormSector = () => {
               </FormControl>
             </div>
 
-            <div className={styles.email}>
+            <div className={styles.one}>
               <TextField
                 sx={{ width: '100%', marginBottom: '2rem' }}
+                  type={"text"}
+                  variant={"outlined"}
+                  label={"Information sur vous"}
+                  placeholder={"M. DUPOND Bernard"}
+                />  
+            </div>
+
+            <div className={styles.one}>
+              <TextField
+                sx={{ width: '100%', marginBottom: '2rem' }}
+                  type={"text"}
+                  variant={"outlined"}
+                  label={"Votre poste"}
+                  placeholder={"CEO de l'entreprise"}
+                />  
+            </div>
+
+            <div className={styles.two}>
+              <TextField
+                  sx={{width: '48%', marginBottom: '2rem', marginRight: '4%'}}
                   type={"mail"}
                   variant={"outlined"}
-                  className={"innput"}
                   label={"Adresse mail"}
-                  placeholder={"john.doe@gmail.com"}
+                  placeholder={"exemple@gmail.com"}
+                />
+                <TextField
+                  sx={{width: '48%', marginBottom: '2rem'}}
+                  type={"text"}
+                  variant={"outlined"}
+                  label={"Numéro de téléphone"}
+                  placeholder={"01 23 45 67 89"}
+                />
+            </div>
+
+            <div className={styles.one}>
+              <TextField
+                sx={{ width: '100%', marginBottom: '2rem' }}
+                  type={"text"}
+                  multiline
+                  maxRows={4}
+                  rows={2}
+                  variant={"outlined"}
+                  label={"Le contenue de votre demande"}
                 />  
             </div>
 
