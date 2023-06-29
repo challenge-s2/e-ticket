@@ -1,13 +1,33 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Login.module.scss";
 import { Button, TextField } from "@mui/material";
+import axios from "axios";
 
 const Login = ({ changePage }) => {
   const [windowSize, setWindowSize] = useState(window.screen.width);
+  const [userInfo, setUserInfo] = useState({
+    email: '',
+    password: ''
+  })
 
   useEffect(() => {
     window.addEventListener("resize", () => setWindowSize(window.screen.width));
   }, []);
+
+  const handleSubmit = () => {
+    console.log(userInfo)
+
+    axios.post('/auth/loginlogin', userInfo).then((res) => {
+        //redirect to app
+      })
+      .catch((err) => {
+        try {
+          setWarning(err.response.data.message);
+        } catch {
+          setWarning("Il semble que le serveur soit offline");
+        }
+      });
+  }
 
 
   return (
@@ -19,6 +39,8 @@ const Login = ({ changePage }) => {
             <div className={styles.mail}>
               <TextField
                 type={"text"}
+                value={userInfo.email}
+                onChange={(e) => setUserInfo((prevValue) => ({...prevValue, email: e.target.value}))}
                 variant={"outlined"}
                 className={"innput"}
                 label={"Adresse mail"}
@@ -28,13 +50,15 @@ const Login = ({ changePage }) => {
             <div className={styles.password}>
               <TextField
                 type={"password"}
+                value={userInfo.password}
+                onChange={(e) => setUserInfo((prevValue) => ({...prevValue, password: e.target.value}))}
                 variant={"outlined"}
                 className={"innput"}
                 label={"Mot de passe"}
               />
             </div>
             <div className={styles.submit}>
-              <Button variant={"contained"} color={"success"}>
+              <Button variant={"contained"} color={"success"} onClick={handleSubmit}>
                 Connexion
               </Button>
             </div>

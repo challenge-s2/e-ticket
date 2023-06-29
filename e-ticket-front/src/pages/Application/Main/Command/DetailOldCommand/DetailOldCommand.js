@@ -73,17 +73,22 @@ const products = [
 
 const DetailOldCommand = () => {
   const { id } = useParams();
+  /* const command = await axios.get(`localhost:3000/command/${id}`) */
+  /* const allProductsRaw = await axios.get('localhost:3000/products/') */
+  /* const productsOfCommand = command.products */
 
   const [listOfProducts, setListOfProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
     setListOfProducts(products);
+    // setListOfProducts(productsOfCommand);
   }, []);
 
   useEffect(() => {
     let price = 0;
     listOfProducts.map((item) => (price = price + item.price));
+    // listOfProducts.map((item) => (price = price + allProductsRaw.filter((prod) => prod._id === item).price));
     setTotalPrice(price);
   }, [listOfProducts]);
 
@@ -91,7 +96,7 @@ const DetailOldCommand = () => {
     <>
       <div className={styles.container}>
         <h1>
-          Commande n°{id}, fait le -- --{/*TODO date de la commande*/}
+          Commande n°{id}, fait le -- --{/*command.date*/}
         </h1>
         <div className={styles.top}>
           <div className={styles.list_container}>

@@ -7,6 +7,7 @@ import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
+import axios from "axios"
 
 const contentCompanyType = [
   {
@@ -49,26 +50,39 @@ const contentCompanyType = [
 const NewCompany = () => {
 
   const [companyInfo, setCompanyInfo] = useState({
-    name: '',
-    description: '',
-    companyType: '',
-    mail: '',
-    phone: ''
+    name: 'loikj',
+    description: 'lkj',
+    companyType: 'Autre',
+    mail: 'test@dior.com',
+    //phone: 'ipo',
+    password: 'root'
 
   });
 
-  const handleSumbit = () => {
+  const handleSumbit = async () => {
     if(
       companyInfo.name !== '' && 
       companyInfo.description !== '' && 
       companyInfo.companyType !== '' && 
       companyInfo.mail !== '' && 
-      companyInfo.phone !== ''
+      //companyInfo.phone !== '' &&
+      companyInfo.password !== ''
     ){
       console.log(companyInfo); /* TODO Enregistrer dans la BDD */
+      await axios.post(`/users/`, {
+        email: companyInfo.mail,
+        password: companyInfo.password
+      }).then((res) => 
+        axios.post('/company', {
+          name: companyInfo.name,
+          description: companyInfo.description,
+          type: companyInfo.companyType,
+          userId: res.message._id
+        }).then(() => console.log("created"))
+      )
 
       /* Après */
-      <Navigate to="/admin/company/list"/>
+      //return <Navigate to="/admin/company/list"/>
     }
   }
 
@@ -107,11 +121,15 @@ const NewCompany = () => {
         </div>
 
         <div className={styles.input}>
-          <TextField label="Mail de l'entreprise" value={companyInfo.mail} onChange={(e) => setCompanyInfo((prevValue) => ({...prevValue, mail: e.target.value}) )} variant="outlined" sx={{width: '100%'}}/>
+          <TextField label="Mail de l'entreprise" type="email" value={companyInfo.mail} onChange={(e) => setCompanyInfo((prevValue) => ({...prevValue, mail: e.target.value}) )} variant="outlined" sx={{width: '100%'}}/>
         </div>
 
-        <div className={styles.input}>
+        {/*<div className={styles.input}>
           <TextField label="Numéro de téléphone de l'entreprise" value={companyInfo.phone} onChange={(e) => setCompanyInfo((prevValue) => ({...prevValue, phone: e.target.value}) )} variant="outlined" sx={{width: '100%'}}/>
+        </div>*/}
+
+        <div className={styles.input}>
+          <TextField label="Mot de passe du compte" type="password" value={companyInfo.password} onChange={(e) => setCompanyInfo((prevValue) => ({...prevValue, password: e.target.value}) )} variant="outlined" sx={{width: '100%'}}/>
         </div>
 
         <div className={styles.button_submit}>

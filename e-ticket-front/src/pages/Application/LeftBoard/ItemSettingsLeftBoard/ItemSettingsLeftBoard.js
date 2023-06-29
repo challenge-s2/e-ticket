@@ -16,7 +16,6 @@ import { Link, useLocation } from "react-router-dom";
 const ItemSettingsLeftBoard = () => {
   const [openContactSupport, setOpenContactSupport] = useState(false);
   const [typeOfReport, setTypeOfReport] = useState(null);
-  const [report, setReport] = useState("");
 
   return (
     <div className={styles.container}>
@@ -73,8 +72,6 @@ const ItemSettingsLeftBoard = () => {
         handleClose={() => setOpenContactSupport(false)}
         typeOfReport={typeOfReport}
         setTypeOfReport={setTypeOfReport}
-        report={report}
-        setReport={setReport}
       />
     </div>
   );

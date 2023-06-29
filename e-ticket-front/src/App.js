@@ -1,6 +1,8 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
+import axios from "axios";
+
 import ShowCase from "./pages/Vitrine/ShowCase";
 import Auth from "./pages/Auth/Auth";
 import Application from "./pages/Application/Application";
@@ -22,6 +24,9 @@ import ListingCompany from "./pages/Admin/Main/Company/ListingCompany/ListingCom
 import NewCompany from "./pages/Admin/Main/Company/NewCompany/NewCompany"
 import DetailCompany from "./pages/Admin/Main/Company/DetailCompany/DetailCompany"
 import CompanyNotFound from "./pages/Admin/Error/404/CompanyNotFound";
+
+axios.defaults.baseURL = 'http://localhost:3003'
+axios.defaults.withCredentials = true;
 
 const App = () => {
   return (

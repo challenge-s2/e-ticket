@@ -65,6 +65,8 @@ const products = [
   },
 ];
 
+/* const productsRaw = await axios.get('localhost:3000/products/') */
+
 const NewCommand = () => {
   const [product, setProduct] = useState();
   const [listOfProducts, setListOfProducts] = useState([]);
@@ -79,6 +81,7 @@ const NewCommand = () => {
       productInArray++
     ) {
       total = total + products.filter((ele) => ele.id === listOfProducts[productInArray])[0].price;
+      // total = total + productsRaw.filter((ele) => ele.id === listOfProducts[productInArray])[0].price;
     }
     setTotalPrice(total);
   }, [listOfProducts]);
@@ -108,11 +111,16 @@ const NewCommand = () => {
     );
   };
 
-  const propsInput = {
-    options: products,
-    getOptionLabel: (option) => option.name,
-    getOptionValue: (option) => option.id,
-  };
+
+  const handleSubmit = () => {
+    console.log(listOfProducts)
+    console.log(totalPrice)
+
+    /* axios.post('localhost:3000/command', {
+      listOfProducts: listOfProducts,
+      totalPrice: totalPrice
+    }) */
+  }
 
   return (
     <>
@@ -131,6 +139,12 @@ const NewCommand = () => {
                 onChange={handleChange}
                 sx={{ textAlign: "left" }}
               >
+                {/*{productsRaw.map((item, index) => (
+                  <MenuItem value={item.id} key={index}>
+                    {item.name}
+                  </MenuItem>
+                ))}*/}
+
                 {products.map((item, index) => (
                   <MenuItem value={item.id} key={index}>
                     {item.name}
@@ -138,16 +152,6 @@ const NewCommand = () => {
                 ))}
               </Select>
             </FormControl>
-
-            {/* <Autocomplete
-              {...propsInput}
-              value={product}
-              onChange={handleChange}
-              id="controllable-input"
-              options={products}
-              sx={{ width: '100%' }}
-              renderInput={(params) => <TextField {...params} label="Nouveau produit" />}
-            /> */}
 
             <Button
               variant="contained"

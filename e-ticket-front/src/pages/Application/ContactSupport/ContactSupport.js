@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -26,9 +26,21 @@ const ContactSupport = ({
   handleClose,
   typeOfReport,
   setTypeOfReport,
-  report,
-  setReport,
 }) => {
+
+  const [reportType, setReportType] = useState('')
+  const [descriptionReport, setDescriptionReport] = useState('')
+
+  const handleSubmit = () => {
+    console.log(reportType)
+    console.log(descriptionReport)
+    //handleClose()
+
+    /* axios.post('localhost:3000/contactSupport', {
+      reportType: reportType,
+      descriptionReport: descriptionReport
+    }) */
+  }
 
   return (
     <>
@@ -51,9 +63,9 @@ const ContactSupport = ({
                 <Select
                   labelId="label_form_add_report"
                   id="select_form_add_report"
-                  value={typeOfReport}
+                  value={reportType}
                   label="Type de signalement"
-                  onChange={(e) => setTypeOfReport(e.target.value)}
+                  onChange={(e) => setReportType(e.target.value)}
                   sx={{ textAlign: "left" }}
                 >
                   {lisTypeOfReport.map((item, index) => (
@@ -67,8 +79,8 @@ const ContactSupport = ({
                 id="outlined-multiline-flexible"
                 label="Détaillez votre signalement"
                 multiline
-                value={report}
-                onChange={(e) => setReport(e.target.value)}
+                value={descriptionReport}
+                onChange={(e) => setDescriptionReport(e.target.value)}
                 minRows={2}
                 maxRows={8}
                 sx={{ marginTop: "2vh", width: "100%" }}
@@ -78,7 +90,7 @@ const ContactSupport = ({
         </DialogContent>
         <DialogActions>
           <Button
-            onClick={handleClose}
+            onClick={handleSubmit}
             color="error"
             variant="contained"
             autoFocus
