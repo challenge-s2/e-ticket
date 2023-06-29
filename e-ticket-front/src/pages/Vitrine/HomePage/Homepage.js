@@ -7,6 +7,7 @@ import Questions from "./Questions/Questions";
 import FormSector from "./FormSector/FormSector";
 import Typography from "@mui/material/Typography";
 import FirstItem from "./FirstItem/FirstItem";
+import InstallPWA from "../../../components/InstallPWA";
 
 const Homepage = () => {
   return (
@@ -39,6 +40,9 @@ const Homepage = () => {
           />
         </div>
         <FormSector />
+      </div>
+      <div>
+        <InstallPWA />
       </div>
     </>
   );
