@@ -6,6 +6,8 @@ import laruche from "../../../../utils/assets/logo-laruche.svg"
 import sista from "../../../../utils/assets/logo-sista.svg"
 import stationf from "../../../../utils/assets/logo-bpi.svg"
 import wilco from "../../../../utils/assets/logo-wilco.svg"
+import { LazyLoadImage } from "react-lazy-load-image-component";
+
 
 const content = [
   {
@@ -65,21 +67,30 @@ const Contributors = () => {
         <div className={styles.itemsF}>
           {content.map((item) => (
             <div className={styles.item} key={item.key}>
-              <img loading="lazy" src={item.img} alt={item.alt}/>
+              <LazyLoadImage
+                src={item.img} 
+                alt={item.alt}
+              />
             </div>
           ))}
         </div>
         <div className={styles.itemsS}>
           {content.map((item) => (
             <div className={styles.item} key={item.key}>
-              <img loading="lazy" src={item.img} alt={item.alt}/>
+              <LazyLoadImage
+                src={item.img} 
+                alt={item.alt}
+              />
             </div>
           ))}
         </div>
         <div className={styles.itemsT}>
           {content.map((item) => (
             <div className={styles.item} key={item.key}>
-              <img loading="lazy" src={item.img} alt={item.alt}/>
+              <LazyLoadImage
+                src={item.img} 
+                alt={item.alt}
+              />
             </div>
           ))}
         </div>
