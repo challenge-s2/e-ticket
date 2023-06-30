@@ -6,6 +6,7 @@ import eCigaretteImg from "../../../../utils/assets/eCigarette.jpg";
 import fastfoodImg from "../../../../utils/assets/Fastfood_V0.1.jpg";
 import beatuySalonImg from "../../../../utils/assets/Salon-beaute.jpg";
 import otherImg from "../../../../utils/assets/Autres_V0.1.jpg";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const content = [
   {
@@ -63,9 +64,7 @@ const ActivitySector = () => {
           {content.map((item, index) => (
             <div className="item-csa" key={index}>
               <a href="#form">
-
-                <img 
-                  loading="lazy"
+                <LazyLoadImage
                   src={item.img}
                   alt={item.alt}
                 />
