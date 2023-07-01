@@ -10,7 +10,6 @@ export class CompanyController {
 
   @MessagePattern('createCompany')
   create(@Payload() createCompanyDto: CreateCompanyDto) {
-    console.log(createCompanyDto)
     return this.companyService.create(createCompanyDto);
   }
 
@@ -20,7 +19,7 @@ export class CompanyController {
   }
 
   @MessagePattern('findOneCompany')
-  findOne(@Payload() id: number) {
+  findOne(@Payload() id: string) {
     return this.companyService.findOne(id);
   }
 
