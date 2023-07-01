@@ -26,4 +26,10 @@ export class CompanyService {
       .send('findOneCompany', id)
       .pipe(map((message: string) => ({ message })));
   }
+
+  async findCompanyByUserId(userId: string) {
+    return this.companyClient
+      .send('findCompanyByUserId', userId)
+      .pipe(map((message: string) => ({ message })));
+  }
 }

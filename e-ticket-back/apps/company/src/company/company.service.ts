@@ -21,6 +21,10 @@ export class CompanyService {
     return this.companyRepository.findOne({ _id: id });
   }
 
+  findCompanyByUserId(userId: string) {
+    return this.companyRepository.findOne({ userId: userId });
+  }
+
   update(id: number, updateCompanyDto: UpdateCompanyDto) {
     return `This action updates a #${id} company`;
   }

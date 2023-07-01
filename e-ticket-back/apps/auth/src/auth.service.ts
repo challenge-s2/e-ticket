@@ -35,7 +35,11 @@ export class AuthService {
       expires.getSeconds() + this.configService.get('JWT_EXPIRATION'),
     );
 
-    return this.jwtService.sign(tokenPayload);
+    const jwt = this.jwtService.sign(tokenPayload);
+    return {
+      user: userInDb,
+      jwt: jwt,
+    };
   }
   getHello(): string {
     return 'Hello World!';

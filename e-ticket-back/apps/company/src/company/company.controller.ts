@@ -23,6 +23,11 @@ export class CompanyController {
     return this.companyService.findOne(id);
   }
 
+  @MessagePattern('findCompanyByUserId')
+  findCompanyByUserId(@Payload() userId: string) {
+    return this.companyService.findCompanyByUserId(userId);
+  }
+
   @MessagePattern('updateCompany')
   update(@Payload() updateCompanyDto: UpdateCompanyDto) {
     return this.companyService.update(updateCompanyDto.id, updateCompanyDto);

@@ -19,4 +19,9 @@ export class CompanyController {
   async findCompanyById(@Param('id') id: string) {
     return this.companyService.findCompanyById(id);
   }
+
+  @Get('/user/:userId')
+  async findCompanyByUserId(@Param('userId') userId: string) {
+    return this.companyService.findCompanyByUserId(userId);
+  }
 }
