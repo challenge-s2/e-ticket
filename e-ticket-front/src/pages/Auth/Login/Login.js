@@ -17,7 +17,7 @@ const Login = ({ changePage }) => {
   const handleSubmit = () => {
     console.log(userInfo)
 
-    axios.post('/auth/loginlogin', userInfo).then((res) => {
+    axios.post('/auth/login', userInfo).then((res) => {
         //redirect to app
       })
       .catch((err) => {
