@@ -7,8 +7,10 @@ import { UsersController } from './users/users.controller';
 import { UsersService } from './users/users.service';
 import { UsersRepository } from './users/users.repository';
 import { UsersModule } from './users/users.module';
-import {CompanyController} from "./company/company.controller";
-import {CompanyService} from "./company/company.service";
+import { CompanyController } from './company/company.controller';
+import { CompanyService } from './company/company.service';
+import { ProductsController } from './products/products.controller';
+import { ProductsService } from './products/products.service';
 
 @Module({
   imports: [
@@ -29,9 +31,22 @@ import {CompanyService} from "./company/company.service";
           port: 3004,
         },
       },
+      {
+        name: 'PRODUCTS_SERVICE',
+        transport: Transport.TCP,
+        options: {
+          host: 'products',
+          port: 3005,
+        },
+      },
     ]),
   ],
-  controllers: [AuthController, UsersController, CompanyController],
-  providers: [AuthService, UsersService, CompanyService],
+  controllers: [
+    AuthController,
+    UsersController,
+    CompanyController,
+    ProductsController,
+  ],
+  providers: [AuthService, UsersService, CompanyService, ProductsService],
 })
 export class GatewayModule {}
