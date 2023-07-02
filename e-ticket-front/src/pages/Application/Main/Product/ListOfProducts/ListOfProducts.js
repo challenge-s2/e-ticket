@@ -38,7 +38,7 @@ const ListOfProducts = () => {
     };
 
     const deleteProduit = async (item) => {
-      await axios.delete(`/product/${item._id}`)
+      await axios.delete(`/products/${item._id}`)
       .then(() => 
         toast.success('Produit supprimé !', {
           position: "bottom-left",

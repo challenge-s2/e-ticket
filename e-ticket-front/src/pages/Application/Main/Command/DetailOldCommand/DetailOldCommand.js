@@ -80,10 +80,13 @@ const DetailOldCommand = () => {
 
   const [listOfProducts, setListOfProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-
+  
   const fetchData = async () => {
     await axios.get('/ticket/'+id)
-     .then((res) => console.log(res.data.message))
+      .then((res) => {
+        //setListOfProducts(res.data.message.listProducts)
+        console.log(res)
+      })
   }
 
   useEffect(() => {

@@ -58,7 +58,7 @@ const ListOldCommand = () => {
       <>
         <div className={styles.container}>
           <div className={styles.container_commlist}>
-            <h2>Liste des anciènnes commandes:</h2>
+            <h2>Liste des entreprises:</h2>
             <div className={styles.container_grid}>
               <table>
                 <thead>

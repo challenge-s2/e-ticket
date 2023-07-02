@@ -17,6 +17,11 @@ export class TicketController {
     return this.ticketService.getAll();
   }
 
+  @MessagePattern('getOneTicket')
+  getOne(@Payload() id: string) {
+    return this.ticketService.getOne(id);
+  }
+
   @MessagePattern('getAllTicketsByCompanyId')
   getAllByCompanyId(@Payload() companyId: string) {
     return this.ticketService.getAllByCompanyId(companyId);

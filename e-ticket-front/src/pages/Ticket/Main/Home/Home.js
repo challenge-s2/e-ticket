@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Home.module.scss";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 
@@ -7,6 +7,7 @@ import ParkRoundedIcon from "@mui/icons-material/ParkRounded";
 import CloudRoundedIcon from "@mui/icons-material/CloudRounded";
 import TicketItem from "./TicketItem/TicketItem";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const content = [
   {
@@ -31,13 +32,30 @@ const content = [
 ]
 
 const Home = () => {
+  const [users, setUsers] = useState([])
+  const [tickets, setTickets] = useState([])
+
+  const fetchUsers = async () => {
+    await axios.get('/company/')
+     .then((res) => setUsers(res.data.message))
+  }
+
+  const fetchTickets = async () => {
+    await axios.get('/ticket/')
+     .then((res) => setTickets(res.data.message))
+  }
+
+  useEffect(() => {
+    fetchUsers();
+    fetchTickets();
+  }, [])
   return (
     <>
       <div className={styles.container}>
         <div className={styles.item_home}>
           <h3>Mes tickets</h3>
           {content.map((item, index) => (
-            <TicketItem key={index} name={item.name} place={item.place} date={item.date} id={item.id}/>
+            <TicketItem key={index} name={users.filter((u) => u._id === item.companyId).name} place={item.place} date={item.date} id={item.id}/>
           ))}
 
           <div className={styles.ticket}>

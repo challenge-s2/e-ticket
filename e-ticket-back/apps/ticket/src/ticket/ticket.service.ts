@@ -16,6 +16,10 @@ export class TicketService {
     return this.ticketRepository.findAll({});
   }
 
+  async getOne(id: string) {
+    return this.ticketRepository.findOne({ _id: id });
+  }
+
   async getAllByCompanyId(companyId: string) {
     return this.ticketRepository.findAll({ companyId });
   }

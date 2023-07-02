@@ -1,73 +1,67 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+## Lancement du projet
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+<code>docker compose up</code>
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Application
 
-## Description
+Il s'agit d'une application permettant de générer des tickets de caisse directement sur internet. Le client peut accéder à son ticket en scannant un qrCode
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Routes
 
-## Installation
+#### AUTH
 
-```bash
-$ pnpm install
-```
+POST "/login/"
 
-## Running the app
+#### USER
 
-```bash
-# development
-$ pnpm run start
+POST "/users/"
 
-# watch mode
-$ pnpm run start:dev
+GET "/users/"
 
-# production mode
-$ pnpm run start:prod
-```
+GET "/users/:id"
 
-## Test
+#### COMPANY
 
-```bash
-# unit tests
-$ pnpm run test
+POST "/company/"
 
-# e2e tests
-$ pnpm run test:e2e
+GET "/company/" => Get all companies
 
-# test coverage
-$ pnpm run test:cov
-```
+GET "/company/:id" => Get one company by ID
 
-## Support
+GET "/company/user/:userId" => Get company associated with one user
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+PATCH "/company/:id" => Edit company
 
-## Stay in touch
+DELETE "/company/:id" => Delete company
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+#### PRODUCTS
 
-## License
+POST "/products"
 
-Nest is [MIT licensed](LICENSE).
+GET "/products" => Get all products
+
+GET "/products/:id" => Get product by ID
+
+GET "/products/company/:companyId" => Get all products for a company
+
+DELETE "/products/:id" => Delete a company
+
+#### TICKET
+
+POST "/ticket/"
+
+GET "/ticket/" => Get all tickets
+
+GET "/ticket/company/:companyId" => Get all tickets for a company
+
+GET "/ticket/:companyId" => Get the last ticket for a company
+
+DELETE "/ticket/:id" => Delete a ticket
+
+## Précisions
+
+- L'application est développée en micro-services
+- L'authentification est fonctionnelle
+- Les guards ont étés développés, mais ne fonctionnent pas (impossible de savoir pourquoi)
+- Un front est disponible à l'adresse localhost:3010
+- Une gestion des rôles a été intégrée, avec un décorateur @Roles(), mais étant donné que les guards ne fonctionnent pas, la vérification de role non plus.

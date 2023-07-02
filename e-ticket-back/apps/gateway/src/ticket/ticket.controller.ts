@@ -16,6 +16,11 @@ export class TicketController {
     return this.ticketService.getAll();
   }
 
+  @Get(':id')
+  async getOne(@Param('id') id: string) {
+    return this.ticketService.getOne(id);
+  }
+
   @Get('company/:companyId')
   async getAllByCompanyId(@Param('companyId') companyId: string) {
     return this.ticketService.getAllByCompanyId(companyId);

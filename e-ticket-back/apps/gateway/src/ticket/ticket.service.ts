@@ -21,6 +21,12 @@ export class TicketService {
       .pipe(map((message: string) => ({ message })));
   }
 
+  async getOne(id: string) {
+    return this.ticketClient
+      .send('getOneTicket', id)
+      .pipe(map((message: string) => ({ message })));
+  }
+
   async getAllByCompanyId(companyId: string) {
     return this.ticketClient
       .send('getAllTicketsByCompanyId', companyId)
