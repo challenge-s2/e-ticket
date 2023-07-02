@@ -1,0 +1,71 @@
+div.container {
+  // background-color: blue;
+  z-index: 10;
+
+  &[data-align="center"] {
+    text-align: center;
+  }
+  &[data-align="left"] {
+    text-align: left;
+  }
+
+  @media (max-width: 900px) {
+    &[data-step="first"] {
+      padding: 0 2vw 5vh 2vw;
+      margin-top: -45px;
+    }
+    &[data-step="second"] {
+      padding: 5vh 2vw;
+    }
+  }
+
+  @media (min-width: 900px) {
+    &[data-step="first"] {
+      padding: 0 5vw 5vh 5vw;
+      margin-top: -45px;
+    }
+    &[data-step="second"] {
+      padding: 5vh 5vw;
+    }
+  }
+
+  @media (min-width: 900px) {
+    &[data-step="first"] {
+      padding: 0 10vw 5vh 10vw;
+      margin-top: -45px;
+    }
+    &[data-step="second"] {
+      padding: 5vh 10vw;
+    }
+  }
+
+  @media (min-width: 1100px) {
+    &[data-step="first"] {
+      padding: 0 15vw 5vh 15vw;
+      margin-top: -45px;
+    }
+    &[data-step="second"] {
+      padding: 5vh 15vw;
+    }
+  }
+
+  @media (min-width: 1300px) {
+    &[data-step="first"] {
+      padding: 0 20vw 5vh 20vw;
+      margin-top: -45px;
+    }
+    &[data-step="second"] {
+      padding: 5vh 20vw;
+    }
+  }
+
+  @media (min-width: 1500px) {
+    &[data-step="first"] {
+      padding: 0 25vw 5vh 25vw;
+      margin-top: -45px;
+    }
+    &[data-step="second"] {
+      padding: 5vh 25vw;
+    }
+  }
+}

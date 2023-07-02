@@ -11,47 +11,62 @@ services:
     ports:
       - "3010:3000"
 
-  api-gateway:
-    user: node
+  auth:
     build:
-      context: api-gateway
-      dockerfile: Dockerfile
-    tty: true
-    stdin_open: true
+      context: ./e-ticket-back
+      dockerfile: ./apps/auth/Dockerfile
+      target: development
+    command: pnpm run start:dev auth
+    env_file:
+      - ./e-ticket-back/apps/auth/.env
     ports:
-      - "3000:3000"
+      - "3001:3001"
     volumes:
-      - ./api-gateway:/home/node
-    command: sh -c "npm install && npm run start:dev"
+      - ./e-ticket-back:/usr/src/app
 
-  auth-service:
-    user: node
+  gateway:
     build:
-      context: auth-service
-      dockerfile: Dockerfile
-    tty: true
-    stdin_open: true
-    volumes:
-      - ./auth-service:/home/node
-    command: sh -c "npm install && npm run start:dev"
-
-  users-service:
-    user: node
-    build:
-      context: users-service
-      dockerfile: Dockerfile
-    tty: true
-    stdin_open: true
-    volumes:
-      - ./users-service:/home/node
-    command: sh -c "npm install && npm run start:dev"
-
-  users-mysql:
-    image: mysql:8.0.33
-    environment:
-      MYSQL_DATABASE: user
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-      MYSQL_ROOT_PASSWORD: rootpassword
+      context: ./e-ticket-back
+      dockerfile: ./apps/gateway/Dockerfile
+      target: development
+    command: pnpm run start:dev gateway
     ports:
-      - "3306:3306"
+      - "3003:3003"
+    volumes:
+      - ./e-ticket-back:/usr/src/app
+
+  company:
+    build:
+      context: ./e-ticket-back
+      dockerfile: ./apps/company/Dockerfile
+      target: development
+    command: pnpm run start:dev company
+    ports:
+      - "3004:3004"
+    volumes:
+      - ./e-ticket-back:/usr/src/app
+
+  products:
+    build:
+      context: ./e-ticket-back
+      dockerfile: ./apps/products/Dockerfile
+      target: development
+    command: pnpm run start:dev products
+    ports:
+      - "3005:3005"
+    volumes:
+      - ./e-ticket-back:/usr/src/app
+
+  ticket:
+    build:
+      context: ./e-ticket-back
+      dockerfile: ./apps/ticket/Dockerfile
+      target: development
+    command: pnpm run start:dev ticket
+    ports:
+      - "3006:3006"
+    volumes:
+      - ./e-ticket-back:/usr/src/app
+
+  mongo:
+    image: mongo

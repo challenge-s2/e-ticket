@@ -1,0 +1,75 @@
+nav.container {
+  width: 100vw;
+  position: fixed;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, .1), 0 4px 6px -4px rgba(0, 0, 0, .1);
+  z-index: 10;
+
+  div.wrapper {
+
+    margin: auto;
+    display: flex;
+
+    div.left {
+      flex: 1;
+      margin: auto 0;
+      font-weight: bold;
+      font-size: x-large;
+      cursor: pointer;
+    }
+
+    div.middle {
+      flex: 5;
+      margin: auto 0;
+
+      div {
+        cursor: pointer;
+      }
+    }
+
+    div.right {
+      flex: 1;
+
+      div.rigth_button_container {
+        margin: 1vh 0;
+
+        // a#login_button {
+        //   cursor: pointer;
+        //   padding-top: 1%;
+        //   width: 50%;
+        // }
+      }
+    }
+  }
+
+  @media (max-width: 900px) {
+    div.wrapper {
+      width: 90%;
+    }
+  }
+  
+  @media (min-width: 900px) {
+    div.wrapper {
+      width: 80%;
+    }
+  }
+  
+  @media (min-width: 900px) {
+    div.wrapper {
+      width: 70%;
+    }
+  }
+  
+  @media (min-width: 1100px) {
+    div.wrapper {
+      width: 60%;
+    }
+  }
+  
+  @media (min-width: 1300px) {
+    div.wrapper {
+      width: 50%;
+    }
+  }
+
+}

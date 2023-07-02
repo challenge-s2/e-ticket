@@ -1,0 +1,144 @@
+div.container {
+  margin: auto;
+  height: 100vh;
+  display: flex;
+
+  @media (max-width: 1200px) {
+      div.right {
+        width: 100vw;
+        margin: auto;
+
+        div.wrapper {
+          margin: 0 auto;
+          div.name {
+            display: flex;
+            justify-content: space-between;
+            input {
+              width: 100%;
+            }
+          }
+
+          div.email {
+            display: flex;
+            input {
+              width: 100%;
+            }
+          }
+
+          div.passwrd {
+            display: flex;
+            justify-content: space-between;
+
+            input {
+              width: 100%;
+            }
+          }
+
+          div.button {
+            button {
+              margin: 1rem auto 0 auto;
+            }
+          }
+
+          div.change_to_login {
+            margin-top: 2vh;
+            font-size: small;
+            cursor: pointer;
+            text-decoration: underline;
+          }
+        }
+
+        @media (max-width: 600px) {
+          div.wrapper{
+            width: 90vw;
+          }
+        }
+        @media (min-width: 600px) {
+          div.wrapper{
+            width: 80vw;
+          }
+        }
+        @media (min-width: 800px) {
+          div.wrapper{
+            width: 70vw;
+          }
+        }
+        @media (min-width: 1000px) {
+          div.wrapper{
+            width: 50vw;
+          }
+        }
+      }
+  }
+
+  @media (min-width: 1200px) {
+      div.left {
+        width: 40vw;
+        margin: auto;
+        > div {
+          margin: 0 auto;
+          width: 30%;
+          img {
+            width: 250px;
+          }
+        }
+      }
+      div.middle {
+        width: 2px;
+        background-color: #000000;
+        margin: 35vh 0;
+      }
+    
+      div.right {
+        width: 60vw;
+        margin: auto;
+    
+        div.wrapper {
+          width: 60%;
+          margin: 0 auto;
+          div.name {
+            display: flex;
+            justify-content: space-between;
+            // width: 60%;
+            // margin: 0 auto;
+            input {
+              width: 100%;
+            }
+          }
+    
+          div.email {
+            display: flex;
+            input {
+              // width: 60%;
+              width: 100%;
+            }
+          }
+    
+          div.passwrd {
+            display: flex;
+            justify-content: space-between;
+            // width: 60%;
+            // margin: 0 auto;
+    
+            input {
+              width: 100%;
+            }
+          }
+    
+          div.button {
+            button {
+              margin: 1rem auto 0 auto;
+            }
+          }
+    
+          div.change_to_login {
+            margin-top: 2vh;
+            font-size: small;
+            cursor: pointer;
+            text-decoration: underline;
+          }
+        }
+      }
+  }
+
+}
