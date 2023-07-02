@@ -40,6 +40,14 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
     return this.model.find(filterQuery, {}, { lean: true });
   }
 
+  async findLast(filterQuery: FilterQuery<TDocument>) {
+    return this.model.findOne(
+      filterQuery,
+      {},
+      { lean: true, sort: { creationDate: -1 } },
+    );
+  }
+
   async findOneAndDelete(filterQuery: FilterQuery<TDocument>) {
     return this.model.findOneAndDelete(filterQuery, { lean: true });
   }

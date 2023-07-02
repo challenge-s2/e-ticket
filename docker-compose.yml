@@ -57,5 +57,16 @@ services:
     volumes:
       - ./e-ticket-back:/usr/src/app
 
+  ticket:
+    build:
+      context: ./e-ticket-back
+      dockerfile: ./apps/ticket/Dockerfile
+      target: development
+    command: pnpm run start:dev ticket
+    ports:
+      - "3006:3006"
+    volumes:
+      - ./e-ticket-back:/usr/src/app
+
   mongo:
     image: mongo

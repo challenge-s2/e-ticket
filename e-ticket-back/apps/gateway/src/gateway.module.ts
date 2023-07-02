@@ -9,6 +9,8 @@ import { CompanyController } from './company/company.controller';
 import { CompanyService } from './company/company.service';
 import { ProductsController } from './products/products.controller';
 import { ProductsService } from './products/products.service';
+import { TicketController } from './ticket/ticket.controller';
+import { TicketService } from './ticket/ticket.service';
 
 @Module({
   imports: [
@@ -37,6 +39,14 @@ import { ProductsService } from './products/products.service';
           port: 3005,
         },
       },
+      {
+        name: 'TICKET_SERVICE',
+        transport: Transport.TCP,
+        options: {
+          host: 'ticket',
+          port: 3006,
+        },
+      },
     ]),
   ],
   controllers: [
@@ -44,7 +54,14 @@ import { ProductsService } from './products/products.service';
     UsersController,
     CompanyController,
     ProductsController,
+    TicketController,
   ],
-  providers: [AuthService, UsersService, CompanyService, ProductsService],
+  providers: [
+    AuthService,
+    UsersService,
+    CompanyService,
+    ProductsService,
+    TicketService,
+  ],
 })
 export class GatewayModule {}
