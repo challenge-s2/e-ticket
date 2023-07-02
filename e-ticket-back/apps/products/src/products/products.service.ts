@@ -24,4 +24,8 @@ export class ProductsService {
   findOneById(id: string) {
     return this.productsRepository.findOne({ _id: id });
   }
+
+  delete(id: string) {
+    return this.productsRepository.findOneAndDelete({ _id: id });
+  }
 }

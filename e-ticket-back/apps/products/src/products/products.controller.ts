@@ -26,4 +26,9 @@ export class ProductsController {
   async findOneById(@Payload() id: string) {
     return this.productsService.findOneById(id);
   }
+
+  @MessagePattern('deleteProduct')
+  async delete(@Payload() id: string) {
+    return this.productsService.delete(id);
+  }
 }

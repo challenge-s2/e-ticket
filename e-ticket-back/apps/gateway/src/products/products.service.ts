@@ -32,4 +32,10 @@ export class ProductsService {
       .send('findOneProductById', id)
       .pipe(map((message: string) => ({ message })));
   }
+
+  async delete(id: string) {
+    return this.productsClient
+      .send('deleteProduct', id)
+      .pipe(map((message: string) => ({ message })));
+  }
 }
