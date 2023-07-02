@@ -11,6 +11,9 @@ export class ProductsDocument extends AbstractDocument {
 
   @Prop()
   companyId: string;
+
+  @Prop()
+  creationDate: Date;
 }
 
 export const ProductsSchema = SchemaFactory.createForClass(ProductsDocument);

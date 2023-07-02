@@ -7,7 +7,10 @@ export class ProductsService {
   constructor(private readonly productsRepository: ProductsRepository) {}
 
   create(createProductsDto: CreateProductsDto) {
-    return this.productsRepository.create({ ...createProductsDto });
+    return this.productsRepository.create({
+      ...createProductsDto,
+      creationDate: new Date(),
+    });
   }
 
   findAll() {

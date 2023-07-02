@@ -5,8 +5,6 @@ import { AuthController } from './auth/auth.controller';
 import { AuthService } from './auth/auth.service';
 import { UsersController } from './users/users.controller';
 import { UsersService } from './users/users.service';
-import { UsersRepository } from './users/users.repository';
-import { UsersModule } from './users/users.module';
 import { CompanyController } from './company/company.controller';
 import { CompanyService } from './company/company.service';
 import { ProductsController } from './products/products.controller';
