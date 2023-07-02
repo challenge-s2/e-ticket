@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./MyTickets.module.scss";
 import TicketItem from "../Home/TicketItem/TicketItem";
 
@@ -23,7 +23,6 @@ const content = [
   },
 ];
 
-const itemByYear = {}
 
 // for (let it = 0; it < content.length; it++) {
 //   const year = new Date().getFullYear()

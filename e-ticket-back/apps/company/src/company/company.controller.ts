@@ -35,8 +35,8 @@ export class CompanyController {
     return this.companyService.update(id, updateCompanyDto);
   }
 
-  @MessagePattern('removeCompany')
-  remove(@Payload() id: number) {
-    return this.companyService.remove(id);
+  @MessagePattern('deleteCompany')
+  delete(@Payload() id: string) {
+    return this.companyService.delete(id);
   }
 }

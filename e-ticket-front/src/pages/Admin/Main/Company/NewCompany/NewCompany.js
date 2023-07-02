@@ -8,6 +8,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import axios from "axios"
+import { toast } from "react-toastify";
 
 const contentCompanyType = [
   {
@@ -49,15 +50,18 @@ const contentCompanyType = [
 
 const NewCompany = () => {
 
+  const [redirection, setRedirection] = useState(false)
   const [companyInfo, setCompanyInfo] = useState({
-    name: 'loikj',
-    description: 'lkj',
-    companyType: 'Autre',
-    mail: 'test@dior.com',
+    name: '',
+    description: '',
+    companyType: '',
+    mail: '',
     //phone: 'ipo',
-    password: 'root'
+    password: ''
 
   });
+  const [newCompanyId, setNewCompanyId] = useState('');
+
 
   const handleSumbit = async () => {
     if(
@@ -77,17 +81,29 @@ const NewCompany = () => {
           name: companyInfo.name,
           description: companyInfo.description,
           type: companyInfo.companyType,
-          userId: res.message._id
-        }).then(() => console.log("created"))
+          userId: res.data.message._id
+        })
+        .then((res) => setNewCompanyId(res.data.message._id))
+        .then(() => 
+          toast.success('Entreprise créée !', {
+            position: "bottom-left",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          })
+        )
       )
-
-      /* Après */
-      //return <Navigate to="/admin/company/list"/>
+      .then(() => setRedirection(true))
     }
   }
 
   return (
     <>
+      {redirection ? <Navigate to={`/admin/company/${newCompanyId}`} replace /> : <></>}
       <div className={styles.container}>
 
         <div className={styles.input}>

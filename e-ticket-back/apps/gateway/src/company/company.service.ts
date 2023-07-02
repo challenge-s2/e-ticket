@@ -39,4 +39,10 @@ export class CompanyService {
       .send('updateCompany', { id: _id, update: updateCompanyDto })
       .pipe(map((message: string) => ({ message })));
   }
+
+  async delete(_id: string) {
+    return this.companyClient
+      .send('deleteCompany', _id)
+      .pipe(map((message: string) => ({ message })));
+  }
 }

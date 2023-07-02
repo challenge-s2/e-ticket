@@ -30,7 +30,22 @@ const Auth = () => {
         </Link>
       </div>
       <div className={styles.container}>
+        <CSSTransition
+          in={choice === "signin"}
+          timeout={600}
+          classNames="signin"
+          unmountOnExit
+        >
+          <Signin changePage={changePage} />
+        </CSSTransition>
+        <CSSTransition
+          in={choice === "login"}
+          timeout={600}
+          classNames="login"
+          unmountOnExit
+        >
           <Login changePage={changePage} />
+        </CSSTransition>
       </div>
     </>
   );

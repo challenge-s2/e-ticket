@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Application.module.scss";
 import LeftBoard from "./LeftBoard/LeftBoard";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate, redirect } from "react-router-dom";
 import ListOldCommand from "./Main/Command/ListOldCommand/ListOldCommand";
 import NewCommand from "./Main/Command/NewCommand/NewCommand";
 import NewProduct from "./Main/Product/NewProduct/NewProduct";
@@ -13,14 +13,50 @@ import LeftBoardMobile from "./LeftBoard/LeftBoardMobile";
 import MyInformations from "./Main/Settings/MyInformations/MyInformations";
 import ProductNotFound from "./Error/404/ProductNotFound";
 import CommandNotFound from "./Error/404/CommandNotFound";
+import axios from "axios";
 
 const Application = () => {
   const [openLeftBoardMobile, setOpenLeftBoardMobile] = useState(false);
   const [windowSize, setWindowSize] = useState(window.screen.width);
 
+  const checkValidData = async () => {
+    try {
+      await axios
+          .get(`/company/user/${localStorage.getItem('userId')}`)
+          .then((res) => {
+            if(res.data.message._id === localStorage.getItem('companyId')){
+              console.log("ok valid")
+            }
+            else {
+              console.log("pas ok pas valid 1")
+              localStorage.setItem("userId", '')
+              localStorage.setItem("user", '')
+              localStorage.setItem("companyId", '')
+              return redirect('auth')
+            }
+          })
+          .catch(() => {
+            console.log("pas ok pas valid 2")
+            localStorage.setItem("userId", '')
+            localStorage.setItem("user", '')
+            localStorage.setItem("companyId", '')
+            return redirect('auth')
+          })
+    }
+    catch (err) {
+      console.log("pas ok pas valid 3")
+      localStorage.setItem("userId", '')
+      localStorage.setItem("user", '')
+      localStorage.setItem("companyId", '')
+      return redirect('auth')
+    }
+  }
+
   useEffect(() => {
     window.addEventListener("resize", () => setWindowSize(window.screen.width));
+    checkValidData();
   }, []);
+
 
   return (
     <>

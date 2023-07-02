@@ -54,7 +54,6 @@ const questions = [
 ];
 
 const Questions = () => {
-  const htmlParser = new DOMParser()
   return (
     <>
       <div className={styles.container}>

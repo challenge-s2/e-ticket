@@ -2,36 +2,130 @@ import React, { useState, useEffect } from "react";
 import styles from "./Login.module.scss";
 import { Button, TextField } from "@mui/material";
 import axios from "axios";
+import { Navigate } from "react-router-dom"
+import { toast } from "react-toastify";
 
-const Login = ({ changePage }) => {
+const Login = () => {
+  
   const [windowSize, setWindowSize] = useState(window.screen.width);
+  const [redirection, setRedirection] = useState(false)
   const [userInfo, setUserInfo] = useState({
     email: '',
     password: ''
   })
 
+  const checkLoggedIn = async () => {
+    if(localStorage.getItem('userId') !== ''){
+      await axios.get(`/company/user/${localStorage.getItem('userId')}`)
+        .then((res) => {
+          if(res.data.message._id !== localStorage.getItem('companyId')){
+            setRedirection(true) 
+            toast.error('Vous êtes déjà connecté', {
+              position: "bottom-left",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            })
+          } 
+          else{
+            localStorage.setItem('user')
+            localStorage.setItem('userId')
+            localStorage.setItem('companyId')
+            toast.error('Erreur dans les données', {
+              position: "bottom-left",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            })
+          }
+        }
+      )
+      .catch(() => {
+        localStorage.setItem('user')
+        localStorage.setItem('userId')
+        localStorage.setItem('companyId')
+        toast.error('Erreur dans les données', {
+          position: "bottom-left",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        })
+      })
+    }
+  }
+
   useEffect(() => {
+    checkLoggedIn();
     window.addEventListener("resize", () => setWindowSize(window.screen.width));
   }, []);
 
-  const handleSubmit = () => {
-    console.log(userInfo)
+  const getCompany = async (userId) => {
+    await axios
+        .get(`/company/user/${userId}`)
+        .then((res) => localStorage.setItem('companyId', res.data.message._id))
+        
+        .catch(() => localStorage.setItem('companyId', 'N/A'))
+  }
 
-    axios.post('/auth/login', userInfo).then((res) => {
-        //redirect to app
+  const handleSubmit = async () => {
+
+    try {
+      let userId = ''
+      await axios.post('/auth/login', {
+        email: userInfo.email,
+        password: userInfo.password
+      }).then((res) => {
+        localStorage.setItem('user', res.data.message.jwt)
+        userId = res.data.message.user._id
+        localStorage.setItem('userId', userId)
+        console.log("ok")
+        getCompany(userId)
+        setRedirection(true)
       })
-      .catch((err) => {
+        .then(() => 
+          toast.success('Connecté', {
+            position: "bottom-left",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+           theme: "dark",
+          })
+        )
+      
+    }
+    catch (error) {
+      console.log(error)
+    }
+
+    
+      /*.catch((err) => {
         try {
           setWarning(err.response.data.message);
         } catch {
           setWarning("Il semble que le serveur soit offline");
         }
-      });
+      });*/
   }
 
 
   return (
     <>
+      {redirection ? <Navigate to='/app' replace /> : <></>}
       <div className={styles.container}>
         <div className={styles.left}>
           <div className={styles.wrapper_left}>
@@ -62,12 +156,12 @@ const Login = ({ changePage }) => {
                 Connexion
               </Button>
             </div>
-            <div
+            {/*<div
               className={styles.change_to_signin}
               onClick={() => changePage("signin")}
             >
               Vous n'avez pas de compte? Créé en un !
-            </div>
+            </div>*/}
 
           </div>
         </div>

@@ -33,7 +33,7 @@ export class CompanyService {
     );
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} company`;
+  delete(id: string) {
+    return this.companyRepository.findOneAndDelete({ _id: id });
   }
 }

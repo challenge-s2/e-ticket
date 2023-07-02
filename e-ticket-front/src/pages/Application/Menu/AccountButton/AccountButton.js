@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styles from './AccountButton.module.scss'
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
@@ -12,11 +12,13 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
+import { useState } from 'react';
 
 
 const AccountButton = () => {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [redirection, setRedirection] = useState(false);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -24,9 +26,16 @@ const AccountButton = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const loggout = () => {
+    localStorage.setItem("userId", '')
+    localStorage.setItem("user", '')
+    localStorage.setItem("companyId", '')
+    setRedirection(true)
+  }
 
   return (
     <>
+      {redirection ? <Navigate to='/auth' replace /> : <></>}
       <Box sx={{ alignItems: 'center', textAlign: 'center' }}>
         <Tooltip title="Paramètre du compte">
           <IconButton
@@ -87,7 +96,7 @@ const AccountButton = () => {
           Paramètres
         </MenuItem>
         <MenuItem onClick={handleClose}>
-          <ListItemIcon>
+          <ListItemIcon onClick={() => loggout()}>
             <Logout fontSize="small" />
           </ListItemIcon>
           Déconnexion

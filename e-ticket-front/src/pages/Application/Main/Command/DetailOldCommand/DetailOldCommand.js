@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./DetailOldCommand.module.scss";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const products = [
   //Exemple TODO > connexion avec la BDD
@@ -80,7 +81,13 @@ const DetailOldCommand = () => {
   const [listOfProducts, setListOfProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
+  const fetchData = async () => {
+    await axios.get('/ticket/'+id)
+     .then((res) => console.log(res.data.message))
+  }
+
   useEffect(() => {
+    fetchData();
     setListOfProducts(products);
     // setListOfProducts(productsOfCommand);
   }, []);

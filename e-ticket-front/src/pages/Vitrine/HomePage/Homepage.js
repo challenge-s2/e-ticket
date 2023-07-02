@@ -5,7 +5,6 @@ import styles from "./Homepage.module.scss";
 import Contributors from "./Contributors/Contributors";
 import Questions from "./Questions/Questions";
 import FormSector from "./FormSector/FormSector";
-import Typography from "@mui/material/Typography";
 import FirstItem from "./FirstItem/FirstItem";
 import InstallPWA from "../../../components/InstallPWA";
 

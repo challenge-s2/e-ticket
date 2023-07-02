@@ -10,6 +10,8 @@ import Box from "@mui/material/Box";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const products = [
   //Exemple TODO > connexion avec la BDD
@@ -65,12 +67,22 @@ const products = [
   },
 ];
 
-/* const productsRaw = await axios.get('localhost:3000/products/') */
 
 const NewCommand = () => {
+  const [listOfAllProducts, setListOfAllProducts] = useState([])
   const [product, setProduct] = useState();
   const [listOfProducts, setListOfProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+
+  const fetchProduct = async () => {
+    await axios
+     .get('/products/company/' + localStorage.getItem('companyId'))
+     .then((res) => setListOfAllProducts(res.data.message))
+  }
+
+  useEffect(() => {
+    fetchProduct();
+  }, [])
 
   useEffect(() => {
     console.log(listOfProducts);
@@ -80,7 +92,7 @@ const NewCommand = () => {
       productInArray < listOfProducts.length;
       productInArray++
     ) {
-      total = total + products.filter((ele) => ele.id === listOfProducts[productInArray])[0].price;
+      total = total + listOfAllProducts.filter((ele) => ele._id === listOfProducts[productInArray])[0].price;
       // total = total + productsRaw.filter((ele) => ele.id === listOfProducts[productInArray])[0].price;
     }
     setTotalPrice(total);
@@ -112,18 +124,32 @@ const NewCommand = () => {
   };
 
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log(listOfProducts)
     console.log(totalPrice)
 
-    /* axios.post('localhost:3000/command', {
-      listOfProducts: listOfProducts,
-      totalPrice: totalPrice
-    }) */
+    await axios.post('/ticket/', {
+      companyId: localStorage.getItem('companyId'),
+      listProducts: listOfProducts
+    })
+    .then(() => 
+          toast.success('Commande ajouté !', {
+            position: "bottom-left",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          })
+    )
+    .then(() => setRedirection(true))
   }
 
   return (
     <>
+      {redirection ? <Navigate to={`/admin/company/${newCompanyId}`} replace /> : <></>}
       <div className={styles.container}>
         <div className={styles.top}>
           <Box sx={{ minWidth: 120, display: "flex" }}>
@@ -145,8 +171,8 @@ const NewCommand = () => {
                   </MenuItem>
                 ))}*/}
 
-                {products.map((item, index) => (
-                  <MenuItem value={item.id} key={index}>
+                {listOfAllProducts.map((item, index) => (
+                  <MenuItem value={item._id} key={index}>
                     {item.name}
                   </MenuItem>
                 ))}
@@ -169,7 +195,7 @@ const NewCommand = () => {
               .map((item, index) => (
                 <div key={index}>
                   <div className={styles.left}>
-                    {products.find((i) => i.id === item).name}
+                    {listOfAllProducts.find((i) => i._id === item).name}
                   </div>
 
                   <div className={styles.right}>
@@ -212,6 +238,7 @@ const NewCommand = () => {
                 color="success"
                 size="large"
                 sx={{ width: "100%", marginTop: "2vh" }}
+                onClick={handleSubmit}
               >
                 Finaliser la commande
               </Button>

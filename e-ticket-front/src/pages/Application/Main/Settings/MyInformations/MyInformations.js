@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./MyInformations.module.scss";
 import {
   MenuItem,
@@ -8,10 +8,9 @@ import {
   Button,
   TextField,
 } from "@mui/material";
-import { DateField } from "@mui/x-date-pickers/DateField";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs from "dayjs";
+import axios from "axios";
+import Moment from "moment"
+import { toast } from "react-toastify";
 
 const contentCompanyType = [
   {
@@ -52,29 +51,53 @@ const contentCompanyType = [
 ];
 
 const MyInformations = () => {
-  const [companyName, setCompanyName] = useState("Dior");
-  const [companyDescription, setCompanyDescription] = useState(
-    "Christian Dior Couture est une entreprise française de mode appartenant à LVMH. Héritage du couturier Christian Dior, bénéficiant du label « haute couture » elle trouve ses origines en 1946"
-  );
-  const [companyType, setCompanyType] = useState("Boulangerie/Patisserie");
-  const [companyStartDate, setCompanyStartDate] = useState(dayjs("2023-01-15"));
+  const [informations, setInformations] = useState({
+    name: "",
+    description: "",
+    type: "",
+    date: ""
+  })
+
+  const fetchData = async () => {
+    const companyRaw = await axios.get(`/company/${localStorage.getItem('companyId')}`);
+    setInformations({
+      name: companyRaw.data.message.name,
+      description : companyRaw.data.message.description,
+      type : companyRaw.data.message.type,
+      registerDate : companyRaw.data.message.registerDate
+    })
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, [])
+
 
   const handleSumbit = () => {
-    console.log(companyName);
-    console.log(companyDescription);
-    console.log(companyType);
-    console.log(companyStartDate);
+    console.log(informations);
 
-    /*axios.post(url + 'company' + company.id, 
+    axios.patch(`/company/${localStorage.getItem('companyId')}`, 
         {
-            Header: "Bearer" + user.token
+            Header: "Bearer" + localStorage.getItem('user')
         },
         {
-            name: company_name,
-            description: company_description,
-            type: company_type,
+            name: informations.name,
+            description: informations.description,
+            type: informations.type,
         }
-        )*/
+        )
+        .then(() => 
+          toast.success('Informations mis à jour!', {
+            position: "bottom-left",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          })
+        )
   };
 
   return (
@@ -82,8 +105,8 @@ const MyInformations = () => {
       <div className={styles.company_name}>
         <TextField
           label="Nom de l'entreprise"
-          value={companyName}
-          onChange={(e) => setCompanyName(e.target.value)}
+          value={informations.name}
+          onChange={(e) => setInformations((prevValues) => ({...prevValues, name: e.target.value}))}
           variant="outlined"
           sx={{ width: "100%" }}
         />
@@ -92,11 +115,8 @@ const MyInformations = () => {
       <div className={styles.company_description}>
         <TextField
           label="Description de l'entreprise"
-          value={companyDescription}
-          multiline
-          minRows={2}
-          maxRows={4}
-          onChange={(e) => setCompanyDescription(e.target.value)}
+          value={informations.description}
+          onChange={(e) => setInformations((prevValues) => ({...prevValues, description: e.target.value}))}
           variant="outlined"
           sx={{ width: "100%" }}
         />
@@ -106,8 +126,8 @@ const MyInformations = () => {
         <FormControl sx={{ width: "100%" }} size="medium">
           <InputLabel id="label">Type d'entreprise</InputLabel>
           <Select
-            value={companyType}
-            onChange={(e) => setCompanyType(e.target.value)}
+            value={informations.type}
+            onChange={(e) => setInformations((prevValues) => ({...prevValues, type: e.target.value}))}
             labelId="label"
             id="select"
             label="Type d'entreprise"
@@ -123,17 +143,13 @@ const MyInformations = () => {
       </div>
 
       <div className={styles.company_start_date}>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DateField
-            label="Date de l'activation"
-            value={companyStartDate}
-            format="LL"
-            disabled
-            onChange={(e) => setCompanyStartDate(e.target.value)}
-            variant="outlined"
-            sx={{ width: "100%" }}
-          />
-        </LocalizationProvider>
+        <TextField
+          label="Date d'arrivée"
+          value={Moment(informations?.registerDate).format('DD/MM/YYYY')}
+          disabled
+          variant="outlined"
+          sx={{ width: "100%" }}
+        />
       </div>
 
       <div className={styles.button_submit}>

@@ -24,6 +24,8 @@ import ListingCompany from "./pages/Admin/Main/Company/ListingCompany/ListingCom
 import NewCompany from "./pages/Admin/Main/Company/NewCompany/NewCompany"
 import DetailCompany from "./pages/Admin/Main/Company/DetailCompany/DetailCompany"
 import CompanyNotFound from "./pages/Admin/Error/404/CompanyNotFound";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 axios.defaults.baseURL = 'http://localhost:3003'
 axios.defaults.withCredentials = true;
@@ -32,6 +34,7 @@ const App = () => {
   return (
     <Router>
       <div className="App">
+        <ToastContainer/>
         <Routes>
           <Route path="/" exact element={<ShowCase />} />
 

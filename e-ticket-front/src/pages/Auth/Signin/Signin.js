@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Signin.module.scss";
 import { Button, TextField } from "@mui/material";
+import axios from "axios";
 
 const Signin = ({ changePage }) => {
   const [windowSize, setWindowSize] = useState(window.screen.width);
   const [userInfo, setUserInfo] = useState({
-    firstname: '',
-    lastname: '',
+    //firstname: '',
+    //lastname: '',
     email: '',
     password: '',
     confirmPassword: ''
@@ -18,7 +19,12 @@ const Signin = ({ changePage }) => {
 
   const handleSubmit = () => {
     console.log(userInfo)
-    /* axios.post('localhost:3000/users/createUser', userInfo) */
+    if(userInfo.password === userInfo.confirmPassword){
+      axios.post('/users/', {
+        email: userInfo.email,
+        password: userInfo.password
+      }).then((res) => console.log(res))
+    }
   }
 
   return (
@@ -44,7 +50,7 @@ const Signin = ({ changePage }) => {
         <div className={styles.right}>
           <div className={styles.wrapper}>
             <h2>Créer votre compte</h2>
-            {windowSize >= 600 ?
+            {/*{windowSize >= 600 ?
               <div className={styles.name}>
                 <TextField
                   sx={{ width: "48%", marginBottom: "2rem", marginRight: "4%" }}
@@ -95,7 +101,7 @@ const Signin = ({ changePage }) => {
               </div>
             </>
 
-            }
+            }*/}
             
             <div className={styles.email}>
               <TextField

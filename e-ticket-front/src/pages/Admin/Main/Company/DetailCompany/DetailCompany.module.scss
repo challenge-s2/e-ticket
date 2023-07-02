@@ -8,24 +8,24 @@ div.container {
   box-shadow: 10px 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -4px rgba(0, 0, 0, 0.1);
 
-  div.company_name {
-    margin-bottom: 5vh;
-  }
-
-  div.company_description {
-    margin-bottom: 5vh;
-  }
-
-  div.company_type {
+  div.company_name, .company_description, .company_type, .company_start_date, .button_generation {
     margin-bottom: 5vh;
   }
 
   div.company_start_date {
-    margin-bottom: 5vh;
 
     label {
       color: #202020de;
     }
+  }
+
+  .button_generation {
+    margin-left: auto;
+    margin-right: 0;
+  }
+
+  .imgQRCode {
+    margin-bottom: 5vh;
   }
 }
 
