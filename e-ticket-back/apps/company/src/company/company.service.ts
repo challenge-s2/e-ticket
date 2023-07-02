@@ -10,6 +10,7 @@ export class CompanyService {
     return this.companyRepository.create({
       ...createCompanyDto,
       registerDate: new Date(),
+      qrCode: null,
     });
   }
 
@@ -25,8 +26,11 @@ export class CompanyService {
     return this.companyRepository.findOne({ userId: userId });
   }
 
-  update(id: number, updateCompanyDto: UpdateCompanyDto) {
-    return `This action updates a #${id} company`;
+  update(id: string, updateCompanyDto: UpdateCompanyDto) {
+    return this.companyRepository.findOneAndUpdate(
+      { _id: id },
+      { $set: updateCompanyDto },
+    );
   }
 
   remove(id: number) {

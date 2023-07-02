@@ -17,6 +17,9 @@ export class CompanyDocument extends AbstractDocument {
 
   @Prop()
   userId: string;
+
+  @Prop()
+  qrCode: string;
 }
 
 export const CompanySchema = SchemaFactory.createForClass(CompanyDocument);

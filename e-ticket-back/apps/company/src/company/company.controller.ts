@@ -29,8 +29,10 @@ export class CompanyController {
   }
 
   @MessagePattern('updateCompany')
-  update(@Payload() updateCompanyDto: UpdateCompanyDto) {
-    return this.companyService.update(updateCompanyDto.id, updateCompanyDto);
+  update(@Payload() data) {
+    const id = data.id;
+    const updateCompanyDto = data.update;
+    return this.companyService.update(id, updateCompanyDto);
   }
 
   @MessagePattern('removeCompany')

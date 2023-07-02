@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { map } from 'rxjs';
+import { UpdateCompanyDto } from './dto/update-company.dto';
 
 @Injectable()
 export class CompanyService {
@@ -30,6 +31,12 @@ export class CompanyService {
   async findCompanyByUserId(userId: string) {
     return this.companyClient
       .send('findCompanyByUserId', userId)
+      .pipe(map((message: string) => ({ message })));
+  }
+
+  async update(_id: string, updateCompanyDto: UpdateCompanyDto) {
+    return this.companyClient
+      .send('updateCompany', { id: _id, update: updateCompanyDto })
       .pipe(map((message: string) => ({ message })));
   }
 }
