@@ -31,4 +31,9 @@ export class TicketController {
   getLastByCompanyId(@Payload() companyId: string) {
     return this.ticketService.getLastByCompanyId(companyId);
   }
+
+  @MessagePattern('deleteTicket')
+  delete(@Payload() ticketId: string) {
+    return this.ticketService.delete(ticketId);
+  }
 }

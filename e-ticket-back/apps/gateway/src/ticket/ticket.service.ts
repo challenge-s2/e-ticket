@@ -38,4 +38,10 @@ export class TicketService {
       .send('getLastTicketByCompanyId', companyId)
       .pipe(map((message: string) => ({ message })));
   }
+
+  async delete(ticketId: string) {
+    return this.ticketClient
+      .send('deleteTicket', ticketId)
+      .pipe(map((message: string) => ({ message })));
+  }
 }
