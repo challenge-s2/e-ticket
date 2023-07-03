@@ -15,5 +15,9 @@ export class CreateCompanyDto {
 
   @IsString()
   @IsNotEmpty()
+  address: string;
+
+  @IsString()
+  @IsNotEmpty()
   userId: string;
 }
