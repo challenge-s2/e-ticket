@@ -21,4 +21,9 @@ export class UsersController {
   async getAllUsers() {
     return this.usersService.getAllUsers();
   }
+
+  @MessagePattern('verifyUser')
+  async verifyUser(email: string, password: string) {
+    return this.usersService.verifyUser(email, password);
+  }
 }
