@@ -32,9 +32,9 @@ const Login = () => {
             })
           } 
           else{
-            localStorage.setItem('user')
-            localStorage.setItem('userId')
-            localStorage.setItem('companyId')
+            localStorage.setItem('user', '')
+            localStorage.setItem('userId', '')
+            localStorage.setItem('companyId', '')
             toast.error('Erreur dans les données', {
               position: "bottom-left",
               autoClose: 3000,
@@ -49,9 +49,9 @@ const Login = () => {
         }
       )
       .catch(() => {
-        localStorage.setItem('user')
-        localStorage.setItem('userId')
-        localStorage.setItem('companyId')
+        localStorage.setItem('user', '')
+        localStorage.setItem('userId', '')
+        localStorage.setItem('companyId', '')
         toast.error('Erreur dans les données', {
           position: "bottom-left",
           autoClose: 3000,
