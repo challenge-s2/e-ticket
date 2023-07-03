@@ -1,0 +1,105 @@
+.container {
+  width: 350px;
+  margin: 0 auto;
+
+  .item_home {
+    padding: 5px;
+    vertical-align: middle;
+
+    .item {
+      background-color: #fff;
+      padding: 20px 15px;
+      text-align: center;
+
+      .company_name,
+      .company_date {
+        font-weight: bold;
+      }
+      .company_name {
+      }
+      .company_place {
+      }
+      .company_date {
+        margin: 20px 0;
+      }
+
+      .menu {
+        > div {
+          border-top: 1px solid grey;
+        }
+        > div:last-child {
+          border-bottom: 1px solid grey;
+        }
+        .list_item,
+        .articles,
+        .pay,
+        .taxes {
+          padding: 15px 0;
+        }
+
+        .articles {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+        }
+
+        .pay {
+            display: flex;
+            justify-content: space-between;
+            color: #707070;
+            font-size: small;
+        }
+
+        .taxes {
+            display: flex;
+            justify-content: space-between;
+            // text-align: left;
+            
+            .top {
+                font-weight: bold;
+            }
+            .bottom {
+                color: #707070;
+                font-size: small;
+            }
+        }
+
+        .list_item {
+            display: flex;
+            justify-content: space-between;
+
+            .left{
+                text-align: left;
+                > div {
+                    color: #000;
+                }
+                > div:first-child {
+                    color: #000;
+                    font-weight: bold;
+                }
+            }
+            .middle{
+                text-align: left;
+                > div {
+                    color: #707070;
+                }
+                > div:first-child {
+                    color: #000;
+                    font-weight: bold;
+                }
+            }
+            .right{
+                text-align: right;
+                > div {
+                    color: #15a232;
+                }
+                > div:first-child {
+                    color: #000;
+                    font-weight: bold;
+                }
+            }
+        }
+      }
+    }
+  }
+}

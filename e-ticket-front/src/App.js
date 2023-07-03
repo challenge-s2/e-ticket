@@ -24,6 +24,7 @@ import ListingCompany from "./pages/Admin/Main/Company/ListingCompany/ListingCom
 import NewCompany from "./pages/Admin/Main/Company/NewCompany/NewCompany"
 import DetailCompany from "./pages/Admin/Main/Company/DetailCompany/DetailCompany"
 import CompanyNotFound from "./pages/Admin/Error/404/CompanyNotFound";
+import TicketPageCompany from "./pages/Ticket/Main/MyTickets/TicketPageCompany/TicketPageCompany";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 
@@ -55,6 +56,7 @@ const App = () => {
           <Route path="/ticket" exact element={<Ticket />}>
             <Route path="my-tickets" element={<MyTickets />} />
             <Route path="my-tickets/page/:id" element={<TicketPage />} />
+            <Route path="my-tickets/company/:idCompany" element={<TicketPageCompany />} />
             <Route path="my-profil" element={<MyProfil />} />
           </Route>
 
