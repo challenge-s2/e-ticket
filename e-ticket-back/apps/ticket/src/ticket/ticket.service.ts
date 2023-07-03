@@ -27,4 +27,8 @@ export class TicketService {
   async getLastByCompanyId(companyId: string) {
     return this.ticketRepository.findLast({ companyId });
   }
+
+  async delete(ticketId: string) {
+    return this.ticketRepository.findOneAndDelete({ _id: ticketId });
+  }
 }

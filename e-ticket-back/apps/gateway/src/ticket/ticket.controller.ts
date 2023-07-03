@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { TicketService } from './ticket.service';
 import { CreateTicketDto } from './dto/create-ticket.dto';
 import { JwtAuthGuard } from '@app/common';
@@ -35,5 +43,11 @@ export class TicketController {
   @UseGuards(JwtAuthGuard)
   async getLastByCompanyId(@Param('companyId') companyId: string) {
     return this.ticketService.getLastByCompanyId(companyId);
+  }
+
+  @Delete(':id')
+  @UseGuards(JwtAuthGuard)
+  async delete(@Param('ticketId') ticketId: string) {
+    return this.ticketService.delete(ticketId);
   }
 }
