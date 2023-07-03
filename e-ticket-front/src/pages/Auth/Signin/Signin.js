@@ -21,6 +21,10 @@ const Signin = ({ changePage }) => {
     console.log(userInfo)
     if(userInfo.password === userInfo.confirmPassword){
       axios.post('/users/', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('user')}`
+        }
+      },{
         email: userInfo.email,
         password: userInfo.password
       }).then((res) => console.log(res))

@@ -26,8 +26,12 @@ const NewCommand = () => {
     if(localStorage.getItem('companyId') !== ''){
 
       await axios
-      .get(`/products/company/${localStorage.getItem('companyId')}`)
-      .then((res) => setListOfAllProducts(res.data.message))
+        .get(`/products/company/${localStorage.getItem('companyId')}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('user')}`
+          }
+        })
+        .then((res) => setListOfAllProducts(res.data.message))
     }
   }
 
@@ -88,6 +92,10 @@ const NewCommand = () => {
     console.log(arrayOfProducts)
 
     await axios.post('/ticket/', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user')}`
+      }
+    }, {
       companyId: localStorage.getItem('companyId'),
       listProducts: arrayOfProducts
     })

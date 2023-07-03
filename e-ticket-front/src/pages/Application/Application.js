@@ -14,17 +14,24 @@ import MyInformations from "./Main/Settings/MyInformations/MyInformations";
 import ProductNotFound from "./Error/404/ProductNotFound";
 import CommandNotFound from "./Error/404/CommandNotFound";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Application = () => {
   const [openLeftBoardMobile, setOpenLeftBoardMobile] = useState(false);
   const [windowSize, setWindowSize] = useState(window.screen.width);
-
+  const [redirection, setRedirection] = useState(false)
+  
   const checkValidData = async () => {
     try {
+      console.log("Bearer " + localStorage.getItem('user'))
       await axios
-          .get(`/company/user/${localStorage.getItem('userId')}`)
+          .get(`/company/user/${localStorage.getItem('userId')}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('user')}`
+            }
+          })
           .then((res) => {
-            if(res.data.message._id === localStorage.getItem('companyId')){
+            if(res.data.message._id === localStorage.getItem('companyId') && localStorage.getItem('companyId') !== ''){
               console.log("ok valid")
             }
             else {
@@ -32,7 +39,18 @@ const Application = () => {
               localStorage.setItem("userId", '')
               localStorage.setItem("user", '')
               localStorage.setItem("companyId", '')
-              return redirect('auth')
+              setRedirection(true)
+              toast.error('Erreur de données', {
+                position: "bottom-left",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+              })
+
             }
           })
           .catch(() => {
@@ -40,7 +58,17 @@ const Application = () => {
             localStorage.setItem("userId", '')
             localStorage.setItem("user", '')
             localStorage.setItem("companyId", '')
-            return redirect('auth')
+            setRedirection(true)
+            toast.error('Erreur de données', {
+              position: "bottom-left",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            })
           })
     }
     catch (err) {
@@ -48,7 +76,17 @@ const Application = () => {
       localStorage.setItem("userId", '')
       localStorage.setItem("user", '')
       localStorage.setItem("companyId", '')
-      return redirect('auth')
+      setRedirection(true)
+      toast.error('Erreur de données', {
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      })
     }
   }
 
@@ -60,6 +98,7 @@ const Application = () => {
 
   return (
     <>
+      {redirection ? <Navigate to={'/auth'} replace /> : <></>}
       <div className={styles.container}>
         {windowSize < 1330 ? (
           <MenuMobile setOpen={setOpenLeftBoardMobile} />

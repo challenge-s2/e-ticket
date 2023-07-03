@@ -38,12 +38,20 @@ const MyTickets = () => {
 
 
   const fetchData = async () => {
-    await axios.get('/ticket/').then((res) => setAllTickets(res.data.message))
+    await axios.get('/ticket/', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user')}`
+      }
+    }).then((res) => setAllTickets(res.data.message))
   }
 
 
   const fetchUsers = async () => {
-    await axios.get('/company/')
+    await axios.get('/company/', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user')}`
+      }
+    })
      .then((res) => setUsers(res.data.message))
   }
 

@@ -9,6 +9,8 @@ import DetailCompany from "./Main/Company/DetailCompany/DetailCompany";
 import MenuMobile from "./Menu/MenuMobile";
 import LeftBoardMobile from "./LeftBoard/LeftBoardMobile";
 import CompanyNotFound from "./Error/404/CompanyNotFound";
+import ListingUsers from "./Main/Users/ListingUsers/ListingUsers";
+import DetailUser from "./Main/Users/DetailUser/DetailUser";
 
 const Admin = () => {
   const [openLeftBoardMobile, setOpenLeftBoardMobile] = useState(false);
@@ -44,6 +46,9 @@ const Admin = () => {
               <Route path="/company/new" element={<NewCompany />} />
               <Route path="/company/:id" element={<DetailCompany />} />
               <Route path="/company/not-found" element={<CompanyNotFound />} />
+
+              <Route path="/users/list" element={<ListingUsers />} />
+              <Route path="/users/:id" element={<DetailUser />} />
             </Routes>
           </div>
         </div>

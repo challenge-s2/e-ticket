@@ -74,14 +74,22 @@ const DetailCompany = () => {
   })
 
   const fetchData = async () => {
-    const companyRaw = await axios.get(`/company/${id}`);
+    const companyRaw = await axios.get(`/company/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user')}`
+      }
+    });
     setCompanyInfo({
       name: companyRaw.data.message.name,
       description : companyRaw.data.message.description,
       type : companyRaw.data.message.type,
       registerDate : companyRaw.data.message.registerDate
     })
-    const userInfoRaw = await axios.get(`/users/${companyRaw.data.message.userId}`)
+    const userInfoRaw = await axios.get(`/users/${companyRaw.data.message.userId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user')}`
+      }
+    })
     setCompanyInfo((prevValue) => ({...prevValue, email: userInfoRaw.data.message.email}))
   }
 
@@ -93,9 +101,11 @@ const DetailCompany = () => {
     console.log(companyInfo);
 
     axios.post(`/company/${id}`, 
-      /*{
-          Header: "Bearer" + user.token
-      },*/
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('user')}`
+        }
+      },
       {
         name: companyInfo?.name,
         description: companyInfo?.description,
@@ -110,6 +120,10 @@ const DetailCompany = () => {
     const base64Value = window.btoa(serializeSVG)
     console.log(base64Value)
     await axios.patch(`/company/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user')}`
+      }
+    }, {
       qrCode: base64Value
     })
     .then(() => setOpenQRCode(false))

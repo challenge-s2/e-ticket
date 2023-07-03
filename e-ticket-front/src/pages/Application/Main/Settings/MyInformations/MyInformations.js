@@ -64,7 +64,11 @@ const MyInformations = () => {
   })
 
   const fetchData = async () => {
-    const companyRaw = await axios.get(`/company/${localStorage.getItem('companyId')}`);
+    const companyRaw = await axios.get(`/company/${localStorage.getItem('companyId')}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user')}`
+      }
+    });
     setInformations({
       name: companyRaw.data.message.name,
       description : companyRaw.data.message.description,
@@ -83,7 +87,9 @@ const MyInformations = () => {
 
     axios.patch(`/company/${localStorage.getItem('companyId')}`, 
         {
-            Header: "Bearer" + localStorage.getItem('user')
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('user')}`
+          }
         },
         {
             name: informations.name,

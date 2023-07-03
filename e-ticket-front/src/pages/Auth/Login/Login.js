@@ -16,7 +16,11 @@ const Login = () => {
 
   const checkLoggedIn = async () => {
     if(localStorage.getItem('userId') !== ''){
-      await axios.get(`/company/user/${localStorage.getItem('userId')}`)
+      await axios.get(`/company/user/${localStorage.getItem('userId')}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('user')}`
+        }
+      })
         .then((res) => {
           if(res.data.message._id !== localStorage.getItem('companyId')){
             setRedirection(true) 
@@ -73,7 +77,11 @@ const Login = () => {
 
   const getCompany = async (userId) => {
     await axios
-        .get(`/company/user/${userId}`)
+        .get(`/company/user/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('user')}`
+          }
+        })
         .then((res) => localStorage.setItem('companyId', res.data.message._id))
         
         .catch(() => localStorage.setItem('companyId', 'N/A'))

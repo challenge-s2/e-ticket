@@ -10,14 +10,18 @@ import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import { toast } from "react-toastify";
 
 
-const ListOldCommand = () => {
+const ListingCompany = () => {
     const [companies, setCompanies] = useState([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
     
     const fetchCompanies = async () => {
-      const companiesRaw = await axios.get('/company');
+      const companiesRaw = await axios.get('/company', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('user')}`
+        }
+      });
       setCompanies(companiesRaw.data.message)
       console.log(companies)
       setTotalItems(companiesRaw.data.message.length)
@@ -38,7 +42,11 @@ const ListOldCommand = () => {
     };
 
     const deleteCompany = async (id) => {
-      await axios.delete(`/company/${id}`)
+      await axios.delete(`/company/${id}`,{
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('user')}`
+        }
+      })
         .then(() => 
         toast.success('Entreprise supprimée !', {
           position: "bottom-left",
@@ -116,4 +124,4 @@ const ListOldCommand = () => {
     );
   };
   
-  export default ListOldCommand;
+  export default ListingCompany;

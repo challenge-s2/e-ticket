@@ -74,11 +74,19 @@ const NewCompany = () => {
     ){
       console.log(companyInfo); /* TODO Enregistrer dans la BDD */
       await axios.post(`/users/`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('user')}`
+        }
+      }, {
         email: companyInfo.mail,
         password: companyInfo.password,
         roles: ['COMPANY']
       }).then((res) => 
         axios.post('/company', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('user')}`
+          }
+        }, {
           name: companyInfo.name,
           description: companyInfo.description,
           type: companyInfo.companyType,

@@ -15,7 +15,11 @@ const EditProduct = () => {
 
 
   const fetchCompanies = async () => {
-    const productRaw = await axios.get('/products/' + id)
+    const productRaw = await axios.get('/products/' + id, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user')}`
+      }
+    })
     setName(productRaw.data.message.name)
     setPrice(productRaw.data.message.price)
   }
@@ -27,7 +31,11 @@ const EditProduct = () => {
   console.log(useLocation());
   const handleSumbit = async () => {
     if(name !== '' && price !== null){
-      await axios.patch(`/products/${id}`)
+      await axios.patch(`/products/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('user')}`
+        }
+      })
       .then(() => 
         toast.success('Produit mis à jour !', {
           position: "bottom-left",

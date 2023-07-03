@@ -17,7 +17,11 @@ const ListOldCommand = () => {
     const [totalItems, setTotalItems] = useState(0);
     
     const fetchProducts = async () => {
-      const productsRaw = await axios.get('/ticket/');
+      const productsRaw = await axios.get('/ticket/', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('user')}`
+        }
+      });
       setProducts(productsRaw.data.message)
       console.log(products)
       setTotalItems(productsRaw.data.message.length)
@@ -38,7 +42,11 @@ const ListOldCommand = () => {
     };
 
     const deleteProduit = async (item) => {
-      await axios.delete(`/ticket/${item._id}`)
+      await axios.delete(`/ticket/${item._id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('user')}`
+        }
+      })
       .then(() => 
         toast.success('Commande supprimé !', {
           position: "bottom-left",

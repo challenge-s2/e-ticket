@@ -27,6 +27,8 @@ import CompanyNotFound from "./pages/Admin/Error/404/CompanyNotFound";
 import TicketPageCompany from "./pages/Ticket/Main/MyTickets/TicketPageCompany/TicketPageCompany";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import ListingUsers from "./pages/Admin/Main/Users/ListingUsers/ListingUsers";
+import DetailUser from "./pages/Admin/Main/Users/DetailUser/DetailUser";
 
 axios.defaults.baseURL = 'http://localhost:3003'
 axios.defaults.withCredentials = true;
@@ -65,6 +67,9 @@ const App = () => {
             <Route path="company/new" element={<NewCompany />} />
             <Route path="company/:id" element={<DetailCompany />} />
             <Route path="company/not-found" element={<CompanyNotFound />} />
+
+            <Route path="users/list" element={<ListingUsers />} />
+            <Route path="users/:id" element={<DetailUser />} />
           </Route>
         </Routes>
       </div>

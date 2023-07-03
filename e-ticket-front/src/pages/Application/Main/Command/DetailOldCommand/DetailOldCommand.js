@@ -20,7 +20,11 @@ const DetailOldCommand = () => {
   }
 
   const fetchData = async () => {
-    const commandInfoRaw = await axios.get('/ticket/'+ id).then((res) => setCommandInfo(res.data.message))
+    const commandInfoRaw = await axios.get('/ticket/'+ id, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user')}`
+      }
+    }).then((res) => setCommandInfo(res.data.message))
   }
 
   useEffect(() => {
