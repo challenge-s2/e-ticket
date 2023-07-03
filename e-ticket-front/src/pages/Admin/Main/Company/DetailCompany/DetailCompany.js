@@ -20,8 +20,6 @@ import QRCode from "react-qr-code";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 
 import { toast } from 'react-toastify';
 
@@ -146,7 +144,7 @@ const DetailCompany = () => {
         onClose={() => setOpenQRCode(false)}
       >
         <DialogContent sx={{padding: '50px'}}>
-          <QRCode value={`https://google.com/̀${id}`} id='mySVG'/>
+          <QRCode value={`http://localhost:3010/ticket/my-tickets/company/${id}`} id='mySVG'/>
         </DialogContent>
         <DialogActions sx={{padding: '50px'}}>
           <Button

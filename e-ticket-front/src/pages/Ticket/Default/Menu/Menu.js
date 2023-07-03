@@ -10,8 +10,7 @@ import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 import { useLocation } from "react-router-dom";
 
 const Menu = () => {
-  console.log(useLocation().pathname);
-  
+
   return (
     <>
       <div className={styles.container}>
@@ -22,15 +21,15 @@ const Menu = () => {
           </div>
         </div>
         <div className={styles.wrapper}>
-          <div className={styles.text} style={{display: useLocation().pathname.startsWith('/ticket/my-tickets')  ? 'block' : 'none'}}>
+          <div className={styles.text} style={{verticalAlign: 'middle', display: useLocation().pathname.startsWith('/ticket/my-tickets')  ? 'block' : 'none'}}>
             <TocRoundedIcon sx={{marginRight: '10px'}}/>
             Mes tickets
           </div>
-          <div className={styles.text} style={{display: useLocation().pathname === '/ticket/my-profil' ? 'block' : 'none'}}>
+          <div className={styles.text} style={{verticalAlign: 'middle', margin: "auto 0", display: useLocation().pathname === '/ticket/my-profil' ? 'block' : 'none'}}>
             <EmojiPeopleRoundedIcon sx={{marginRight: '10px'}}/>
             Mon profil
           </div>
-          <div className={styles.logo} style={{display: useLocation().pathname === '/ticket/' ? 'block' : 'none'}}>
+          <div className={styles.logo} style={{verticalAlign: 'middle', margin: "auto 0", display: useLocation().pathname === '/ticket/' ? 'block' : 'none'}}>
             <img src={logoBlack} alt="Image of the logo"/>
           </div>
         </div>

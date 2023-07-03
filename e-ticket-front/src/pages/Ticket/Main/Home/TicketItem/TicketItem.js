@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./TicketItem.module.scss";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 import { Link } from "react-router-dom";
+import Moment from "moment";
 
 const TicketItem = ({ name, place, date, id }) => {
   let realDate = new Date(date);
@@ -38,7 +39,8 @@ const TicketItem = ({ name, place, date, id }) => {
                 {name} - {place}
               </div>
               <div className={styles.cmb}>
-                Le {`${day}/${month}/${year}`} à {`${hours}h${minutes}`}
+                {/* Le {`${day}/${month}/${year}`} à {`${hours}h${minutes}`} */}
+                Le {Moment(date).format("DD/MM/YYYY").toLocaleString('fr-FR')} à {Moment(date).format("hh").toLocaleString('fr-FR')}h{Moment(date).format("mm").toLocaleString('fr-FR')}
               </div>
             </div>
             <div className={styles.cr}>

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import styles from "./TicketPage.module.scss";
+import styles from "./TicketPageCompany.module.scss";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Moment from "moment";
 
 const TicketPage = () => {
-  const { id } = useParams();
+  const { idCompany } = useParams();
   const TVA = 5.5;
   const [ticketInfo, setTicketInfo] = useState()
   const [totalPrice, setTotalPrice] = useState(0)
@@ -14,7 +14,7 @@ const TicketPage = () => {
 
   const fetchData = async () => {
     await axios
-      .get(`/ticket/${id}`)
+      .get(`/ticket/last/${idCompany}`)
       .then((res) => setTicketInfo(res.data.message))
       .catch(() => console.log("error"))
   }

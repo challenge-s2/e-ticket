@@ -26,7 +26,7 @@ export class TicketController {
     return this.ticketService.getAllByCompanyId(companyId);
   }
 
-  @Get(':companyId')
+  @Get('last/:companyId')
   async getLastByCompanyId(@Param('companyId') companyId: string) {
     return this.ticketService.getLastByCompanyId(companyId);
   }

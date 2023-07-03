@@ -75,7 +75,8 @@ const NewCompany = () => {
       console.log(companyInfo); /* TODO Enregistrer dans la BDD */
       await axios.post(`/users/`, {
         email: companyInfo.mail,
-        password: companyInfo.password
+        password: companyInfo.password,
+        roles: ['COMPANY']
       }).then((res) => 
         axios.post('/company', {
           name: companyInfo.name,

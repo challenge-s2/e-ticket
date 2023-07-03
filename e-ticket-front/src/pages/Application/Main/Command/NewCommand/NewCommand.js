@@ -12,72 +12,23 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 import { toast } from "react-toastify";
-
-const products = [
-  //Exemple TODO > connexion avec la BDD
-  {
-    id: 1,
-    name: "Banane",
-    price: 1.98,
-  },
-  {
-    id: 2,
-    name: "Pomme",
-    price: 0.8,
-  },
-  {
-    id: 3,
-    name: "Kiwi",
-    price: 1.88,
-  },
-  {
-    id: 4,
-    name: "Cerise",
-    price: 1.92,
-  },
-  {
-    id: 5,
-    name: "Poire",
-    price: 1.8,
-  },
-  {
-    id: 6,
-    name: "Orange",
-    price: 2.08,
-  },
-  {
-    id: 7,
-    name: "Kiwii",
-    price: 1.88,
-  },
-  {
-    id: 8,
-    name: "Cerisei",
-    price: 1.92,
-  },
-  {
-    id: 9,
-    name: "Poirei",
-    price: 1.8,
-  },
-  {
-    id: 10,
-    name: "Orangei",
-    price: 2.08,
-  },
-];
-
+import { Navigate } from "react-router-dom"
 
 const NewCommand = () => {
   const [listOfAllProducts, setListOfAllProducts] = useState([])
   const [product, setProduct] = useState();
   const [listOfProducts, setListOfProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [redirection, setRedirection] = useState()
+  const [idNewCommand, setIdNewCommand] = useState('')
 
   const fetchProduct = async () => {
-    await axios
-     .get('/products/company/' + localStorage.getItem('companyId'))
-     .then((res) => setListOfAllProducts(res.data.message))
+    if(localStorage.getItem('companyId') !== ''){
+
+      await axios
+      .get(`/products/company/${localStorage.getItem('companyId')}`)
+      .then((res) => setListOfAllProducts(res.data.message))
+    }
   }
 
   useEffect(() => {
@@ -127,11 +78,20 @@ const NewCommand = () => {
   const handleSubmit = async () => {
     console.log(listOfProducts)
     console.log(totalPrice)
+    const arrayOfProducts = []
+    listOfProducts.map((item) => (
+      arrayOfProducts.push({
+        name: listOfAllProducts.filter((prod) => prod._id === item)[0].name,
+        price: listOfAllProducts.filter((prod) => prod._id === item)[0].price
+      })
+    ))
+    console.log(arrayOfProducts)
 
     await axios.post('/ticket/', {
       companyId: localStorage.getItem('companyId'),
-      listProducts: listOfProducts
+      listProducts: arrayOfProducts
     })
+    .then((res) => setIdNewCommand(res.data.message._id))
     .then(() => 
           toast.success('Commande ajouté !', {
             position: "bottom-left",
@@ -149,7 +109,7 @@ const NewCommand = () => {
 
   return (
     <>
-      {redirection ? <Navigate to={`/admin/company/${newCompanyId}`} replace /> : <></>}
+      {redirection ? <Navigate to={`/app/detail-old-command/${idNewCommand}`} replace /> : <></>}
       <div className={styles.container}>
         <div className={styles.top}>
           <Box sx={{ minWidth: 120, display: "flex" }}>
