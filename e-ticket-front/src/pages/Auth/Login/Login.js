@@ -22,7 +22,7 @@ const Login = () => {
         }
       })
         .then((res) => {
-          if(res.data.message._id !== localStorage.getItem('companyId')){
+          if(res.data.message._id === localStorage.getItem('companyId')){
             setRedirection(true) 
             toast.error('Vous êtes déjà connecté', {
               position: "bottom-left",
