@@ -31,12 +31,13 @@ export class UsersService {
   }
 
   async validateCreateUserDto(createUserDto: CreateUserDto) {
-    try {
-      await this.usersRepository.findOne({ email: createUserDto.email });
-    } catch (e) {
-      return;
+    const user = await this.usersRepository.findOne({
+      email: createUserDto.email,
+    });
+    if (user) {
+      throw new UnprocessableEntityException('Email already exists.');
     }
-    throw new UnprocessableEntityException('Email already exists.');
+    return;
   }
 
   async verifyUser(email: string, password: string) {
