@@ -7,7 +7,7 @@ import Home from "./Home/Home"
 import TicketPage from "./MyTickets/TicketPage/TicketPage";
 import TicketPageCompany from "./MyTickets/TicketPageCompany/TicketPageCompany";
 
-const Main = () => {
+const Main = ({handleOpenModalConnection}) => {
   return (
     <>
       <div className={styles.container}>
@@ -16,7 +16,7 @@ const Main = () => {
           <Route path="/my-tickets" element={<MyTickets />} />
           <Route path="/my-tickets/page/:id" element={<TicketPage />} />
           <Route path="/my-tickets/company/:idCompany" element={<TicketPageCompany />} />
-          <Route path="/my-profil" element={<MyProfil />} />
+          <Route path="/my-profil" element={<MyProfil handleOpenModalConnection={handleOpenModalConnection}/>} />
         </Routes>
       </div>
     </>

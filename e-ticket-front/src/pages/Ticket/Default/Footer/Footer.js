@@ -7,6 +7,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Link, useLocation } from "react-router-dom";
 
 const Footer = ({handleChangePage}) => {
+  const url = useLocation().pathname;
   const [value, setValue] = useState("home");
 
   const handleChange = (newValue) => {
@@ -17,19 +18,19 @@ const Footer = ({handleChangePage}) => {
   return (
     <>
       <div className={styles.bottom}>
-        <Link to='/ticket/' className={styles.item_bottom} id={useLocation().pathname === "/ticket/" ? styles.item_clicked : ""} onClick={() => handleChange("home")}>
+        <Link to='/ticket/' className={styles.item_bottom} id={url === "/ticket/" ? styles.item_clicked : ""} onClick={() => handleChange("home")}>
             <div className={styles.item_text}>
               <HomeIcon sx={{verticalAlign: "middle", marginRight: "5px"}} />
               Accueil
             </div>
         </Link>
-        <Link to='/ticket/my-tickets' className={styles.item_bottom} id={useLocation().pathname.startsWith('/ticket/my-tickets') ? styles.item_clicked : ""} onClick={() => handleChange("my-tickets")}>
+        <Link to='/ticket/my-tickets' className={styles.item_bottom} id={url.startsWith('/ticket/my-tickets') ? styles.item_clicked : ""} onClick={() => handleChange("my-tickets")}>
           <div className={styles.item_text}>
             <ReceiptLongIcon sx={{verticalAlign: "middle", marginRight: "5px"}} />
             Mes tickets
           </div>
         </Link>
-        <Link to='/ticket/my-profil' className={styles.item_bottom} id={useLocation().pathname === "/ticket/my-profil" ? styles.item_clicked : ""} onClick={() => handleChange("my-profil")}>
+        <Link to='/ticket/my-profil' className={styles.item_bottom} id={url === "/ticket/my-profil" ? styles.item_clicked : ""} onClick={() => handleChange("my-profil")}>
           <div className={styles.item_text}>
             <AccountCircleIcon sx={{verticalAlign: "middle", marginRight: "5px"}} />
             Mon profil

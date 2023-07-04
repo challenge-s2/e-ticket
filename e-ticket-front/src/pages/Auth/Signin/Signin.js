@@ -2,9 +2,13 @@ import React, { useState, useEffect } from "react";
 import styles from "./Signin.module.scss";
 import { Button, TextField } from "@mui/material";
 import axios from "axios";
+import { toast } from "react-toastify";
+import { Navigate, useParams } from "react-router-dom";
 
 const Signin = ({ changePage }) => {
+  const { path } = useParams()
   const [windowSize, setWindowSize] = useState(window.screen.width);
+  const [redirection, setRedirection] = useState(false)
   const [userInfo, setUserInfo] = useState({
     //firstname: '',
     //lastname: '',
@@ -12,27 +16,84 @@ const Signin = ({ changePage }) => {
     password: '',
     confirmPassword: ''
   })
+  const [errorPassword, setErrorPassword] = useState('')
 
   useEffect(() => {
     window.addEventListener("resize", () => setWindowSize(window.screen.width));
   }, []);
 
+
   const handleSubmit = () => {
-    console.log(userInfo)
-    if(userInfo.password === userInfo.confirmPassword){
-      axios.post('/users/', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('user')}`
-        }
-      },{
-        email: userInfo.email,
-        password: userInfo.password
-      }).then((res) => console.log(res))
+    setErrorPassword('')
+    if(userInfo.password !== userInfo.confirmPassword) {
+      setErrorPassword('not the same')
     }
+    else if (!new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})').test(userInfo.password)){
+      setErrorPassword('not strong enough')
+    }
+    else {
+      console.log(userInfo)
+        axios.post('/users/',
+        {
+          email: userInfo.email,
+          password: userInfo.password,
+          roles: ['USER']
+        })
+          .then((res) => {
+            console.log(res)
+            if(res.status === 201) {
+              console.log('first')
+              toast.success('Compte créé', {
+                position: "bottom-left",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              theme: "dark",
+              })
+            }
+          })
+          .then(() => {
+            try {
+              axios.post('/auth/login', {
+                email: userInfo.email,
+                password: userInfo.password
+              })
+                .then((res) => {
+                  localStorage.setItem('user', res.data.message.jwt)
+                  localStorage.setItem('userId', res.data.message.user._id)
+                  console.log("ok")
+                })
+                .then(() => {
+                  toast.success('Connecté', {
+                    position: "bottom-left",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  theme: "dark",
+                  })
+                }
+                )
+                .then(() => setRedirection(true))
+              
+            }
+            catch (error) {
+              console.log(error)
+            }
+
+          })
+    }
+
   }
 
   return (
     <>
+      {redirection ? <Navigate to={`/${path === 'home' ? '' : path}`} replace /> : <></>}
       <div className={styles.container}>
         {windowSize >= 1200 ? (
           <>
@@ -163,6 +224,17 @@ const Signin = ({ changePage }) => {
                   className={"innput"}
                   label={"Confirmer le mot de passe"}
                 />
+              </div>
+              <div className={styles.passwrd}>
+                {
+                  errorPassword === 'not the same' ?
+                  <div style={{color: 'red'}}>Veuillez confirmer le même mot de passe</div>
+                  : errorPassword === 'not strong enough' ?
+                  <div style={{color: 'red'}}>Veuillez renseigner un mot de passe plus fort (au mois: 8 caractères, 1 majuscule, 1 minuscule, 1 caractère spécial )</div>
+                  :
+                  <></>
+
+                }
               </div>
             </>
             }
