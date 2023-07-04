@@ -1,18 +1,32 @@
-import {Injectable, UnauthorizedException, UnprocessableEntityException} from '@nestjs/common';
-import {CreateUserDto} from './dto/create-user.dto';
-import {UsersRepository} from './users.repository';
-import {compare, hash} from 'bcryptjs';
-import {GetUserDto} from './dto/get-user.dto';
+import {
+  Injectable,
+  UnauthorizedException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UsersRepository } from './users.repository';
+import { compare, hash } from 'bcryptjs';
+import { GetUserDto } from './dto/get-user.dto';
 
 @Injectable()
 export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
 
-  async create(createUserDto: CreateUserDto) {
+  async createUser(createUserDto: CreateUserDto) {
     await this.validateCreateUserDto(createUserDto);
     return this.usersRepository.create({
       ...createUserDto,
       password: await hash(createUserDto.password, 10),
+      roles: ['USER'],
+    });
+  }
+
+  async createUserCompany(createUserDto: CreateUserDto) {
+    await this.validateCreateUserDto(createUserDto);
+    return this.usersRepository.create({
+      ...createUserDto,
+      password: await hash(createUserDto.password, 10),
+      roles: ['COMPANY'],
     });
   }
 

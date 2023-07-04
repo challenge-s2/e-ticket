@@ -9,7 +9,12 @@ export class UsersController {
 
   @MessagePattern({ cmd: 'createUser' })
   async createUser(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+    return this.usersService.createUser(createUserDto);
+  }
+
+  @MessagePattern({ cmd: 'createUserCompany' })
+  async createUserCompany(@Body() createUserDto: CreateUserDto) {
+    return this.usersService.createUserCompany(createUserDto);
   }
 
   @MessagePattern({ cmd: 'getUserById' })
@@ -24,6 +29,7 @@ export class UsersController {
 
   @MessagePattern('verifyUser')
   async verifyUser(email: string, password: string) {
+    console.log('ça passe par là');
     return this.usersService.verifyUser(email, password);
   }
 }

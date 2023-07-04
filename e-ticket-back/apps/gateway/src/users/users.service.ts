@@ -11,9 +11,15 @@ export class UsersService {
     @Inject('COMPANY_SERVICE') private readonly companyClient: ClientProxy,
   ) {}
 
-  async create(createUserDto: CreateUserDto) {
+  async createUser(createUserDto: CreateUserDto) {
     return this.authClient
       .send({ cmd: 'createUser' }, createUserDto)
+      .pipe(map((message: string) => ({ message })));
+  }
+
+  async createUserCompany(createUserDto: CreateUserDto) {
+    return this.authClient
+      .send({ cmd: 'createUserCompany' }, createUserDto)
       .pipe(map((message: string) => ({ message })));
   }
 

@@ -8,9 +8,14 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  @UseGuards(JwtAuthGuard)
   async createUser(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+    return this.usersService.createUser(createUserDto);
+  }
+
+  @Post('company')
+  @UseGuards(JwtAuthGuard)
+  async createUserCompany(@Body() createUserDto: CreateUserDto) {
+    return this.usersService.createUserCompany(createUserDto);
   }
 
   @Get(':id')
