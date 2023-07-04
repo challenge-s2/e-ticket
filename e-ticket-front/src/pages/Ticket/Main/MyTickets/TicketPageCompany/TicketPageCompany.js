@@ -14,6 +14,7 @@ const TicketPageCompany = () => {
   const [totalPrice, setTotalPrice] = useState(0)
   const [companyInfo, setCompanyInfo] = useState({})
   const [priceExclTax, setPriceExclTax] = useState(0)
+  const [arrOfProductsSorted, setArrOfProductsSorted] = useState([])
 
   const fetchData = async () => {
     await axios
@@ -71,6 +72,59 @@ const TicketPageCompany = () => {
   useEffect(() => {
     if(ticketInfo !== undefined){
       console.log(ticketInfo)
+      ticketInfo.listProducts.sort((p1, p2) => {
+        let fa = p1._id.toLowerCase();
+        let fb = p2._id.toLowerCase();
+
+        if (fa < fb) {
+            return -1;
+        }
+        if (fa > fb) {
+            return 1;
+        }
+        return 0;
+      })
+      let startVar = '';
+      let count = 0;
+      let lastName = ''
+      let lastPrice = ''
+      let arr = []
+      for (let lp = 0; lp < ticketInfo.listProducts.length; lp++) {
+        console.log(ticketInfo.listProducts[lp])
+        if(startVar === ''){
+          startVar = ticketInfo.listProducts[lp]._id;
+          count = 1;
+          lastName = ticketInfo.listProducts[lp].name;
+          lastPrice = ticketInfo.listProducts[lp].price;
+        }
+        else if (startVar === ticketInfo.listProducts[lp]._id) {
+          count ++;
+        }
+        else if(startVar !== ticketInfo.listProducts[lp]._id){
+          arr.push({
+            _id: startVar,
+            name: lastName,
+            price: lastPrice,
+            totalCount: count,
+          })
+          startVar = ticketInfo.listProducts[lp]._id
+          count = 1;
+          lastName = ticketInfo.listProducts[lp].name;
+          lastPrice = ticketInfo.listProducts[lp].price;
+        }
+        if(lp === ticketInfo.listProducts.length-1){
+          arr.push({
+            _id: startVar,
+            name: lastName,
+            price: lastPrice,
+            totalCount: count,
+          })
+        }
+        
+      }
+      setArrOfProductsSorted(arr)
+      console.log(arr)
+
     }
   }, [ticketInfo])
 
@@ -145,19 +199,19 @@ const TicketPageCompany = () => {
                 <div className={styles.list_item}>
                   <div className={styles.left}>
                     <div className={styles.left_item_article_title}>ARTICLE</div>
-                    {ticketInfo?.listProducts.map((item,index) => (
+                    {arrOfProductsSorted.map((item,index) => (
                       <div key={index} className={styles.left_item_article_title}>{item.name}</div>
                     ))}
                   </div>
-                  {/* <div className={styles.middle}>
+                  <div className={styles.middle}>
                     <div className={styles.middle_item_article_title}>P.U. x QTE</div>
-                    {articles.map((item,index) => (
-                      <div key={index} className={styles.middle_item_article_title}>{item.price} x {item.quantity}</div>
+                    {arrOfProductsSorted.map((item,index) => (
+                      <div key={index} className={styles.middle_item_article_title}>{item.price}€ x {item.totalCount}</div>
                     ))}
-                  </div> */}
+                  </div>
                   <div className={styles.right}>
                     <div className={styles.right_item_article_title}>MONTANT</div>
-                    {ticketInfo?.listProducts.map((item,index) => (
+                    {arrOfProductsSorted.map((item,index) => (
                       <div key={index} className={styles.right_item_article_title}>{item.price} €</div>
                     ))}
                   </div>
