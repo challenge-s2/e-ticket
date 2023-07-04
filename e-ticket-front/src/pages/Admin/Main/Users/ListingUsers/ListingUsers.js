@@ -41,14 +41,14 @@ const ListingUsers = () => {
       setPage(0);
     };
 
-    /*const deleteUser = async (id) => {
+    const deleteUser = async (id) => {
       await axios.delete(`/users/${id}`,{
         headers: {
           Authorization: `Bearer ${localStorage.getItem('user')}`
         }
       })
         .then(() => 
-        toast.success('Entreprise supprimée !', {
+        toast.success('Utilisateur supprimée !', {
           position: "bottom-left",
           autoClose: 3000,
           hideProgressBar: false,
@@ -60,7 +60,7 @@ const ListingUsers = () => {
         })
         )
         fetchUsers();
-    }*/
+    }
   
     return (
       <>

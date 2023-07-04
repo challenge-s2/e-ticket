@@ -118,7 +118,6 @@ const DetailCompany = () => {
     const svgElement = document.getElementById('mySVG')
     const serializeSVG = new XMLSerializer().serializeToString(svgElement)
     const base64Value = window.btoa(serializeSVG)
-    console.log(base64Value)
     await axios.patch(`/company/${id}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('user')}`

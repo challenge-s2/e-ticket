@@ -26,7 +26,7 @@ const Application = () => {
   const checkValidData = async () => {
       try {
         await axios
-          .get(`/user/${localStorage.getItem('userId')}`, {
+          .get(`/users/${localStorage.getItem('userId')}`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('user')}`
             }

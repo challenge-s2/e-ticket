@@ -25,7 +25,7 @@ const Admin = () => {
   const checkValidData = async () => {
     try {
       await axios
-          .get(`/user/${localStorage.getItem('userId')}`, {
+          .get(`/users/${localStorage.getItem('userId')}`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('user')}`
             }
@@ -33,6 +33,8 @@ const Admin = () => {
           .then((res) => {
             if(res.data.message.roles.includes('ADMIN')){
               console.log("ok valid")
+              setReadyChecked(true);
+              console.log("ready")
             }
             else {
               console.log("pas ok pas admin")
@@ -50,7 +52,7 @@ const Admin = () => {
 
             }
           })
-        setReadyChecked(true);
+        
     }
     catch (err) {
       console.log("pas ok pas valid")

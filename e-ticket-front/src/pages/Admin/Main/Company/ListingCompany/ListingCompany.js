@@ -42,12 +42,21 @@ const ListingCompany = () => {
       setPage(0);
     };
 
-    const deleteCompany = async (id) => {
+    /*const deleteCompany = async (id) => {
       await axios.delete(`/company/${id}`,{
         headers: {
           Authorization: `Bearer ${localStorage.getItem('user')}`
         }
       })
+        .then(() =>
+          axios.post(`/users/${id}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('user')}`
+            }
+          }, {
+            roles: roles.splice(indexOf('COMPANY'))
+          })
+        )
         .then(() => 
         toast.success('Entreprise supprimée !', {
           position: "bottom-left",
@@ -61,13 +70,13 @@ const ListingCompany = () => {
         })
         )
         fetchCompanies();
-    }
+    }*/
   
     return (
       <>
         <div className={styles.container}>
           <div className={styles.container_commlist}>
-            <h2>Liste des entreprises:</h2>
+            <h2>Liste des utilisateurs:</h2>
             <div className={styles.container_grid}>
               <table>
                 <thead>
@@ -100,9 +109,9 @@ const ListingCompany = () => {
                               <LastPageIcon />
                             </Button>
                           </Link>
-                          <Button variant="contained" color="error" onClick={() => deleteCompany(item._id)}>
+                          {/* <Button variant="contained" color="error" onClick={() => deleteCompany(item._id)}>
                             <DeleteRoundedIcon />
-                          </Button>
+                          </Button> */}
                         </td>
                       </tr>
                     ))}
