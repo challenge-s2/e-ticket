@@ -7,16 +7,12 @@ import {
   Patch,
   Post,
   UseGuards,
-  UseInterceptors,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
 import { JwtAuthGuard, Roles } from '@app/common';
-import { AccessControlInterceptor } from '@app/common/interceptors/acccess-control.interceptor';
-import { UpdateCompanyDto } from '../company/dto/update-company.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
-@UseInterceptors(AccessControlInterceptor)
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
