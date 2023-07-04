@@ -11,6 +11,9 @@ export class TicketDocument extends AbstractDocument {
 
   @Prop()
   companyId: string;
+
+  @Prop()
+  scanned: boolean;
 }
 
 export const TicketSchema = SchemaFactory.createForClass(TicketDocument);

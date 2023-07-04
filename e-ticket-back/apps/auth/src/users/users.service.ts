@@ -7,7 +7,6 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UsersRepository } from './users.repository';
 import { compare, hash } from 'bcryptjs';
 import { GetUserDto } from './dto/get-user.dto';
-import { UpdateCompanyDto } from '../../../company/src/company/dto/update-company.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
@@ -20,6 +19,7 @@ export class UsersService {
       ...createUserDto,
       password: await hash(createUserDto.password, 10),
       roles: ['USER'],
+      ticketsScanned: [],
     });
   }
 
@@ -29,6 +29,7 @@ export class UsersService {
       ...createUserDto,
       password: await hash(createUserDto.password, 10),
       roles: ['COMPANY'],
+      ticketsScanned: [],
     });
   }
 

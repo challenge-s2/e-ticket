@@ -10,6 +10,7 @@ export class TicketService {
     return this.ticketRepository.create({
       ...createTicketDto,
       creationDate: new Date(),
+      scanned: false,
     });
   }
 
