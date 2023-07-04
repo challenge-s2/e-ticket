@@ -15,8 +15,6 @@ const questions = [
     <p></p>
     <p>🤝 Fidélité : Des points de fidélité sont automatiquement cumulés lorsque vos clients scannent un QR code après un achat. Ils se créeront ensuite un compte dans votre programme pour utiliser ces points, et ainsi augmenteront votre taux d'embasement.</p>
     <p></p>
-    <p>⭐️ Avis : Vos clients peuvent laisser un avis client en 1 clic depuis le ticket eTicket. Cela vous aidera à gagner en visibilité et en notoriété en ligne.</p>
-    <p></p>
     <p>🔒 Protection des données : Nous de vendons ou ne partageons aucune donnée personnelle à des tiers, ni les vôtres, ni celles de vos clients.</p>
     <p></p>
     <p>🎓 Loi : En avril 2023, la loi anti-gaspillage interdira la distribution systématique des tickets de caisse. Adaptez-vous en 1 scan avec eTicket !</p>`,
@@ -33,8 +31,6 @@ const questions = [
       <p>2. Ils scannent le QR code en caisse avec l'appareil photo de leur smartphone.</p>
       <p></p>
       <p>3. Tadaam, le ticket et les points de fidélité apparaissent !</p>
-      <p></p>
-      <p>4. Ils laissent un avis client sur votre enseigne en 1 clic.</p>
       <p></p>
       <p>Et pour vous ? Ça ne change rien, vous encaissez sur votre logiciel de caisse comme d'habitude. 😉</p>
     `,

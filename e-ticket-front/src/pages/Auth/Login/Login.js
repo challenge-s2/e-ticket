@@ -136,6 +136,7 @@ const Login = ({changePage}) => {
             <div className={styles.mail}>
               <TextField
                 type={"text"}
+                id="login-email"
                 value={userInfo.email}
                 onChange={(e) => setUserInfo((prevValue) => ({...prevValue, email: e.target.value}))}
                 variant={"outlined"}
@@ -147,6 +148,7 @@ const Login = ({changePage}) => {
             <div className={styles.password}>
               <TextField
                 type={"password"}
+                id="login-password"
                 value={userInfo.password}
                 onChange={(e) => setUserInfo((prevValue) => ({...prevValue, password: e.target.value}))}
                 variant={"outlined"}
@@ -155,7 +157,7 @@ const Login = ({changePage}) => {
               />
             </div>
             <div className={styles.submit}>
-              <Button variant={"contained"} color={"success"} onClick={handleSubmit}>
+              <Button variant={"contained"} color={"success"} id="login-btn" onClick={handleSubmit}>
                 Connexion
               </Button>
             </div>
