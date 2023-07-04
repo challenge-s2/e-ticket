@@ -44,7 +44,7 @@ const FormSector = () => {
   return (
     <>
       <div className={styles.container} id="form">
-        <h1>Contactez nous pour découvrir notre solution !</h1>
+        <h1>Contactez-nous pour découvrir notre solution !</h1>
         <div className={styles.wrapper}>
 
           <div className={styles.left}>
