@@ -29,7 +29,11 @@ export class UsersController {
 
   @MessagePattern('verifyUser')
   async verifyUser(email: string, password: string) {
-    console.log('ça passe par là');
     return this.usersService.verifyUser(email, password);
+  }
+
+  @MessagePattern('deleteUser')
+  async delete(id: string) {
+    return this.usersService.delete(id);
   }
 }

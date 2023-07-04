@@ -60,4 +60,8 @@ export class UsersService {
   async getAllUsers() {
     return this.usersRepository.findAll({});
   }
+
+  async delete(id: string) {
+    return this.usersRepository.findOneAndDelete({ _id: id });
+  }
 }

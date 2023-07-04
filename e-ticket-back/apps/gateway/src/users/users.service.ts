@@ -28,10 +28,17 @@ export class UsersService {
       .send({ cmd: 'getUserById' }, getUserDto)
       .pipe(map((message: string) => ({ message })));
   }
+
   async getAllUsers() {
     const pattern = { cmd: 'getAllUsers' };
     return this.authClient
       .send(pattern, '')
+      .pipe(map((message: string) => ({ message })));
+  }
+
+  async delete(id: string) {
+    return this.authClient
+      .send('deleteUser', id)
       .pipe(map((message: string) => ({ message })));
   }
 }
