@@ -49,7 +49,7 @@ export class TicketController {
   }
 
   @Get('last/:companyId')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard) //TODO doit être modifier pour pouvoir être affiché si on est pas connecté
   async getLastByCompanyId(@Param('companyId') companyId: string) {
     return this.ticketService.getLastByCompanyId(companyId);
   }
@@ -61,6 +61,8 @@ export class TicketController {
   ) {
     return this.ticketService.updateTicket(id, updateTicketDto);
   }
+
+  //TODO route pour scanner=true le ticket sans jwt
 
   @Delete(':id')
   @UseGuards(JwtAuthGuard)

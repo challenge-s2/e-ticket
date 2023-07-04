@@ -4,8 +4,9 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Moment from "moment";
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
+import { Button } from "@mui/material";
 
-const TicketPage = () => {
+const TicketPageCompany = () => {
   const { idCompany } = useParams();
   const [ticketAlreadyScanned, setTicketAlreadyScanned] = useState(false);
   const TVA = 5.5;
@@ -15,29 +16,45 @@ const TicketPage = () => {
   const [priceExclTax, setPriceExclTax] = useState(0)
 
   const fetchData = async () => {
-    const lastTicketRaw = await axios
-      .get(`/ticket/last/${idCompany}`, {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem('user')
+    await axios
+      .get(`/ticket/last/${idCompany}`
+      ,{
+        headers: {  
+          Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGE0MmM3OWQzNTFhNDc4OTMzZTlhNWEiLCJpYXQiOjE2ODg0ODg1NTV9.06ydg5V3HnX4ufiiMOq4QyWpr-ClAttjBo8Ml8CYtMQ"
         }
-      })
-      .then((res) => setTicketInfo(res.data.message))
-      .then(() => setTicketAlreadyScanned(false)) //lastTicketRaw.data.message.scanned
-      .then(() => {
-        console.log(ticketAlreadyScanned)
-        if(!ticketAlreadyScanned) {
+      }
+      )
+      .then((res) => {
+        setTicketInfo(res.data.message)
+        setTicketAlreadyScanned(res.data.message.scanned)
+        if(!res.data.message.scanned) {
+          let arr = [];
           if(localStorage.getItem('userId') === ''){ //not connected
-            if(localStorage.getItem('ticketsScanned') === '') {
-              console.log("n'existe pas")
-            }
-            else if (localStorage.getItem('ticketsScanned') === '[]'){
-              console.log("existe mais vide")
+
+            console.log(res.data.message._id)
+            console.log(localStorage.getItem('ticketsScanned'))
+            if(!localStorage.getItem('ticketsScanned').includes(res.data.message._id.toString())){
+              if(localStorage.getItem('ticketsScanned') !== null && localStorage.getItem('ticketsScanned') !== '[]' && localStorage.getItem('ticketsScanned') !== '') {  
+                arr = JSON.parse(localStorage.getItem("ticketsScanned"));
+              }
+              arr.push(res.data.message._id.toString());
+              localStorage.setItem("ticketsScanned", JSON.stringify(arr)); 
+              console.log('changed')
             }
             else {
-              console.log("existe et non vide")
+              console.log('already in localstorage')
             }
+            /*axios.patch(`/ticket/${res.data.message._id}`,{
+              scanned: true
+            },{
+              headers: {  
+                Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGE0MmM3OWQzNTFhNDc4OTMzZTlhNWEiLCJpYXQiOjE2ODg0ODg1NTV9.06ydg5V3HnX4ufiiMOq4QyWpr-ClAttjBo8Ml8CYtMQ"
+              }
+            }).then(() => console.log("scanned"))*/
           }
           else { // connected
+            console.log('connected')
+
             //patch user add id ticket
             //patch ticket scanned true
           }
@@ -45,12 +62,17 @@ const TicketPage = () => {
       })
       
       .catch(() => console.log("err"))
-      console.log(lastTicketRaw)
   }
 
   useEffect(() => {
     fetchData();
   }, [])
+
+  useEffect(() => {
+    if(ticketInfo !== undefined){
+      console.log(ticketInfo)
+    }
+  }, [ticketInfo])
 
   const getTotalPrice = () => {
     let price = 0
@@ -64,7 +86,7 @@ const TicketPage = () => {
     await axios
       .get(`/company/${ticketInfo?.companyId}`, {
         headers: {
-          Authorization: "Bearer " + localStorage.getItem('user')
+          Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGE0MmM3OWQzNTFhNDc4OTMzZTlhNWEiLCJpYXQiOjE2ODg0ODg1NTV9.06ydg5V3HnX4ufiiMOq4QyWpr-ClAttjBo8Ml8CYtMQ"
         }      
       }).then((res) => setCompanyInfo(res.data.message))
   }
@@ -86,30 +108,33 @@ const TicketPage = () => {
     calcExclTax();
   }, [totalPrice])
 
+  const printTicket = () => {
+    window.print()
+  }
+
 
   return (
     <>
       {ticketAlreadyScanned ?
-      <div className={styles.container}>
-        <div className={styles.item_home}>
-          <h3>Mon ticket</h3>
-          <div className={styles.item}>
-            <div>
-              <WarningRoundedIcon color="error" fontSize="large"/>
-              <div className={styles.text}>
-                Le ticket que vous essayez de visualiser est bloqué, il a déjà été scanné
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      :
-    
         <div className={styles.container}>
           <div className={styles.item_home}>
             <h3>Mon ticket</h3>
             <div className={styles.item}>
-              <div className={styles.company_name}>{companyInfo.name}</div>
+              <div>
+                <WarningRoundedIcon color="error" fontSize="large"/>
+                <div className={styles.text}>
+                  Le ticket que vous essayez de visualiser est bloqué, il a déjà été scanné
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      :
+        <div className={styles.container}>
+          <div className={styles.item_home}>
+            <h3>Mon ticket</h3>
+            <div className={styles.item}>
+              <div className={styles.company_name}>{companyInfo.name} - {companyInfo.address}</div>
               <div className={styles.company_place}>{/*TODO place*/}</div>
               <div className={styles.company_date}>
                 Le {Moment(ticketInfo?.creationDate).format("DD/MM/YYYY").toLocaleString('fr-FR')} à {Moment(ticketInfo?.creationDate).format("hh").toLocaleString('fr-FR')}h{Moment(ticketInfo?.creationDate).format("mm").toLocaleString('fr-FR')}
@@ -121,7 +146,6 @@ const TicketPage = () => {
                   <div className={styles.left}>
                     <div className={styles.left_item_article_title}>ARTICLE</div>
                     {ticketInfo?.listProducts.map((item,index) => (
-                      console.log(item),
                       <div key={index} className={styles.left_item_article_title}>{item.name}</div>
                     ))}
                   </div>
@@ -177,6 +201,9 @@ const TicketPage = () => {
                 </div>
               </div>
             </div>
+            <div className={styles.download_button} style={{display: 'flex', justifyContent: 'center', marginTop: "20px"}}>
+              <Button variant="contained" color="primary" onClick={() => printTicket()}>Télécharger</Button>
+            </div>
           </div>
         </div>
       }
@@ -184,4 +211,4 @@ const TicketPage = () => {
   );
 };
 
-export default TicketPage;
+export default TicketPageCompany;

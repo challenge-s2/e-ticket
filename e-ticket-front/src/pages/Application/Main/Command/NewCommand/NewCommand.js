@@ -85,6 +85,7 @@ const NewCommand = () => {
     const arrayOfProducts = []
     listOfProducts.map((item) => (
       arrayOfProducts.push({
+        _id: listOfAllProducts.filter((prod) => prod._id === item)[0]._id,
         name: listOfAllProducts.filter((prod) => prod._id === item)[0].name,
         price: listOfAllProducts.filter((prod) => prod._id === item)[0].price
       })

@@ -3,6 +3,7 @@ import styles from "./TicketPage.module.scss";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Moment from "moment";
+import { Button } from "@mui/material";
 
 const TicketPage = () => {
   const { id } = useParams();
@@ -53,6 +54,9 @@ const TicketPage = () => {
     calcExclTax();
   }, [totalPrice])
 
+  const printTicket = () => {
+    window.print()
+  }
 
   return (
     <>
@@ -127,6 +131,9 @@ const TicketPage = () => {
 
               </div>
             </div>
+          </div>
+          <div className={styles.download_button} style={{display: 'flex', justifyContent: 'center', marginTop: "20px"}}>
+            <Button variant="contained" color="primary" onClick={() => printTicket()}>Télécharger</Button>
           </div>
         </div>
       </div>
