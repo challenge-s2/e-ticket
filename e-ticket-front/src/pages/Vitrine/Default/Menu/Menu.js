@@ -134,9 +134,6 @@ return (
                   <Button variant="contained" color='error' onClick={() => loggout()} size='small'>Déconnexion</Button>
                 </>
               }
-              <Link to="/auth" id={styles.login_button}>
-                <Button variant={"contained"} color={"success"} id="connect-btn">Connexion</Button>
-              </Link>
             </div>
           </div>
         </div>
