@@ -225,19 +225,19 @@ const Signin = ({ changePage }) => {
                   label={"Confirmer le mot de passe"}
                 />
               </div>
-              <div className={styles.passwrd}>
-                {
-                  errorPassword === 'not the same' ?
-                  <div style={{color: 'red'}}>Veuillez confirmer le même mot de passe</div>
-                  : errorPassword === 'not strong enough' ?
-                  <div style={{color: 'red'}}>Veuillez renseigner un mot de passe plus fort (au mois: 8 caractères, 1 majuscule, 1 minuscule, 1 caractère spécial )</div>
-                  :
-                  <></>
-
-                }
-              </div>
             </>
             }
+            <div className={styles.passwrd}>
+              {
+                errorPassword === 'not the same' ?
+                <div style={{color: 'red'}}>Veuillez renseigner le même mot de passe</div>
+                : errorPassword === 'not strong enough' ?
+                <div style={{color: 'red'}}>Veuillez renseigner un mot de passe plus fort (au mois: 8 caractères, 1 majuscule, 1 minuscule, 1 caractère spécial )</div>
+                :
+                <></>
+
+              }
+            </div>
             <div className={styles.button}>
               <Button variant={"contained"} color={"primary"} onClick={handleSubmit}>
                 S'inscrire
