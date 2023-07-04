@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTicketDto } from './dto/create-ticket.dto';
 import { TicketRepository } from './ticket.repository';
+import { UpdateTicketDto } from './dto/update-ticket.dto';
 
 @Injectable()
 export class TicketService {
@@ -26,6 +27,13 @@ export class TicketService {
 
   async getLastByCompanyId(companyId: string) {
     return this.ticketRepository.findLast({ companyId });
+  }
+
+  async update(id: string, updateTicketDto: UpdateTicketDto) {
+    return this.ticketRepository.findOneAndUpdate(
+      { _id: id },
+      { $set: updateTicketDto },
+    );
   }
 
   async delete(ticketId: string) {

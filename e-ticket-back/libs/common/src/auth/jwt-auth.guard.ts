@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   CanActivate,
   ExecutionContext,
   Inject,
@@ -7,12 +6,10 @@ import {
   Logger,
   UnauthorizedException,
 } from '@nestjs/common';
-import { catchError, map, Observable, of, tap } from 'rxjs';
+import { map } from 'rxjs';
 import { ClientProxy } from '@nestjs/microservices';
-import { UserDto } from '@app/common/dto';
 import { Reflector } from '@nestjs/core';
 import { Request } from 'express';
-import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
@@ -30,7 +27,6 @@ export class JwtAuthGuard implements CanActivate {
       return false;
     }
     const roles = this.reflector.get<string[]>('roles', context.getHandler());
-    console.log(roles);
     const validateJwt = await this.authClient
       .send('validate', jwt)
       .pipe(map((message: any) => ({ message })))

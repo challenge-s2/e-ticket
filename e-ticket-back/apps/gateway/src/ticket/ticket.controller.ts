@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   UseGuards,
   UseInterceptors,
@@ -12,6 +13,8 @@ import { TicketService } from './ticket.service';
 import { CreateTicketDto } from './dto/create-ticket.dto';
 import { JwtAuthGuard, Roles } from '@app/common';
 import { AccessControlInterceptor } from '@app/common/interceptors/acccess-control.interceptor';
+import { UpdateCompanyDto } from '../company/dto/update-company.dto';
+import { UpdateTicketDto } from './dto/update-ticket.dto';
 
 @UseInterceptors(AccessControlInterceptor)
 @Controller('ticket')
@@ -49,6 +52,14 @@ export class TicketController {
   @UseGuards(JwtAuthGuard)
   async getLastByCompanyId(@Param('companyId') companyId: string) {
     return this.ticketService.getLastByCompanyId(companyId);
+  }
+
+  @Patch(':id')
+  async update(
+    @Param('id') id: string,
+    @Body() updateTicketDto: UpdateTicketDto,
+  ) {
+    return this.ticketService.updateTicket(id, updateTicketDto);
   }
 
   @Delete(':id')

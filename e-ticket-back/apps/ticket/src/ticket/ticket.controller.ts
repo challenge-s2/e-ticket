@@ -32,6 +32,13 @@ export class TicketController {
     return this.ticketService.getLastByCompanyId(companyId);
   }
 
+  @MessagePattern('updateTicket')
+  update(@Payload() data) {
+    const id = data.id;
+    const updateTicketDto = data.update;
+    return this.ticketService.update(id, updateTicketDto);
+  }
+
   @MessagePattern('deleteTicket')
   delete(@Payload() ticketId: string) {
     return this.ticketService.delete(ticketId);
