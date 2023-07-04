@@ -10,6 +10,7 @@ const Menu = () => {
     user: '',
     userId: '',
   })
+  const [userRoles, setUserRoles] = useState([])
 
   const checkLoggedIn = async () => {
     if(localStorage.getItem('user') === '' || localStorage.getItem('userId') === ''){
@@ -32,6 +33,8 @@ const Menu = () => {
               user: localStorage.getItem('user'),
               userId: localStorage.getItem('userId'),
             })
+            setUserRoles(res.data.message.roles)
+            console.log(res.data.message.roles)
           }
           else{
             localStorage.setItem('user', '')
@@ -111,7 +114,25 @@ return (
                   <Button variant={"contained"} color={"success"}>Connexion</Button>
                 </Link>
               :
-                <Button variant="contained" color='error' onClick={() => loggout()} size='small'>Déconnexion</Button>
+                <>
+                {
+                  userRoles.includes('COMPANY') ?
+                    <Link to="/app" id={styles.login_button}>
+                      <Button variant={"contained"} color={"success"}>Application</Button>
+                    </Link>
+                  :
+                    <></>
+                }
+                {
+                  userRoles.includes('ADMIN') ?
+                    <Link to="/admin" id={styles.login_button}>
+                      <Button variant={"contained"} color={"warning"}>Backoffice</Button>
+                    </Link>
+                  :
+                    <></>
+                }
+                  <Button variant="contained" color='error' onClick={() => loggout()} size='small'>Déconnexion</Button>
+                </>
               }
             </div>
           </div>

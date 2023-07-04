@@ -23,7 +23,6 @@ const Application = () => {
   
   const checkValidData = async () => {
     try {
-      console.log("Bearer " + localStorage.getItem('user'))
       await axios
           .get(`/company/user/${localStorage.getItem('userId')}`, {
             headers: {
@@ -53,7 +52,7 @@ const Application = () => {
 
             }
           })
-          .catch(() => {
+          /*.catch(() => {
             console.log("pas ok pas valid 2")
             localStorage.setItem("userId", '')
             localStorage.setItem("user", '')
@@ -69,15 +68,15 @@ const Application = () => {
               progress: undefined,
               theme: "dark",
             })
-          })
+          })*/
     }
     catch (err) {
-      console.log("pas ok pas valid 3")
+      /* idCompany introuvable */
       localStorage.setItem("userId", '')
       localStorage.setItem("user", '')
       localStorage.setItem("companyId", '')
       setRedirection(true)
-      toast.error('Erreur de données', {
+      toast.error('Erreur', {
         position: "bottom-left",
         autoClose: 3000,
         hideProgressBar: false,
@@ -98,7 +97,7 @@ const Application = () => {
 
   return (
     <>
-      {redirection ? <Navigate to={'/auth'} replace /> : <></>}
+      {redirection ? <Navigate to={'/auth/app'} replace /> : <></>}
       <div className={styles.container}>
         {windowSize < 1330 ? (
           <MenuMobile setOpen={setOpenLeftBoardMobile} />

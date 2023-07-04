@@ -85,7 +85,7 @@ const Login = ({changePage}) => {
         })
         .then((res) => localStorage.setItem('companyId', res.data.message._id))
         
-        .catch(() => localStorage.setItem('companyId', 'N/A'))
+        .catch(() => localStorage.setItem('companyId', ''))
   }
 
   const handleSubmit = async () => {

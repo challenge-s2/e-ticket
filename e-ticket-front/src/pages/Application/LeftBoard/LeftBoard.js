@@ -16,7 +16,7 @@ const LeftBoard = () => {
   }
   return (
     <>
-      {redirection ? <Navigate to='/auth' replace /> : <></>}
+      {redirection ? <Navigate to='/auth/app' replace /> : <></>}
       <div className={styles.container}>
         <ItemCommandLeftBoard opened={true} />
         <ItemProductLeftBoard />
