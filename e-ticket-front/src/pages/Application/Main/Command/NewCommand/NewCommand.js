@@ -92,12 +92,12 @@ const NewCommand = () => {
     console.log(arrayOfProducts)
 
     await axios.post('/ticket/', {
+      companyId: localStorage.getItem('companyId'),
+      listProducts: arrayOfProducts
+    }, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('user')}`
       }
-    }, {
-      companyId: localStorage.getItem('companyId'),
-      listProducts: arrayOfProducts
     })
     .then((res) => setIdNewCommand(res.data.message._id))
     .then(() => 

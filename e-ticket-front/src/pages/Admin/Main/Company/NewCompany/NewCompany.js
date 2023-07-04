@@ -57,7 +57,8 @@ const NewCompany = () => {
     companyType: '',
     mail: '',
     //phone: 'ipo',
-    password: ''
+    password: '',
+    address: ''
 
   });
   const [newCompanyId, setNewCompanyId] = useState('');
@@ -69,27 +70,29 @@ const NewCompany = () => {
       companyInfo.description !== '' && 
       companyInfo.companyType !== '' && 
       companyInfo.mail !== '' && 
+      companyInfo.address !== '' &&
       //companyInfo.phone !== '' &&
       companyInfo.password !== ''
     ){
       console.log(companyInfo); /* TODO Enregistrer dans la BDD */
-      await axios.post(`/users/company`, {
+      await axios.post(`/users/company/`, {
+        email: companyInfo.mail,
+        password: companyInfo.password
+      }, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('user')}`
         }
-      }, {
-        email: companyInfo.mail,
-        password: companyInfo.password
       }).then((res) => 
-        axios.post('/company', {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('user')}`
-          }
-        }, {
+        axios.post('/company/',  {
           name: companyInfo.name,
           description: companyInfo.description,
           type: companyInfo.companyType,
+          address: companyInfo.address,
           userId: res.data.message._id
+        },{
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('user')}`
+          }
         })
         .then((res) => setNewCompanyId(res.data.message._id))
         .then(() => 
@@ -144,7 +147,8 @@ const NewCompany = () => {
           </FormControl>  
         </div>
 
-        <div className={styles.input}>
+        <div className={styles.input_duo}>
+          <TextField label="Ville de l'entreprise" value={companyInfo.address} onChange={(e) => setCompanyInfo((prevValue) => ({...prevValue, address: e.target.value}) )} variant="outlined" sx={{width: '100%'}}/>
           <TextField label="Mail de l'entreprise" type="email" value={companyInfo.mail} onChange={(e) => setCompanyInfo((prevValue) => ({...prevValue, mail: e.target.value}) )} variant="outlined" sx={{width: '100%'}}/>
         </div>
 

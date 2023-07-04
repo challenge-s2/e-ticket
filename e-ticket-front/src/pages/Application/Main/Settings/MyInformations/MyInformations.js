@@ -87,14 +87,14 @@ const MyInformations = () => {
 
     axios.patch(`/company/${localStorage.getItem('companyId')}`, 
         {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('user')}`
-          }
-        },
-        {
             name: informations.name,
             description: informations.description,
             type: informations.type,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('user')}`
+          }
         }
         )
         .then(() => 
