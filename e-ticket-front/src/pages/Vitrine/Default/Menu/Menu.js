@@ -23,7 +23,7 @@ return (
             {/* Boutton de connexion */}
             <div className={styles.rigth_button_container}>
               <Link to="/auth" id={styles.login_button}>
-                <Button variant={"contained"} color={"success"}>Connexion</Button>
+                <Button variant={"contained"} color={"success"} id="connect-btn">Connexion</Button>
               </Link>
             </div>
           </div>
