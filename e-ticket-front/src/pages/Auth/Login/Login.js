@@ -100,7 +100,10 @@ const Login = ({changePage}) => {
         userId = res.data.message.user._id
         localStorage.setItem('userId', userId)
         console.log("ok")
-        getCompany(userId)
+        console.log(res.data.message.user.roles)
+        if(res.data.message.user.roles.includes('COMPANY')) {
+          getCompany(userId)
+        }
         setRedirection(true)
       })
         .then(() => 
