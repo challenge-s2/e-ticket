@@ -3,6 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { GetUserDto } from './dto/get-user.dto';
 import { ClientProxy } from '@nestjs/microservices';
 import { map } from 'rxjs';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -33,6 +34,12 @@ export class UsersService {
     const pattern = { cmd: 'getAllUsers' };
     return this.authClient
       .send(pattern, '')
+      .pipe(map((message: string) => ({ message })));
+  }
+
+  async update(_id: string, updateUserDto: UpdateUserDto) {
+    return this.companyClient
+      .send('updateUser', { id: _id, update: updateUserDto })
       .pipe(map((message: string) => ({ message })));
   }
 

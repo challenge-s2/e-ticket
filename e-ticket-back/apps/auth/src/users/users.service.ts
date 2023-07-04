@@ -7,6 +7,8 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UsersRepository } from './users.repository';
 import { compare, hash } from 'bcryptjs';
 import { GetUserDto } from './dto/get-user.dto';
+import { UpdateCompanyDto } from '../../../company/src/company/dto/update-company.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -59,6 +61,13 @@ export class UsersService {
 
   async getAllUsers() {
     return this.usersRepository.findAll({});
+  }
+
+  update(id: string, updateUserDto: UpdateUserDto) {
+    return this.usersRepository.findOneAndUpdate(
+      { _id: id },
+      { $set: updateUserDto },
+    );
   }
 
   async delete(id: string) {
