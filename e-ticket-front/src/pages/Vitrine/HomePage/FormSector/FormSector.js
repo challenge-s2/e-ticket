@@ -52,7 +52,7 @@ const FormSector = () => {
               <p>Nous sommes disponibles tous les jours, nous vous répondrons dans les plus brefs délais.</p>
               <br/>
               <span style={{ textAlign: "left" }}>
-              <p>Nous couvrons un large choix de sercteur d'activité comme :</p>
+              <p>Nous couvrons un large choix de secteur d'activité comme :</p>
               <p>- Fastfood</p>
               <p>- Institut de beauté</p>
               <p>- Vente d'eCigarette</p>
