@@ -36,8 +36,7 @@ const Signin = ({ changePage }) => {
         axios.post('/users/',
         {
           email: userInfo.email,
-          password: userInfo.password,
-          roles: ['USER']
+          password: userInfo.password
         })
           .then((res) => {
             console.log(res)

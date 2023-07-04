@@ -3,10 +3,11 @@ import styles from "./TicketPageCompany.module.scss";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Moment from "moment";
+import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 
 const TicketPage = () => {
   const { idCompany } = useParams();
-  const [ticketAlreadyScanned, setTicketAlreadyScanned] = useState(true);
+  const [ticketAlreadyScanned, setTicketAlreadyScanned] = useState(false);
   const TVA = 5.5;
   const [ticketInfo, setTicketInfo] = useState()
   const [totalPrice, setTotalPrice] = useState(0)
@@ -21,9 +22,30 @@ const TicketPage = () => {
         }
       })
       .then((res) => setTicketInfo(res.data.message))
-      .then(() => setTicketAlreadyScanned(true)) //lastTicketRaw.data.message.scanned
-      .then(() => console.log(lastTicketRaw.data.message))
-      .catch((req) => console.log(req))
+      .then(() => setTicketAlreadyScanned(false)) //lastTicketRaw.data.message.scanned
+      .then(() => {
+        console.log(ticketAlreadyScanned)
+        if(!ticketAlreadyScanned) {
+          if(localStorage.getItem('userId') === ''){ //not connected
+            if(localStorage.getItem('ticketsScanned') === '') {
+              console.log("n'existe pas")
+            }
+            else if (localStorage.getItem('ticketsScanned') === '[]'){
+              console.log("existe mais vide")
+            }
+            else {
+              console.log("existe et non vide")
+            }
+          }
+          else { // connected
+            //patch user add id ticket
+            //patch ticket scanned true
+          }
+        }
+      })
+      
+      .catch(() => console.log("err"))
+      console.log(lastTicketRaw)
   }
 
   useEffect(() => {
@@ -72,7 +94,12 @@ const TicketPage = () => {
         <div className={styles.item_home}>
           <h3>Mon ticket</h3>
           <div className={styles.item}>
-            <div>Le ticket que vous essayez de visualiser est bloqué, il a déjà été scanné</div>
+            <div>
+              <WarningRoundedIcon color="error" fontSize="large"/>
+              <div className={styles.text}>
+                Le ticket que vous essayez de visualiser est bloqué, il a déjà été scanné
+              </div>
+            </div>
           </div>
         </div>
       </div>
