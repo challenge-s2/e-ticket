@@ -20,26 +20,55 @@ const Application = () => {
   const [openLeftBoardMobile, setOpenLeftBoardMobile] = useState(false);
   const [windowSize, setWindowSize] = useState(window.screen.width);
   const [redirection, setRedirection] = useState(false)
+  const [readyChecked, setReadyChecked] = useState(false)
+
   
   const checkValidData = async () => {
-    try {
-      await axios
-          .get(`/company/user/${localStorage.getItem('userId')}`, {
+      try {
+        await axios
+          .get(`/user/${localStorage.getItem('userId')}`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('user')}`
             }
           })
           .then((res) => {
-            if(res.data.message._id === localStorage.getItem('companyId') && localStorage.getItem('companyId') !== ''){
+            if(res.data.message.roles.includes('COMPANY')){
               console.log("ok valid")
+              axios
+                .get(`/company/user/${localStorage.getItem('userId')}`, {
+                  headers: {
+                    Authorization: `Bearer ${localStorage.getItem('user')}`
+                  }
+                })
+                .then((res) => {
+                  if(res.data.message._id === localStorage.getItem('companyId') && localStorage.getItem('companyId') !== ''){
+                    console.log("double ok valid")
+                    setReadyChecked(true)
+                  }
+                  else {
+                    console.log("pas ok pas valid 1")
+                    localStorage.setItem("userId", '')
+                    localStorage.setItem("user", '')
+                    localStorage.setItem("companyId", '')
+                    setRedirection(true)
+                    toast.error('Erreur de données', {
+                      position: "bottom-left",
+                      autoClose: 3000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                      theme: "dark",
+                    })
+
+                  }
+                })
             }
             else {
-              console.log("pas ok pas valid 1")
-              localStorage.setItem("userId", '')
-              localStorage.setItem("user", '')
-              localStorage.setItem("companyId", '')
+              console.log("pas ok pas entreprise")
               setRedirection(true)
-              toast.error('Erreur de données', {
+              toast.error("Vous n'avez pas l'autorisation d'accéderà cette interface", {
                 position: "bottom-left",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -52,41 +81,21 @@ const Application = () => {
 
             }
           })
-          /*.catch(() => {
-            console.log("pas ok pas valid 2")
-            localStorage.setItem("userId", '')
-            localStorage.setItem("user", '')
-            localStorage.setItem("companyId", '')
-            setRedirection(true)
-            toast.error('Erreur de données', {
-              position: "bottom-left",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark",
-            })
-          })*/
-    }
-    catch (err) {
-      /* idCompany introuvable */
-      localStorage.setItem("userId", '')
-      localStorage.setItem("user", '')
-      localStorage.setItem("companyId", '')
-      setRedirection(true)
-      toast.error('Erreur', {
-        position: "bottom-left",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      })
-    }
+      }
+      catch (err) {
+        console.log("pas ok pas valid")
+        setRedirection(true)
+        toast.error("Vous n'avez pas l'autorisation d'accéderà cette interface", {
+          position: "bottom-left",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        })
+      }
   }
 
   useEffect(() => {
@@ -97,50 +106,57 @@ const Application = () => {
 
   return (
     <>
-      {redirection ? <Navigate to={'/auth/app'} replace /> : <></>}
-      <div className={styles.container}>
-        {windowSize < 1330 ? (
-          <MenuMobile setOpen={setOpenLeftBoardMobile} />
-        ) : (
-          <></>
-        )}
-        <div className={styles.container_board}>
-          {windowSize < 1330 ? (
-            <LeftBoardMobile
-              open={openLeftBoardMobile}
-              setOpen={setOpenLeftBoardMobile}
-            />
-          ) : (
-            <div className={styles.container_left_board}>
-              <LeftBoard />
-            </div>
-          )}
-          <div className={styles.container_main_board}>
-            <Routes>
-              <Route index element={<NewCommand />} />
-              <Route path="/list-old-commands" element={<ListOldCommand />} />
-              <Route path="/new-command" element={<NewCommand />} />
-              <Route
-                path="/detail-old-command/:id"
-                element={<DetailOldCommand />}
-              />
-              <Route
-                path="/detail-old-command/not-found"
-                element={<CommandNotFound />}
-              />
+      {redirection ? <Navigate to={'/'} replace /> : <></>}
+      {readyChecked ?
+        <>
+          <div className={styles.container}>
+            {windowSize < 1330 ? (
+              <MenuMobile setOpen={setOpenLeftBoardMobile} />
+            ) : (
+              <></>
+            )}
+            <div className={styles.container_board}>
+              {windowSize < 1330 ? (
+                <LeftBoardMobile
+                  open={openLeftBoardMobile}
+                  setOpen={setOpenLeftBoardMobile}
+                />
+              ) : (
+                <div className={styles.container_left_board}>
+                  <LeftBoard />
+                </div>
+              )}
+              <div className={styles.container_main_board}>
+                <Routes>
+                  <Route index element={<NewCommand />} />
+                  <Route path="/list-old-commands" element={<ListOldCommand />} />
+                  <Route path="/new-command" element={<NewCommand />} />
+                  <Route
+                    path="/detail-old-command/:id"
+                    element={<DetailOldCommand />}
+                  />
+                  <Route
+                    path="/detail-old-command/not-found"
+                    element={<CommandNotFound />}
+                  />
 
-              <Route path="/list-products" element={<ListOfProducts />} />
-              <Route path="/new-product" element={<NewProduct />} />
-              <Route path="/edit-product/:id" element={<EditProduct />} />
-              <Route
-                path="/edit-product/not-found"
-                element={<ProductNotFound />}
-              />
-              <Route path="/my-informations" element={<MyInformations />} />
-            </Routes>
+                  <Route path="/list-products" element={<ListOfProducts />} />
+                  <Route path="/new-product" element={<NewProduct />} />
+                  <Route path="/edit-product/:id" element={<EditProduct />} />
+                  <Route
+                    path="/edit-product/not-found"
+                    element={<ProductNotFound />}
+                  />
+                  <Route path="/my-informations" element={<MyInformations />} />
+                </Routes>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        
+        </>  
+      :
+        <>Chargement...</>
+      }
     </>
   );
 };

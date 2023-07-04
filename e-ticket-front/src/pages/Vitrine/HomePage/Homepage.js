@@ -16,7 +16,7 @@ const Homepage = () => {
         <FirstItem />
         <BlockText
           title="Qu'est ce que c'est ?"
-          text="Notre solution propose un outil de gestion des produits, des commandes et des tickets de caisse de manière dématérialisé."
+          text="Notre solution propose un outil de gestion des produits, des commandes et des tickets de caisse de manière dématérialisée."
           align="left"
           step="second"
         />

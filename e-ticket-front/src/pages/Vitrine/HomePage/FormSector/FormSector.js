@@ -12,7 +12,7 @@ const content = [
   },
   {
     key: 2,
-    name: "Institue de beauté",
+    name: "Institut de beauté",
     img: "https://placehold.co/400",
     alt: "image of the activity sector to choose",
     link: "",
@@ -44,7 +44,7 @@ const FormSector = () => {
   return (
     <>
       <div className={styles.container} id="form">
-        <h1>Contactez nous pour découvrir notre solution !</h1>
+        <h1>Contactez-nous pour découvrir notre solution !</h1>
         <div className={styles.wrapper}>
 
           <div className={styles.left}>
@@ -52,9 +52,9 @@ const FormSector = () => {
               <p>Nous sommes disponibles tous les jours, nous vous répondrons dans les plus brefs délais.</p>
               <br/>
               <span style={{ textAlign: "left" }}>
-              <p>Nous couvrons un large choix de sercteur d'activité comme :</p>
+              <p>Nous couvrons un large choix de secteur d'activité comme :</p>
               <p>- Fastfood</p>
-              <p>- Institue de beauté</p>
+              <p>- Institut de beauté</p>
               <p>- Vente d'eCigarette</p>
               <p>- Boulangerie/Patisserie</p>
               <p>Choisissez celui qui vous correspond</p>
@@ -127,7 +127,7 @@ const FormSector = () => {
                   maxRows={4}
                   rows={2}
                   variant={"outlined"}
-                  label={"Le contenue de votre demande"}
+                  label={"Le contenu de votre demande"}
                 />  
             </div>
 

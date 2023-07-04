@@ -26,7 +26,7 @@ const contentCompanyType = [
   },
   {
     key: 2,
-    name: "Institue de beauté",
+    name: "Institut de beauté",
     img: "https://placehold.co/400",
     alt: "image of the activity sector to choose",
     link: "",
