@@ -17,7 +17,7 @@ const LeftBoardMobile = ({ open, setOpen }) => {
   }
   return (
     <>
-      {redirection ? <Navigate to='/auth' replace /> : <></>}
+      {redirection ? <Navigate to='/auth/app' replace /> : <></>}
       <div className={styles.container}>
         <Drawer open={open} onClose={() => setOpen(false)}>
           <ItemCommandLeftBoard opened={true} />

@@ -55,8 +55,8 @@ const Questions = () => {
       <div className={styles.container}>
         <h1>Les questions fréquentes : </h1>
         <div className={styles.contrainer_questions}>
-          {questions.map((item) => (
-            <Accordion>
+          {questions.map((item, index) => (
+            <Accordion key={index}>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="content"
@@ -67,8 +67,7 @@ const Questions = () => {
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography>
-                  <div dangerouslySetInnerHTML={{__html: item.answer}}/>
+                <Typography dangerouslySetInnerHTML={{__html: item.answer}} component={'span'}>
                 </Typography>
               </AccordionDetails>
             </Accordion>

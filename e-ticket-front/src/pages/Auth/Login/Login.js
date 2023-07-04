@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import styles from "./Login.module.scss";
 import { Button, TextField } from "@mui/material";
 import axios from "axios";
-import { Navigate } from "react-router-dom"
+import { Navigate, useParams } from "react-router-dom"
 import { toast } from "react-toastify";
 
-const Login = () => {
-  
+const Login = ({changePage}) => {
+  const { path } = useParams()
+
   const [windowSize, setWindowSize] = useState(window.screen.width);
   const [redirection, setRedirection] = useState(false)
   const [userInfo, setUserInfo] = useState({
@@ -84,7 +85,7 @@ const Login = () => {
         })
         .then((res) => localStorage.setItem('companyId', res.data.message._id))
         
-        .catch(() => localStorage.setItem('companyId', 'N/A'))
+        .catch(() => localStorage.setItem('companyId', ''))
   }
 
   const handleSubmit = async () => {
@@ -99,7 +100,10 @@ const Login = () => {
         userId = res.data.message.user._id
         localStorage.setItem('userId', userId)
         console.log("ok")
-        getCompany(userId)
+        console.log(res.data.message.user.roles)
+        if(res.data.message.user.roles.includes('COMPANY')) {
+          getCompany(userId)
+        }
         setRedirection(true)
       })
         .then(() => 
@@ -119,21 +123,12 @@ const Login = () => {
     catch (error) {
       console.log(error)
     }
-
-    
-      /*.catch((err) => {
-        try {
-          setWarning(err.response.data.message);
-        } catch {
-          setWarning("Il semble que le serveur soit offline");
-        }
-      });*/
   }
 
 
   return (
     <>
-      {redirection ? <Navigate to='/app' replace /> : <></>}
+      {redirection ? <Navigate to={`/${path === 'home' ? '' : path}`} replace /> : <></>}
       <div className={styles.container}>
         <div className={styles.left}>
           <div className={styles.wrapper_left}>
@@ -166,12 +161,12 @@ const Login = () => {
                 Connexion
               </Button>
             </div>
-            {/*<div
+            <div
               className={styles.change_to_signin}
               onClick={() => changePage("signin")}
             >
               Vous n'avez pas de compte? Créé en un !
-            </div>*/}
+            </div>
 
           </div>
         </div>

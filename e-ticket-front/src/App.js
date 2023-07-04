@@ -41,7 +41,7 @@ const App = () => {
         <Routes>
           <Route path="/" exact element={<ShowCase />} />
 
-          <Route path="/auth" exact element={<Auth />} />
+          <Route path="/auth/:path" exact element={<Auth />} />
 
           <Route path="/app" element={<Application />}>
             <Route path="list-old-commands" element={<ListOldCommand />} />

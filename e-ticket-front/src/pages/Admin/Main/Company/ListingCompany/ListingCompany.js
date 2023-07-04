@@ -17,6 +17,7 @@ const ListingCompany = () => {
     const [totalItems, setTotalItems] = useState(0);
     
     const fetchCompanies = async () => {
+      console.log("first")
       const companiesRaw = await axios.get('/company', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('user')}`

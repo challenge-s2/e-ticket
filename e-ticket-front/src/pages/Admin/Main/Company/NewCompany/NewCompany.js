@@ -73,14 +73,13 @@ const NewCompany = () => {
       companyInfo.password !== ''
     ){
       console.log(companyInfo); /* TODO Enregistrer dans la BDD */
-      await axios.post(`/users/`, {
+      await axios.post(`/users/company`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('user')}`
         }
       }, {
         email: companyInfo.mail,
-        password: companyInfo.password,
-        roles: ['COMPANY']
+        password: companyInfo.password
       }).then((res) => 
         axios.post('/company', {
           headers: {

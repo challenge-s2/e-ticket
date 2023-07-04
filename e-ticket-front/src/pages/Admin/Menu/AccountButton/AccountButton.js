@@ -33,7 +33,7 @@ const AccountButton = () => {
   }
   return (
     <>
-      {redirection ? <Navigate to='/auth' replace /> : <></>}
+      {redirection ? <Navigate to='/auth/admin' replace /> : <></>}
       <Box sx={{ alignItems: 'center', textAlign: 'center' }}>
         <Tooltip title="Paramètre du compte">
           <IconButton
