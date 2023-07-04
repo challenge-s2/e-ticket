@@ -11,6 +11,10 @@ import {
 import axios from "axios";
 import Moment from "moment"
 import { toast } from "react-toastify";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import QRCode from "react-qr-code";
 
 const contentCompanyType = [
   {
@@ -51,6 +55,7 @@ const contentCompanyType = [
 ];
 
 const MyInformations = () => {
+  const [openQRCode, setOpenQRCode] = useState(false)
   const [informations, setInformations] = useState({
     name: "",
     description: "",
@@ -59,7 +64,11 @@ const MyInformations = () => {
   })
 
   const fetchData = async () => {
-    const companyRaw = await axios.get(`/company/${localStorage.getItem('companyId')}`);
+    const companyRaw = await axios.get(`/company/${localStorage.getItem('companyId')}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user')}`
+      }
+    });
     setInformations({
       name: companyRaw.data.message.name,
       description : companyRaw.data.message.description,
@@ -78,7 +87,9 @@ const MyInformations = () => {
 
     axios.patch(`/company/${localStorage.getItem('companyId')}`, 
         {
-            Header: "Bearer" + localStorage.getItem('user')
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('user')}`
+          }
         },
         {
             name: informations.name,
@@ -99,6 +110,12 @@ const MyInformations = () => {
           })
         )
   };
+
+  const printQRCode = () => {
+    window.print()
+    
+    
+  }
 
   return (
     <div className={styles.container}>
@@ -152,6 +169,8 @@ const MyInformations = () => {
         />
       </div>
 
+      
+
       <div className={styles.button_submit}>
         <Button
           variant="contained"
@@ -162,6 +181,27 @@ const MyInformations = () => {
           Modifier
         </Button>
       </div>
+
+      <div className={styles.company_start_date}>
+        <Button onClick={() => setOpenQRCode(true)}>
+          Afficher le QR Code
+        </Button>
+      </div>
+
+
+      <Dialog
+        open={openQRCode}
+        onClose={() => setOpenQRCode(false)}
+      >
+        <DialogContent sx={{padding: '50px'}}>
+          <QRCode 
+            value={`http://localhost:3010/ticket/my-tickets/company/${localStorage.getItem('companyId')}`} 
+            id='mySVG'
+            onClick={() => printQRCode()}
+            style={{cursor: 'pointer'}}
+          />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

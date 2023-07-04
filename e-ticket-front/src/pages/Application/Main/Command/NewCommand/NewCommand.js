@@ -26,8 +26,12 @@ const NewCommand = () => {
     if(localStorage.getItem('companyId') !== ''){
 
       await axios
-      .get(`/products/company/${localStorage.getItem('companyId')}`)
-      .then((res) => setListOfAllProducts(res.data.message))
+        .get(`/products/company/${localStorage.getItem('companyId')}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('user')}`
+          }
+        })
+        .then((res) => setListOfAllProducts(res.data.message))
     }
   }
 
@@ -78,10 +82,22 @@ const NewCommand = () => {
   const handleSubmit = async () => {
     console.log(listOfProducts)
     console.log(totalPrice)
+    const arrayOfProducts = []
+    listOfProducts.map((item) => (
+      arrayOfProducts.push({
+        name: listOfAllProducts.filter((prod) => prod._id === item)[0].name,
+        price: listOfAllProducts.filter((prod) => prod._id === item)[0].price
+      })
+    ))
+    console.log(arrayOfProducts)
 
     await axios.post('/ticket/', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user')}`
+      }
+    }, {
       companyId: localStorage.getItem('companyId'),
-      listProducts: listOfProducts
+      listProducts: arrayOfProducts
     })
     .then((res) => setIdNewCommand(res.data.message._id))
     .then(() => 

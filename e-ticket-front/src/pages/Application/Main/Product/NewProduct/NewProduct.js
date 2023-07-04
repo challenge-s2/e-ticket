@@ -15,6 +15,10 @@ const NewProduct = () => {
   const handleSumbit = async () => {
     if(name !== '' && price !== null){
       await axios.post('products', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('user')}`
+        }
+      },{
         name: name,
         price: price,
         companyId: localStorage.getItem('companyId'),

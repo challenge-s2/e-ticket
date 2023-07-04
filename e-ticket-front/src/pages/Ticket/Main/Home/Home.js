@@ -9,53 +9,46 @@ import TicketItem from "./TicketItem/TicketItem";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const content = [
-  {
-    id: 1,
-    name: 'Big Burgers',
-    place: 'Paris',
-    date: '2023-05-02 12:20:00',
-  },
-  {
-    id: 2,
-    name: 'Ensuite',
-    place: 'Paris',
-    date: '2023-05-17 03:15:00',
-  },
-  {
-    id: 3,
-    name: 'FNAC',
-    place: 'Bordeaux',
-    date: '2023-05-10 17:00:00',
-  },
-
-]
 
 const Home = () => {
   const [users, setUsers] = useState([])
   const [tickets, setTickets] = useState([])
+  const [allTickets, setAllTickets] = useState([])
+
+
+  const fetchData = async () => {
+    await axios.get('/ticket/', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user')}`
+      }
+    }).then((res) => setAllTickets(res.data.message))
+  }
+
 
   const fetchUsers = async () => {
-    await axios.get('/company/')
+    await axios.get('/company/', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user')}`
+      }
+    })
      .then((res) => setUsers(res.data.message))
   }
 
-  const fetchTickets = async () => {
-    await axios.get('/ticket/')
-     .then((res) => setTickets(res.data.message))
-  }
+  useEffect(() => {
+    fetchData();
+  }, [])
 
   useEffect(() => {
-    fetchUsers();
-    fetchTickets();
-  }, [])
+    fetchUsers()
+  }, [allTickets])
+
   return (
     <>
       <div className={styles.container}>
         <div className={styles.item_home}>
           <h3>Mes tickets</h3>
-          {content.map((item, index) => (
-            <TicketItem key={index} name={users.filter((u) => u._id === item.companyId).name} place={item.place} date={item.date} id={item.id}/>
+          {allTickets.map((item, index) => (
+            <TicketItem key={index} name={users.filter((u) => u._id === item.companyId)[0]?.name} place={'Paris'} date={item.creationDate} id={item._id}/>
           ))}
 
           <div className={styles.ticket}>

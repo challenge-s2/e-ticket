@@ -75,7 +75,7 @@ const FormSector = () => {
                   label="Activité"
                 >
                   {content.map((option, index) => (
-                    <MenuItem value={index}>{option.name}</MenuItem>
+                    <MenuItem value={index} key={index}>{option.name}</MenuItem>
                   ))}
 
                 </Select>

@@ -25,20 +25,29 @@
     z-index: 10;
     position: sticky;
     width: 100vw;
-    .logo {
-      padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    .left {
+
+      .logo {
+        padding: 15px;
       
-      img {
-        margin: 0 auto;
-        height: 30px;
+        img {
+          margin: 0 auto;
+          height: 30px;
+        }
+      }
+    
+      .text {
+        display: flex;
+        justify-content: left;
+        padding: 15px;
+        margin: auto 0;
+        
       }
     }
-
-    .text {
-      display: flex;
-      justify-content: left;
-      padding: 15px;
-
+    .right {
+      margin: auto 0;
     }
   }
 }

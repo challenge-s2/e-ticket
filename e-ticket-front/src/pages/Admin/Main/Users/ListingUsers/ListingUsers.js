@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styles from "./ListOfProducts.module.scss";
+import styles from "./ListingUsers.module.scss";
 import TablePagination from "@mui/material/TablePagination";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -10,25 +10,25 @@ import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import { toast } from "react-toastify";
 
 
-const ListOfProducts = () => {
-    const [products, setProducts] = useState([]);
+const ListingUsers = () => {
+    const [users, setUsers] = useState([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
     
-    const fetchProducts = async () => {
-      const productsRaw =await axios
-      .get(`/products/company/${localStorage.getItem('companyId')}`, {
+    const fetchUsers = async () => {
+      const usersRaw = await axios.get('/users', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('user')}`
         }
-      })
-      setProducts(productsRaw.data.message)
-      setTotalItems(productsRaw.data.message.length)
+      });
+      setUsers(usersRaw.data.message)
+      console.log(users)
+      setTotalItems(usersRaw.data.message.length)
     }
   
     useEffect(() => {
-      fetchProducts();
+      fetchUsers();
     },[])
 
   
@@ -41,14 +41,14 @@ const ListOfProducts = () => {
       setPage(0);
     };
 
-    const deleteProduit = async (item) => {
-      await axios.delete(`/products/${item._id}`, {
+    /*const deleteUser = async (id) => {
+      await axios.delete(`/users/${id}`,{
         headers: {
           Authorization: `Bearer ${localStorage.getItem('user')}`
         }
       })
-      .then(() => 
-        toast.success('Produit supprimé !', {
+        .then(() => 
+        toast.success('Entreprise supprimée !', {
           position: "bottom-left",
           autoClose: 3000,
           hideProgressBar: false,
@@ -58,43 +58,45 @@ const ListOfProducts = () => {
           progress: undefined,
           theme: "dark",
         })
-      )
-      fetchProducts()
-    }
+        )
+        fetchUsers();
+    }*/
   
     return (
       <>
         <div className={styles.container}>
           <div className={styles.container_commlist}>
-            <h2>Liste des produits:</h2>
+            <h2>Liste des entreprises:</h2>
             <div className={styles.container_grid}>
               <table>
                 <thead>
                   <tr>
-                    <th>Nom du produit</th>
-                    <th>Prix</th>
-                    <th>Date d'ajout</th>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Roles</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {products
+                  {users
                     .map((item, index) => (
                       <tr key={index}>
+                        <td>{item._id}</td>
   
-                        <td>{item.name}</td>
+                        <td>{item.email}</td>
   
-                        <td>{item.price}</td>
+                        <td>{item.roles}</td>
 
-                        <td>{Moment(item.creationDate).format("dddd MM YYYY").toLocaleString('fr-FR')}</td>
-                        
+
+                        {/*<td>{Moment(item.registerDate).format("dddd MM YYYY").toLocaleString('fr-FR')}</td>*/}
+  
                         <td>
-                          <Link to={`/app/edit-product/${item._id}`}>
+                          <Link to={`/admin/users/${item._id}`}>
                             <Button variant="contained">
                               <LastPageIcon />
                             </Button>
                           </Link>
-                          <Button variant="contained" color="error" onClick={() => deleteProduit(item)}>
+                          <Button variant="contained" color="error" onClick={() => deleteUser(item._id)}>
                             <DeleteRoundedIcon />
                           </Button>
                         </td>
@@ -119,5 +121,4 @@ const ListOfProducts = () => {
     );
   };
   
-  export default ListOfProducts;
-
+  export default ListingUsers;
