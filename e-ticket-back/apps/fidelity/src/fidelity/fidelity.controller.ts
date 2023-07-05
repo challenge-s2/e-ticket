@@ -37,7 +37,7 @@ export class FidelityController {
     return this.fidelityService.update(id, updateFidelityDto);
   }
 
-  @MessagePattern('deleteCompany')
+  @MessagePattern('deleteFidelity')
   async delete(@Payload() id: string) {
     return this.fidelityService.delete(id);
   }
