@@ -18,7 +18,8 @@ export class AccessControlInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const request = context.switchToHttp().getRequest<Request>();
     const currentUser: any = request.user;
-    if (currentUser.roles.includes('COMPANY')) {
+    console.log(currentUser);
+    if (currentUser && currentUser.roles.includes('COMPANY')) {
       const requestedCompanyId = request.params.companyId;
 
       if (

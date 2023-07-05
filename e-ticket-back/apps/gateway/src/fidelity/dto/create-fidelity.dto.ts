@@ -12,4 +12,8 @@ export class CreateFidelityDto {
   @IsNumber()
   @IsNotEmpty()
   points: number;
+
+  @IsString()
+  @IsNotEmpty()
+  companyInformations: string;
 }

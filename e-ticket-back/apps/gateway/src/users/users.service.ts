@@ -38,7 +38,7 @@ export class UsersService {
   }
 
   async update(_id: string, updateUserDto: UpdateUserDto) {
-    return this.companyClient
+    return this.authClient
       .send('updateUser', { id: _id, update: updateUserDto })
       .pipe(map((message: string) => ({ message })));
   }

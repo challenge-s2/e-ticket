@@ -10,6 +10,9 @@ export class FidelityDocument extends AbstractDocument {
 
   @Prop()
   points: number;
+
+  @Prop()
+  companyInformations: string;
 }
 
 export const FidelitySchema = SchemaFactory.createForClass(FidelityDocument);

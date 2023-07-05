@@ -16,7 +16,7 @@ export class TicketDocument extends AbstractDocument {
   scanned: boolean;
 
   @Prop()
-  promo = 0;
+  promo: number;
 
   @Prop()
   companyInformations: string;

@@ -11,6 +11,9 @@ export class UserDocument extends AbstractDocument {
 
   @Prop()
   roles?: string[];
+
+  @Prop()
+  ticketsScanned: [];
 }
 
 export const UserSchema = SchemaFactory.createForClass(UserDocument);
