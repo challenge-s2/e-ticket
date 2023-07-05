@@ -166,7 +166,7 @@ const Login = ({changePage}) => {
               className={styles.change_to_signin}
               onClick={() => changePage("signin")}
             >
-              Vous n'avez pas de compte? Créé en un !
+              Vous n'avez pas de compte? Créez-en un !
             </div>
 
           </div>
