@@ -52,7 +52,7 @@ const ItemSettingsLeftBoard = () => {
             <ListItemIcon>
               <ContactEmergencyIcon />
             </ListItemIcon>
-            <ListItemText primary="Mes informations" />
+            <ListItemText primary="Mon entreprise" />
           </ListItemButton>
         </Link>
 
