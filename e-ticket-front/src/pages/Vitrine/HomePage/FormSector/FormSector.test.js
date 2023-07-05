@@ -43,3 +43,13 @@ test("List renders successfully", () => {
     render(<FormSector data={content} />)
     expect(content).toHaveLength(5);
 });
+
+test("Fastfood in list renders", () => {
+    render(<FormSector data={content} displayUnorderedList={false} />)
+    expect(screen.getByText(/Fastfood/i)).toBeInTheDocument()
+})
+
+test("Bakery list renders", () => {
+    render(<FormSector data={content} displayUnorderedList={false} />)
+    expect(screen.getByText(/Patisserie/i)).toBeInTheDocument()
+})
