@@ -49,7 +49,7 @@ export class TicketController {
   }
 
   @Get('last/:companyId')
-  @UseGuards(JwtAuthGuard) //TODO doit être modifier pour pouvoir être affiché si on est pas connecté
+  //@UseGuards(JwtAuthGuard) //TODO doit être modifier pour pouvoir être affiché si on est pas connecté
   async getLastByCompanyId(@Param('companyId') companyId: string) {
     return this.ticketService.getLastByCompanyId(companyId);
   }

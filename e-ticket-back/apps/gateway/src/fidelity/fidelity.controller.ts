@@ -44,7 +44,7 @@ export class FidelityController {
 
   @Get('byUser/:userId')
   @UseGuards(JwtAuthGuard)
-  @Roles('ADMIN')
+  // @Roles('ADMIN')
   findAllByUserId(@Param('userId') userId: string) {
     return this.fidelityService.findAllByUserId(userId);
   }
