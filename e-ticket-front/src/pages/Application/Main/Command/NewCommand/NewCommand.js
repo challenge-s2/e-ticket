@@ -85,6 +85,7 @@ const NewCommand = () => {
     const arrayOfProducts = []
     listOfProducts.map((item) => (
       arrayOfProducts.push({
+        _id: listOfAllProducts.filter((prod) => prod._id === item)[0]._id,
         name: listOfAllProducts.filter((prod) => prod._id === item)[0].name,
         price: listOfAllProducts.filter((prod) => prod._id === item)[0].price
       })
@@ -92,12 +93,12 @@ const NewCommand = () => {
     console.log(arrayOfProducts)
 
     await axios.post('/ticket/', {
+      companyId: localStorage.getItem('companyId'),
+      listProducts: arrayOfProducts
+    }, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('user')}`
       }
-    }, {
-      companyId: localStorage.getItem('companyId'),
-      listProducts: arrayOfProducts
     })
     .then((res) => setIdNewCommand(res.data.message._id))
     .then(() => 

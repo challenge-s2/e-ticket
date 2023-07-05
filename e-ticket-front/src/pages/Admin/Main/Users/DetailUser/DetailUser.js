@@ -76,15 +76,13 @@ const DetailUser = () => {
   const handleSumbit = () => {
     console.log(userInfo);
 
-    axios.patch(`/users/${id}`, 
+    axios.patch(`/users/${id}`,
       {
+        email: userInfo?.email
+      }, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('user')}`
         }
-      },
-      {
-        email: userInfo?.email,
-        roles: userInfo?.roles,
       }
     )
   };
@@ -96,41 +94,22 @@ const DetailUser = () => {
         <TextField
           label="Mail de l'utilisateur"
           value={userInfo?.email}
-          onChange={(e) => setUserInfo((prevValue) => ({...prevValue, name: e.target.value}) )}
+          onChange={(e) => setUserInfo((prevValue) => ({...prevValue, email: e.target.value}) )}
           variant="outlined"
           sx={{ width: "100%" }}
         />
       </div>
 
       <div className={styles.company_start_date}>
-        <InputLabel id="demo-multiple-chip-label">Roles de l'utilisateur</InputLabel>
-        <Select
-          labelId="demo-multiple-chip-label"
-          id="demo-multiple-chip"
-          multiple
-          sx={{ width: "100%" }}
-          value={roleValue}
-          onChange={handleChange}
-          input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-          renderValue={(selected) => (
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-              {selected.map((value) => (
-                <Chip key={value} label={value} />
-              ))}
-            </Box>
-          )}
-          MenuProps={MenuProps}
-        >
-          {roles.map((name) => (
-            <MenuItem
-              key={name}
-              value={name}
-              style={getStyles(name, roleValue, theme)}
-            >
-              {name}
-            </MenuItem>
+          {userInfo?.roles.map((name) => (
+            <TextField
+            label="Roles de l'utilisateur"
+            value={name}
+            disabled
+            variant="outlined"
+            sx={{ width: "100%", marginBottom: "20px" }}
+          />
           ))}
-        </Select>
       </div>
 
 

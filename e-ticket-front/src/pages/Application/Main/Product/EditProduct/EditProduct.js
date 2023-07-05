@@ -32,6 +32,9 @@ const EditProduct = () => {
   const handleSumbit = async () => {
     if(name !== '' && price !== null){
       await axios.patch(`/products/${id}`, {
+        name: name,
+        price: parseInt(price)
+      },{
         headers: {
           Authorization: `Bearer ${localStorage.getItem('user')}`
         }
@@ -64,12 +67,12 @@ const EditProduct = () => {
         </div>
 
         <div className={styles.product_price}>
-          <TextField label="Prix du produit" value={price} disabled onChange={(e) => setPrice(e.target.value)} variant="outlined" sx={{width: '100%'}}/>
+          <TextField label="Prix du produit" type="number" disabled value={price} onChange={(e) => setPrice(e.target.value)} variant="outlined" sx={{width: '100%'}}/>
         </div>
 
-        {/* <div className={styles.button_submit}>
-          <Button variant="contained" color='primary' onClick={handleSumbit} sx={{width: '100%'}}>Ajouter</Button>
-        </div> */}
+        {/*<div className={styles.button_submit}>
+          <Button variant="contained" color='warning' onClick={handleSumbit} sx={{width: '100%'}}>Modifier</Button>
+        </div>*/}
 
 
       </div>
