@@ -16,6 +16,7 @@ import CommandNotFound from "../../Error/404/CommandNotFound";
 import axios from "axios";
 import { toast } from "react-toastify";
 import PageNotFound from "../../../Application/Error/404/PageNotFound";
+import { Grid } from "@mui/material";
 
 const Application = () => {
   const [openLeftBoardMobile, setOpenLeftBoardMobile] = useState(false);
@@ -110,27 +111,35 @@ const Application = () => {
       {redirection ? <Navigate to={'/'} replace /> : <></>}
       {readyChecked ?
         <>
-          <div className={styles.container}>
-            {windowSize < 1330 ? (
-              <MenuMobile setOpen={setOpenLeftBoardMobile} />
-            ) : (
-              <></>
-            )}
-            <div className={styles.container_board}>
-              {windowSize < 1330 ? (
-                <LeftBoardMobile
-                  open={openLeftBoardMobile}
-                  setOpen={setOpenLeftBoardMobile}
-                />
-              ) : (
-                <div className={styles.container_left_board}>
-                  <LeftBoard />
+            <div className={styles.container}>
+                {windowSize < 1330 ? (
+                <MenuMobile setOpen={setOpenLeftBoardMobile} />
+                ) : (
+                <></>
+                )}
+                <div className={styles.container_board}>
+                {windowSize < 1330 ? (
+                    <LeftBoardMobile
+                    open={openLeftBoardMobile}
+                    setOpen={setOpenLeftBoardMobile}
+                    />
+                ) : (
+                    <div className={styles.container_left_board}>
+                    <LeftBoard />
+                    </div>
+                )}
+                    
+                    <Grid
+                    container
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                    >
+                        <PageNotFound/>
+                    </Grid>
                 </div>
-              )}
-              <PageNotFound />
-            </div>
+            
           </div>
-        
         </>  
       :
         <>Chargement...</>

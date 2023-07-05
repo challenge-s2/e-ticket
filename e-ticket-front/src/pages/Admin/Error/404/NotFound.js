@@ -15,6 +15,7 @@ import axios from "axios";
 import { Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import PageNotFound from "../../../Admin/Error/404/PageNotFound";
+import { Grid } from "@mui/material";
 
 const Admin = () => {
   const [openLeftBoardMobile, setOpenLeftBoardMobile] = useState(false);
@@ -98,7 +99,14 @@ const Admin = () => {
                   <LeftBoard />
                 </div>
               )}
-              <PageNotFound />
+                <Grid
+                    container
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                    >
+                        <PageNotFound/>
+                    </Grid>
             </div>
           </div>
         </>

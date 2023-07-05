@@ -29,6 +29,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import ListingUsers from "./pages/Admin/Main/Users/ListingUsers/ListingUsers";
 import DetailUser from "./pages/Admin/Main/Users/DetailUser/DetailUser";
+import NotFound from "./pages/Vitrine/Error/404/NotFound";
+import NotFoundTicket from "./pages/Ticket/Error/404/NotFound";
+import NotFoundAdmin from "./pages/Admin/Error/404/NotFound";
+import NotFoundApp from "./pages/Application/Error/404/NotFound";
 
 axios.defaults.baseURL = 'http://localhost:3003'
 axios.defaults.withCredentials = true;
@@ -60,6 +64,7 @@ const App = () => {
             <Route path="my-tickets/page/:id" element={<TicketPage />} />
             <Route path="my-tickets/company/:idCompany" element={<TicketPageCompany />} />
             <Route path="my-profil" element={<MyProfil />} />
+            
           </Route>
 
           <Route path="/admin" exact element={<Admin/>}>
@@ -71,6 +76,10 @@ const App = () => {
             <Route path="users/list" element={<ListingUsers />} />
             <Route path="users/:id" element={<DetailUser />} />
           </Route>
+          <Route path="*" element={<NotFound />} />
+          <Route path="notticket" element={<NotFoundTicket />} />
+          <Route path="notadmin" element={<NotFoundAdmin />} />
+          <Route path="notapp" element={<NotFoundApp />} />
         </Routes>
       </div>
     </Router>
