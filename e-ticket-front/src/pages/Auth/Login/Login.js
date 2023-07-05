@@ -96,6 +96,7 @@ const Login = ({changePage}) => {
         email: userInfo.email,
         password: userInfo.password
       }).then((res) => {
+        console.log(res)
         localStorage.setItem('user', res.data.message.jwt)
         userId = res.data.message.user._id
         localStorage.setItem('userId', userId)

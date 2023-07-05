@@ -4,65 +4,199 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom"
+import axios from "axios";
+import { toast } from "react-toastify";
+import TicketItem from "../Home/TicketItem/TicketItem";
 
 const MyProfil = () => {
   const [user, setUser] = useState({
-    firstname: "Jean",
-    lastname: "DUPOND",
-    email: "j.dupond@gmail.com",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
-
+  const [emailGet, setEmailGet] = useState('')
+  const [errorPassword, setErrorPassword] = useState('')
   const [localStorageData, setLocalStorageData] = useState({
     user: localStorage.getItem('user'),
     userId: localStorage.getItem('userId')
   })
+  const [fidelityInfo, setFidelityInfo] = useState([])
 
   const handleSubmitChanges = () => {
-    console.log('patched');
-    // axios.patch(url + '/user' + user.id, user).then(() => console.log("changed"))
+    setErrorPassword('')
+    console.log(user)
+    if(user.password !== ''){
+      if(user.password !== user.confirmPassword) {
+        setErrorPassword('not the same')
+      }
+      else if (!new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})').test(user.password)){
+        setErrorPassword('not strong enough')
+      }
+      else if(user.email !== emailGet){
+        console.log("first")
+        axios.patch(`/users/${localStorageData.userId}`, {
+          email: user.email,
+          password: user.password
+        }, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('user')}`
+          }
+        }).then(() => {
+          console.log('patched');
+          toast.success('Informations modifiés', {
+            position: "bottom-left",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          })
+        })
+      }
+      else {
+        console.log("second")
+        axios.patch(`/users/${localStorageData.userId}`, {
+          password: user.password
+        }, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('user')}`
+          }
+        }).then(() => {
+          console.log('patched');
+          toast.success('Informations modifiés', {
+            position: "bottom-left",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          })
+        })
+      }
+    }
+    else if(user.email !== emailGet){
+      console.log("third")
+      axios.patch(`/users/${localStorageData.userId}`, {
+        email: user.email,
+      }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('user')}`
+        }
+      }).then(() => {
+        console.log('patched');
+        toast.success('Informations modifiés', {
+          position: "bottom-left",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        })
+      })
+    }
+  }
+
+  const fetchUserData = async () => {
+    if(localStorageData.userId !== ''){
+      try {       
+          await axios.get(`/users/${localStorage.getItem('userId')}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('user')}`
+            }
+          })
+          .then((res) => {
+            setUser({
+              email: res.data.message.email,
+              password: '',
+              confirmPassword: ''
+            })
+            setEmailGet(res.data.message.email)
+        })
+      }
+      catch (err) {
+        console.log(err)
+      }
+    }
+  }
+
+  const fetchDataFidelity = async () => {
+    if(localStorage.getItem('userId') !== ''){
+      try {
+        await axios.get(`/fidelity/byUser/${localStorage.userId}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('user')}`
+          }
+        })
+        .then((res) => {
+          setFidelityInfo(res.data.message)
+          console.log(res.data.message)
+        })
+      }
+      catch (err) {
+        console.log(err)
+      }
+    }
   }
 
   useEffect(() => {
+    fetchUserData();
+    fetchDataFidelity();
     setLocalStorageData({
       user: localStorage.getItem('user'),
       userId: localStorage.getItem('userId')
     })
+    console.log(localStorageData)
   }, [localStorage.getItem('userId')])
+
 
   return (
     <>
       <div className={styles.container}>
         {localStorageData.userId !== '' ?
-          <div className={styles.item_home} style={{display: 'none'}}>
+          <div className={styles.item_home}>
             <h3>Mes informations</h3>
             <Box>
-              <TextField
-                id="outlined-basic"
-                type="text"
-                label="Prénom"
-                variant="outlined"
-                defaultValue={user.firstname}
-                onChange={(e) => setUser({ firstname: e.target.value })}
-                sx={{ width: "100%", marginBottom: "15px" }}
-              />
-              <TextField
-                id="outlined-basic"
-                type="text"
-                label="Nom"
-                variant="outlined"
-                defaultValue={user.lastname}
-                onChange={(e) => setUser({ lastname: e.target.value })}
-                sx={{ width: "100%", marginBottom: "15px" }}
-              />
               <TextField
                 id="outlined-basic"
                 type="email"
                 label="Adresse mail"
                 variant="outlined"
-                defaultValue={user.email}
-                onChange={(e) => setUser({ email: e.target.value })}
+                value={user.email}
+                onChange={(e) => setUser((prev) => ({...prev, email: e.target.value }))}
                 sx={{ width: "100%", marginBottom: "15px" }}
               />
+              <TextField
+                id="outlined-basic"
+                type="password"
+                label="Mot de passe"
+                variant="outlined"
+                defaultValue={user.password}
+                onChange={(e) => setUser((prev) => ({...prev, password: e.target.value }))}
+                sx={{ width: "100%", marginBottom: "15px" }}
+              />
+              <TextField
+                id="outlined-basic"
+                type="password"
+                label="Confirmation de mot de passe"
+                variant="outlined"
+                defaultValue={user.confirmPassword}
+                onChange={(e) => setUser((prev) => ({...prev, confirmPassword: e.target.value }))}
+                sx={{ width: "100%", marginBottom: "15px" }}
+              />
+              {
+                errorPassword === 'not the same' ?
+                <div style={{color: 'red'}}>Veuillez renseigner le même mot de passe</div>
+                : errorPassword === 'not strong enough' ?
+                <div style={{color: 'red'}}>Veuillez renseigner un mot de passe plus fort (au mois: 8 caractères, 1 majuscule, 1 minuscule, 1 caractère spécial )</div>
+                :
+                <></>
+              }
               <Button
                 variant="contained"
                 color="warning"
@@ -72,6 +206,22 @@ const MyProfil = () => {
               >
                 Enregistrer mes informations
               </Button>
+            </Box>
+
+            <h3>Mes fidelités</h3>
+            <Box>
+              {fidelityInfo?.map((item, index) => (
+                <div className={styles.fidelity}>
+                  <div className={styles.content}>
+                    <div className={styles.cmt}>
+                      {/* item.companyInformations */} Nike - Paris
+                    </div>
+                    <div className={styles.cmb}>
+                      Nombre de points: {item.points}
+                    </div>
+                  </div>
+                </div>
+              ))}
             </Box>
           </div>
         :

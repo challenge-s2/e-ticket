@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Application.module.scss";
 import LeftBoard from "./LeftBoard/LeftBoard";
-import { Routes, Route, Navigate, redirect } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import ListOldCommand from "./Main/Command/ListOldCommand/ListOldCommand";
 import NewCommand from "./Main/Command/NewCommand/NewCommand";
 import NewProduct from "./Main/Product/NewProduct/NewProduct";
