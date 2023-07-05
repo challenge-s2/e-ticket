@@ -6,8 +6,6 @@ import { Link } from "react-router-dom";
 import Moment from "moment";
 import axios from "axios";
 import LastPageIcon from "@mui/icons-material/LastPage";
-import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
-import { toast } from "react-toastify";
 
 
 const ListingCompany = () => {

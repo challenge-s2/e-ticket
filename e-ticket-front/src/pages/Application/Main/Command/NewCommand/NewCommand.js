@@ -91,17 +91,25 @@ const NewCommand = () => {
       })
     ))
     console.log(arrayOfProducts)
-
-    await axios.post('/ticket/', {
-      companyId: localStorage.getItem('companyId'),
-      listProducts: arrayOfProducts
-    }, {
+    await axios.get(`/company/${localStorage.getItem('companyId')}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('user')}`
       }
-    })
-    .then((res) => setIdNewCommand(res.data.message._id))
-    .then(() => 
+    }).then((res) => 
+    {
+      console.log(`companyInformations: ${res.data.message.name} - ${res.data.message.address}`)
+      axios.post('/ticket/', {
+        companyId: localStorage.getItem('companyId'),
+        listProducts: arrayOfProducts,
+        companyInformations: `${res.data.message.name} - ${res.data.message.address}`,
+        promo: parseInt(0)
+      }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('user')}`
+        }
+      }).then((rs) => {
+        setIdNewCommand(rs.data.message._id)
+      }).then(() => 
           toast.success('Commande ajouté !', {
             position: "bottom-left",
             autoClose: 3000,
@@ -113,12 +121,19 @@ const NewCommand = () => {
             theme: "dark",
           })
     )
-    .then(() => setRedirection(true))
+    })
+    
   }
+
+  useEffect(() => {
+    if(idNewCommand !== ''){
+      setRedirection(true)
+    }
+  },[idNewCommand])
 
   return (
     <>
-      {redirection ? <Navigate to={`/app/detail-old-command/${idNewCommand}`} replace /> : <></>}
+      {redirection ? <Navigate to={`/app/detail-old-command/${idNewCommand}`} /> : <></>}
       <div className={styles.container}>
         <div className={styles.top}>
           <Box sx={{ minWidth: 120, display: "flex" }}>

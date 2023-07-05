@@ -65,50 +65,56 @@ const NewCompany = () => {
 
 
   const handleSumbit = async () => {
-    if(
-      companyInfo.name !== '' && 
-      companyInfo.description !== '' && 
-      companyInfo.companyType !== '' && 
-      companyInfo.mail !== '' && 
-      companyInfo.address !== '' &&
-      //companyInfo.phone !== '' &&
-      companyInfo.password !== ''
-    ){
-      console.log(companyInfo); /* TODO Enregistrer dans la BDD */
-      await axios.post(`/users/company/`, {
-        email: companyInfo.mail,
-        password: companyInfo.password
-      }, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('user')}`
-        }
-      }).then((res) => 
-        axios.post('/company/',  {
-          name: companyInfo.name,
-          description: companyInfo.description,
-          type: companyInfo.companyType,
-          address: companyInfo.address,
-          userId: res.data.message._id
-        },{
+    try {
+
+      if(
+        companyInfo.name !== '' && 
+        companyInfo.description !== '' && 
+        companyInfo.companyType !== '' && 
+        companyInfo.mail !== '' && 
+        companyInfo.address !== '' &&
+        //companyInfo.phone !== '' &&
+        companyInfo.password !== ''
+      ){
+        console.log(companyInfo); /* TODO Enregistrer dans la BDD */
+        await axios.post(`/users/company/`, {
+          email: companyInfo.mail,
+          password: companyInfo.password
+        }, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('user')}`
           }
-        })
-        .then((res) => setNewCompanyId(res.data.message._id))
-        .then(() => 
-          toast.success('Entreprise créée !', {
-            position: "bottom-left",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
+        }).then((res) => 
+          axios.post('/company/',  {
+            name: companyInfo.name,
+            description: companyInfo.description,
+            type: companyInfo.companyType,
+            address: companyInfo.address,
+            userId: res.data.message._id
+          },{
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('user')}`
+            }
           })
+          .then((res) => setNewCompanyId(res.data.message._id))
+          .then(() => 
+            toast.success('Entreprise créée !', {
+              position: "bottom-left",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            })
+          )
         )
-      )
-      .then(() => setRedirection(true))
+        .then(() => setRedirection(true))
+      }
+    }
+    catch (err) {
+      console.log(err)
     }
   }
 
