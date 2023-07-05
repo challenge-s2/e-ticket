@@ -61,6 +61,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/ticket/tsconfig.app.json"
       }
+    },
+    "fidelity": {
+      "type": "application",
+      "root": "apps/fidelity",
+      "entryFile": "main",
+      "sourceRoot": "apps/fidelity/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/fidelity/tsconfig.app.json"
+      }
     }
   },
   "monorepo": true,

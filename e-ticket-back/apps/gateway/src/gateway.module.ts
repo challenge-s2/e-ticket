@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AuthModule } from './auth/auth.module';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { AuthController } from './auth/auth.controller';
 import { AuthService } from './auth/auth.service';
@@ -11,6 +10,8 @@ import { ProductsController } from './products/products.controller';
 import { ProductsService } from './products/products.service';
 import { TicketController } from './ticket/ticket.controller';
 import { TicketService } from './ticket/ticket.service';
+import { FidelityController } from './fidelity/fidelity.controller';
+import { FidelityService } from './fidelity/fidelity.service';
 
 @Module({
   imports: [
@@ -47,6 +48,14 @@ import { TicketService } from './ticket/ticket.service';
           port: 3006,
         },
       },
+      {
+        name: 'FIDELITY_SERVICE',
+        transport: Transport.TCP,
+        options: {
+          host: 'fidelity',
+          port: 3007,
+        },
+      },
     ]),
   ],
   controllers: [
@@ -55,6 +64,7 @@ import { TicketService } from './ticket/ticket.service';
     CompanyController,
     ProductsController,
     TicketController,
+    FidelityController,
   ],
   providers: [
     AuthService,
@@ -62,6 +72,7 @@ import { TicketService } from './ticket/ticket.service';
     CompanyService,
     ProductsService,
     TicketService,
+    FidelityService,
   ],
 })
 export class GatewayModule {}
