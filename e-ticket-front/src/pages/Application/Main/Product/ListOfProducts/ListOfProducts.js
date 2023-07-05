@@ -84,7 +84,7 @@ const ListOfProducts = () => {
   
                         <td>{item.name}</td>
   
-                        <td>{item.price}</td>
+                        <td>{item.price}€</td>
 
                         <td>{Moment(item.creationDate).format("dddd MM YYYY").toLocaleString('fr-FR')}</td>
                         

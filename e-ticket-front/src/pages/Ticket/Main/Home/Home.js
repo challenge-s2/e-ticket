@@ -11,36 +11,36 @@ import axios from "axios";
 
 
 const Home = () => {
-  const [users, setUsers] = useState([])
-  const [tickets, setTickets] = useState([])
+  const [userInfo, setUserInfo] = useState([])
   const [allTickets, setAllTickets] = useState([])
 
 
-  const fetchData = async () => {
-    await axios.get('/ticket/', {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('user')}`
-      }
-    }).then((res) => setAllTickets(res.data.message))
-  }
-
-
-  const fetchUsers = async () => {
-    await axios.get('/company/', {
+  const fetchUser = async () => {
+    await axios.get(`/users/${localStorage.getItem('userId')}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('user')}`
       }
     })
-     .then((res) => setUsers(res.data.message))
+     .then((res) => {
+        setUserInfo(res.data.message)
+        res.data.message.ticketsScanned.sort((d1, d2) => {
+          let da = new Date(d1.creationDate);
+          let db = new Date(d2.creationDate);
+          return da - db;
+        }).slice(0,4).map((item) => {
+          axios.get('/ticket/'+ item, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('user')}`
+            }
+          })
+            .then((res) => setAllTickets((prev) => ([...prev, res.data.message])))
+        })
+      })
   }
 
   useEffect(() => {
-    fetchData();
+    fetchUser();
   }, [])
-
-  useEffect(() => {
-    fetchUsers()
-  }, [allTickets])
 
   return (
     <>
@@ -48,7 +48,7 @@ const Home = () => {
         <div className={styles.item_home}>
           <h3>Mes tickets</h3>
           {allTickets.map((item, index) => (
-            <TicketItem key={index} name={users.filter((u) => u._id === item.companyId)[0]?.name} place={'Paris'} date={item.creationDate} id={item._id}/>
+            <TicketItem key={index} name={item.companyInformations} date={item.creationDate} id={item._id}/>
           ))}
 
           <div className={styles.ticket}>
@@ -74,7 +74,7 @@ const Home = () => {
                 />
                 Eau
               </div>
-              <div className={styles.ml}>0.03L</div>
+              <div className={styles.ml}>1.13L</div>
               {/* <div className={styles.b}>En savoir plus</div> */}
             </div>
             <div className={styles.middle}>
@@ -85,7 +85,7 @@ const Home = () => {
                 />
                 Arbre
               </div>
-              <div className={styles.ml}>0.03L</div>
+              <div className={styles.ml}>15</div>
               {/* <div className={styles.b}>En savoir plus</div> */}
             </div>
             <div className={styles.right}>
@@ -96,7 +96,7 @@ const Home = () => {
                 />
                 Co2
               </div>
-              <div className={styles.ml}>0.03L</div>
+              <div className={styles.ml}>26.4g</div>
               {/* <div className={styles.b}>En savoir plus</div> */}
             </div>
           </div>

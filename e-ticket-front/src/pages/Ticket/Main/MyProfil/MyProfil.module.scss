@@ -8,7 +8,39 @@
 
       > h3 {
         text-align: center;
+        margin-top: 50px;
       }
       
+
+      .fidelity{
+        align-items: center;
+        padding: 5px 15px;
+        margin: 10px 0;
+        height: 50px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -4px rgba(0, 0, 0, 0.1);
+
+        .content {
+          margin: auto 0;
+          width: 100%;
+          text-align: center;
+          height: 100%;
+            display: flex;
+            justify-content: space-between;
+            margin: auto 0;
+            .cmt {
+              margin: auto 0;
+            }
+            .cmb {
+              margin: auto 0;
+              font-size: smaller;
+              color: grey;
+            }
+          } 
+      }
     }
+
+
 }

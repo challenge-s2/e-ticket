@@ -6,8 +6,6 @@ import { Link } from "react-router-dom";
 import Moment from "moment";
 import axios from "axios";
 import LastPageIcon from "@mui/icons-material/LastPage";
-import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
-import { toast } from "react-toastify";
 
 
 const ListingCompany = () => {
@@ -76,7 +74,7 @@ const ListingCompany = () => {
       <>
         <div className={styles.container}>
           <div className={styles.container_commlist}>
-            <h2>Liste des utilisateurs:</h2>
+            <h2>Liste des entreprises:</h2>
             <div className={styles.container_grid}>
               <table>
                 <thead>
@@ -85,7 +83,7 @@ const ListingCompany = () => {
                     <th>Nom de l'entreprise</th>
                     <th>Description</th>
                     <th>Type d'entreprise</th>
-                    <th>Date d'arrivé</th>
+                    <th>Date d'inscription</th>
                     <th>Actions</th>
                   </tr>
                 </thead>

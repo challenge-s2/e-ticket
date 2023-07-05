@@ -9,21 +9,33 @@ import { Button } from "@mui/material";
 const TicketPageCompany = () => {
   const { idCompany } = useParams();
   const [ticketAlreadyScanned, setTicketAlreadyScanned] = useState(false);
+  const [ticketOwnedByUser, setTicketOwnedByUser] = useState(false);
   const TVA = 5.5;
   const [ticketInfo, setTicketInfo] = useState()
   const [totalPrice, setTotalPrice] = useState(0)
-  const [companyInfo, setCompanyInfo] = useState({})
   const [priceExclTax, setPriceExclTax] = useState(0)
   const [arrOfProductsSorted, setArrOfProductsSorted] = useState([])
+  const [userInfo, setUserInfo] = useState({})
+
+  const fetchUser = async () => {
+    try {
+
+      await axios.get(`/users/${localStorage.getItem('userId')}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('user')}`
+        }
+      }).then((res) => {
+        setUserInfo(res.data.message)
+      })
+    }
+    catch (err) {
+      console.log(err)
+    }
+  }
 
   const fetchData = async () => {
     await axios
       .get(`/ticket/last/${idCompany}`
-      ,{
-        headers: {  
-          Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGE0MmM3OWQzNTFhNDc4OTMzZTlhNWEiLCJpYXQiOjE2ODg0ODg1NTV9.06ydg5V3HnX4ufiiMOq4QyWpr-ClAttjBo8Ml8CYtMQ"
-        }
-      }
       )
       .then((res) => {
         setTicketInfo(res.data.message)
@@ -45,19 +57,27 @@ const TicketPageCompany = () => {
             else {
               console.log('already in localstorage')
             }
-            /*axios.patch(`/ticket/${res.data.message._id}`,{
-              scanned: true
-            },{
-              headers: {  
-                Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGE0MmM3OWQzNTFhNDc4OTMzZTlhNWEiLCJpYXQiOjE2ODg0ODg1NTV9.06ydg5V3HnX4ufiiMOq4QyWpr-ClAttjBo8Ml8CYtMQ"
-              }
-            }).then(() => console.log("scanned"))*/
           }
           else { // connected
             console.log('connected')
-
-            //patch user add id ticket
-            //patch ticket scanned true
+            console.log(res.data.message._id)
+            axios.patch(`/ticket/${res.data.message._id}`, {
+              scanned : true, //TODO change to false
+            }).then(() => {
+              axios.patch(`/users/${localStorage.getItem('userId')}`, {
+                ticketsScanned: [...userInfo.ticketsScanned, res.data.message._id]
+              }, {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem('user')}`
+                }
+              })
+            })
+          }
+        }
+        else {
+          setTicketAlreadyScanned(true);
+          if(userInfo.ticketsScanned.includes(res.data.message._id)){
+            setTicketOwnedByUser(true)
           }
         }
       })
@@ -66,12 +86,23 @@ const TicketPageCompany = () => {
   }
 
   useEffect(() => {
-    fetchData();
+    if(localStorage.getItem('userId') !== ''){
+      fetchUser();
+    }
+    else {
+      fetchData();
+    }
   }, [])
+  
+  useEffect(() => {
+    if(Object.entries(userInfo).length > 0){
+      console.log(userInfo)
+      fetchData();
+    }
+  }, [userInfo])
 
   useEffect(() => {
     if(ticketInfo !== undefined){
-      console.log(ticketInfo)
       ticketInfo.listProducts.sort((p1, p2) => {
         let fa = p1._id.toLowerCase();
         let fb = p2._id.toLowerCase();
@@ -90,7 +121,6 @@ const TicketPageCompany = () => {
       let lastPrice = ''
       let arr = []
       for (let lp = 0; lp < ticketInfo.listProducts.length; lp++) {
-        console.log(ticketInfo.listProducts[lp])
         if(startVar === ''){
           startVar = ticketInfo.listProducts[lp]._id;
           count = 1;
@@ -123,7 +153,6 @@ const TicketPageCompany = () => {
         
       }
       setArrOfProductsSorted(arr)
-      console.log(arr)
 
     }
   }, [ticketInfo])
@@ -136,22 +165,11 @@ const TicketPageCompany = () => {
     setTotalPrice(price);
   }
 
-  const getCompanyInfo = async () => {
-    await axios
-      .get(`/company/${ticketInfo?.companyId}`, {
-        headers: {
-          Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGE0MmM3OWQzNTFhNDc4OTMzZTlhNWEiLCJpYXQiOjE2ODg0ODg1NTV9.06ydg5V3HnX4ufiiMOq4QyWpr-ClAttjBo8Ml8CYtMQ"
-        }      
-      }).then((res) => setCompanyInfo(res.data.message))
-  }
 
   
 
   useEffect(() => {
     getTotalPrice();
-    if(ticketInfo?.companyId){
-      getCompanyInfo();
-    }
   }, [ticketInfo])
 
   const calcExclTax = () => {
@@ -169,7 +187,7 @@ const TicketPageCompany = () => {
 
   return (
     <>
-      {ticketAlreadyScanned ?
+      {ticketAlreadyScanned && !ticketOwnedByUser ?
         <div className={styles.container}>
           <div className={styles.item_home}>
             <h3>Mon ticket</h3>
@@ -188,8 +206,7 @@ const TicketPageCompany = () => {
           <div className={styles.item_home}>
             <h3>Mon ticket</h3>
             <div className={styles.item}>
-              <div className={styles.company_name}>{companyInfo.name} - {companyInfo.address}</div>
-              <div className={styles.company_place}>{/*TODO place*/}</div>
+              <div className={styles.company_name}>{ticketInfo?.companyInformations}</div>
               <div className={styles.company_date}>
                 Le {Moment(ticketInfo?.creationDate).format("DD/MM/YYYY").toLocaleString('fr-FR')} à {Moment(ticketInfo?.creationDate).format("hh").toLocaleString('fr-FR')}h{Moment(ticketInfo?.creationDate).format("mm").toLocaleString('fr-FR')}
               </div>
