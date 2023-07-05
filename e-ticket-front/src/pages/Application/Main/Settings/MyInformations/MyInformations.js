@@ -161,7 +161,7 @@ const MyInformations = () => {
 
       <div className={styles.company_start_date}>
         <TextField
-          label="Date d'arrivée"
+          label="Date d'inscription"
           value={Moment(informations?.registerDate).format('DD/MM/YYYY')}
           disabled
           variant="outlined"

@@ -212,7 +212,7 @@ const DetailCompany = () => {
 
       <div className={styles.company_start_date}>
         <TextField
-          label="Date d'arrivée"
+          label="Date d'inscription"
           value={Moment(companyInfo?.registerDate).format('DD/MM/YYYY')}
           disabled
           variant="outlined"
