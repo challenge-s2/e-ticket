@@ -76,7 +76,7 @@ const ListingCompany = () => {
       <>
         <div className={styles.container}>
           <div className={styles.container_commlist}>
-            <h2>Liste des utilisateurs:</h2>
+            <h2>Liste des entreprises:</h2>
             <div className={styles.container_grid}>
               <table>
                 <thead>
@@ -85,7 +85,7 @@ const ListingCompany = () => {
                     <th>Nom de l'entreprise</th>
                     <th>Description</th>
                     <th>Type d'entreprise</th>
-                    <th>Date d'arrivé</th>
+                    <th>Date d'inscription</th>
                     <th>Actions</th>
                   </tr>
                 </thead>

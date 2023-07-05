@@ -66,7 +66,7 @@ const ListingUsers = () => {
       <>
         <div className={styles.container}>
           <div className={styles.container_commlist}>
-            <h2>Liste des entreprises:</h2>
+            <h2>Liste des utilisateurs:</h2>
             <div className={styles.container_grid}>
               <table>
                 <thead>
