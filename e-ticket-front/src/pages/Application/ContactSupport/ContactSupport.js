@@ -31,16 +31,6 @@ const ContactSupport = ({
   const [reportType, setReportType] = useState('')
   const [descriptionReport, setDescriptionReport] = useState('')
 
-  const handleSubmit = () => {
-    console.log(reportType)
-    console.log(descriptionReport)
-    //handleClose()
-
-    /* axios.post('localhost:3000/contactSupport', {
-      reportType: reportType,
-      descriptionReport: descriptionReport
-    }) */
-  }
 
   return (
     <>
@@ -90,7 +80,6 @@ const ContactSupport = ({
         </DialogContent>
         <DialogActions>
           <Button
-            onClick={handleSubmit}
             color="error"
             variant="contained"
             autoFocus

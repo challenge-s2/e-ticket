@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test('CreateCompany', async ({ page }) => {
     // Access website
-    await page.goto('http://localhost:3010/');
+    await page.goto(`${process.env.REACT_APP_URL_FRONT}/`);
     // Connexion
     await page.getByRole('button', { name: 'Connexion' }).click();
     await page.getByPlaceholder('john.doe@gmail.com').click();

@@ -1,17 +1,14 @@
 import React, {useState, useEffect} from "react";
 import styles from "./EditProduct.module.scss";
 import TextField from '@mui/material/TextField';
-import { Button } from "@mui/material";
-import { Navigate, useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
-import { toast } from "react-toastify";
 
 const EditProduct = () => {
 
   const { id } = useParams();
   const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
-  const [redirection, setRedirection] = useState(false)
 
 
   const fetchCompanies = async () => {
@@ -28,38 +25,9 @@ const EditProduct = () => {
     fetchCompanies();
   },[])
 
-  console.log(useLocation());
-  const handleSumbit = async () => {
-    if(name !== '' && price !== null){
-      await axios.patch(`/products/${id}`, {
-        name: name,
-        price: parseInt(price)
-      },{
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('user')}`
-        }
-      })
-      .then(() => 
-        toast.success('Produit mis à jour !', {
-          position: "bottom-left",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        })
-      )
-
-
-      setRedirection(true)
-    }
-  }
 
   return (
     <>
-      {redirection ? <Navigate to='/app/list-products' replace /> : <></>}
       <div className={styles.container}>
 
         <div className={styles.product_name}>
@@ -69,10 +37,6 @@ const EditProduct = () => {
         <div className={styles.product_price}>
           <TextField label="Prix du produit" type="number" disabled value={price} onChange={(e) => setPrice(e.target.value)} variant="outlined" sx={{width: '100%'}}/>
         </div>
-
-        {/*<div className={styles.button_submit}>
-          <Button variant="contained" color='warning' onClick={handleSumbit} sx={{width: '100%'}}>Modifier</Button>
-        </div>*/}
 
 
       </div>

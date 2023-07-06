@@ -34,7 +34,6 @@ const Menu = () => {
               userId: localStorage.getItem('userId'),
             })
             setUserRoles(res.data.message.roles)
-            console.log(res.data.message.roles)
           }
           else{
             localStorage.setItem('user', '')

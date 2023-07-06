@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./FormSector.module.scss";
 import { MenuItem, FormControl, Select, InputLabel, Button, TextField } from '@mui/material';
 import { toast } from "react-toastify";
@@ -101,8 +101,6 @@ const FormSector = () => {
       setErrorForm('Il manque des données')
     }
   }
-
-  useEffect(() => console.log(informations.type), [informations.type])
 
   return (
     <>

@@ -1,46 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styles from "./DetailUser.module.scss";
 import {
-  MenuItem,
-  FormControl,
-  Select,
-  InputLabel,
   Button,
   TextField,
 } from "@mui/material";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import Moment from "moment";
 
-import Box from '@mui/material/Box';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import Chip from '@mui/material/Chip';
-import { useTheme } from '@mui/material/styles';
-
-
-import { toast } from 'react-toastify';
-
-const roles = ['USER', 'COMPANY', 'ADMIN']
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
-
-const getStyles = (name, roleValue, theme) => {
-  return {
-    fontWeight:
-      roleValue.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
 
 const DetailUser = () => {
   const { id } = useParams();
@@ -48,12 +14,6 @@ const DetailUser = () => {
     email: '',
     roles: []
   })
-  const theme = useTheme();
-  const [roleValue, setRoleValue] = useState([]);
-
-  const handleChange = (event) => {
-    setRoleValue(typeof event.target.value === 'string' ? event.target.value.split(',') : event.target.value);
-  };
 
 
   const fetchData = async () => {
@@ -66,7 +26,6 @@ const DetailUser = () => {
       email: userRaw.data.message.email,
       roles : userRaw.data.message.roles,
     })
-    setRoleValue(userRaw.data.message.roles)
   }
 
   useEffect(() => {
@@ -74,8 +33,6 @@ const DetailUser = () => {
   }, [])
 
   const handleSumbit = () => {
-    console.log(userInfo);
-
     axios.patch(`/users/${id}`,
       {
         email: userInfo?.email

@@ -14,7 +14,6 @@ const TicketPageCompany = () => {
   const [totalPrice, setTotalPrice] = useState(0)
   const [priceExclTax, setPriceExclTax] = useState(0)
   const [arrOfProductsSorted, setArrOfProductsSorted] = useState([])
-  const [ticketId, setTicketId] = useState('')
   const [ticketInfo, setTicketInfo] = useState({})
   const [userInfo, setUserInfo] = useState({})
   const [fidelityInfo, setFidelityInfo] = useState({})
@@ -26,7 +25,6 @@ const TicketPageCompany = () => {
         .then((res) => {
           setTicketInfo(res.data.message)
           setTicketAlreadyScanned(res.data.message.scanned)
-          setTicketId(res.data.message._id)
   
           if(localStorage.getItem('userId') === '') {
             setTicketAlreadyScanned(res.data.message.scanned);
@@ -129,10 +127,6 @@ const TicketPageCompany = () => {
             Authorization: `Bearer ${localStorage.getItem('user')}`
           }
         })
-        console.log('user patched')
-      }
-      else {
-        console.log("ticket already in user list ticketScanned")
       }
     }
     catch (err) {
@@ -148,32 +142,23 @@ const TicketPageCompany = () => {
         Authorization: `Bearer ${localStorage.getItem('user')}`
       }
     })
-    console.log('ticket patched')
   }
 
 
   const checkTicketOwner = () => {
     if(ticketInfo.scanned){
-      console.log("déjà scanné")
-      if(userInfo.ticketsScanned.includes(ticketInfo._id)){
-        console.log("a moi")
-      }
-      else {
-        console.log("pas à moi")
+      if(!userInfo.ticketsScanned.includes(ticketInfo._id)){
         setTicketOwnedByUser(false)
         setTicketAlreadyScanned(true)
       }
     }
     else {
-      console.log("pas scanné")
       patchUser()
       patchTicket();
       if(fidelityInfo.userId !== localStorage.getItem("userId")){
-        console.log('pas de fidelité')
         postFidelity();
       }
       else {
-        console.log('fidelité')
         patchFidelity();
       }
 

@@ -10,6 +10,7 @@ const Login = ({changePage}) => {
 
   const [windowSize, setWindowSize] = useState(window.screen.width);
   const [redirection, setRedirection] = useState(false)
+  const [errorLogin, setErrorLogin] = useState(' ')
   const [userInfo, setUserInfo] = useState({
     email: '',
     password: ''
@@ -57,7 +58,7 @@ const Login = ({changePage}) => {
         localStorage.setItem('user', '')
         localStorage.setItem('userId', '')
         localStorage.setItem('companyId', '')
-        toast.error('Erreur dans les données', {
+        /*toast.error('Erreur dans les données', {
           position: "bottom-left",
           autoClose: 3000,
           hideProgressBar: false,
@@ -66,7 +67,7 @@ const Login = ({changePage}) => {
           draggable: true,
           progress: undefined,
           theme: "dark",
-        })
+        })*/
       })
     }
   }
@@ -89,25 +90,24 @@ const Login = ({changePage}) => {
   }
 
   const handleSubmit = async () => {
-
+    setErrorLogin(' ')
     try {
       let userId = ''
       await axios.post('/auth/login', {
         email: userInfo.email,
         password: userInfo.password
       }).then((res) => {
-        console.log(res)
-        localStorage.setItem('user', res.data.message.jwt)
-        userId = res.data.message.user._id
-        localStorage.setItem('userId', userId)
-        console.log("ok")
-        console.log(res.data.message.user.roles)
-        if(res.data.message.user.roles.includes('COMPANY')) {
-          getCompany(userId)
+        if(res.data.message.message === 'User not found') {
+          setErrorLogin('Mauvais email ou mot de passe')
         }
-        setRedirection(true)
-      })
-        .then(() => 
+        else {
+          localStorage.setItem('user', res.data.message.jwt)
+          userId = res.data.message.user._id
+          localStorage.setItem('userId', userId)
+          if(res.data.message.user.roles.includes('COMPANY')) {
+            getCompany(userId)
+          }
+          setRedirection(true)
           toast.success('Connecté', {
             position: "bottom-left",
             autoClose: 3000,
@@ -118,7 +118,8 @@ const Login = ({changePage}) => {
             progress: undefined,
            theme: "dark",
           })
-        )
+        }
+      })
       
     }
     catch (error) {
@@ -157,6 +158,7 @@ const Login = ({changePage}) => {
                 label={"Mot de passe"}
               />
             </div>
+            <div style={{color: 'red'}}>{errorLogin}</div>
             <div className={styles.submit}>
               <Button variant={"contained"} color={"success"} id="login-btn" onClick={handleSubmit}>
                 Connexion

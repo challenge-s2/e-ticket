@@ -16,7 +16,6 @@ const DetailOldCommand = () => {
       price = price + item.price
     ))
     setTotalPrice(price);
-    console.log("final price: " + price )
   }
 
   const fetchData = async () => {
