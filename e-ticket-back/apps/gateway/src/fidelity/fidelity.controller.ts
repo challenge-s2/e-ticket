@@ -35,6 +35,7 @@ export class FidelityController {
 
   @Get('one/:companyId/:userMail')
   @UseGuards(JwtAuthGuard)
+  @Roles('COMPANY', 'ADMIN')
   findOneByUserIdAndCompanyId(
     @Param('companyId') companyId: string,
     @Param('userMail') userMail: string,
