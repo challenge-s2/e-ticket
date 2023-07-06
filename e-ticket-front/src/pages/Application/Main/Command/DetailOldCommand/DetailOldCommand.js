@@ -39,7 +39,7 @@ const DetailOldCommand = () => {
     <>
       <div className={styles.container}>
         <h1>
-          Commande n°{id}, fait le {Moment(commandInfo?.creationDate).format("DD/MM/YYYY").toLocaleString('fr-FR')}
+          Commande n°{id}, réalisée le {Moment(commandInfo?.creationDate).format("DD/MM/YYYY").toLocaleString('fr-FR')}
         </h1>
         <div className={styles.top}>
           <div className={styles.list_container}>
