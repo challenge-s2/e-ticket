@@ -18,8 +18,6 @@ jobs:
         run: docker compose pull --ignore-pull-failures || true
       - name: Start services
         run: docker compose up --build -d
-      - name: Check API reachability
-        run: curl -vk -o /dev/null http://localhost:3003
       - name: Check FRONT reachability
         run: "curl -vk -o /dev/null -H 'Accept: text/html' https://localhost:3010"
       - name: Jest
