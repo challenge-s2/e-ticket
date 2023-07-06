@@ -8,10 +8,6 @@ import {
   Button,
   TextField,
 } from "@mui/material";
-import { DateField } from "@mui/x-date-pickers/DateField";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs from "dayjs";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Moment from "moment";
@@ -64,7 +60,6 @@ const contentCompanyType = [
 const DetailCompany = () => {
   const { id } = useParams();
   const [openQRCode, setOpenQRCode] = useState(false)
-  const [base64Value, setBase64Value] = useState('');
   const [companyInfo, setCompanyInfo] = useState({
     name: '',
     description: '',
@@ -100,7 +95,6 @@ const DetailCompany = () => {
   }, [])
 
   const handleSumbit = () => {
-    console.log(companyInfo);
     axios.patch(`/company/${id}`, 
       {
         name: companyInfo?.name,
@@ -158,7 +152,7 @@ const DetailCompany = () => {
         onClose={() => setOpenQRCode(false)}
       >
         <DialogContent sx={{padding: '50px'}}>
-          <QRCode value={`http://localhost:3010/ticket/my-tickets/company/${id}`} id='mySVG'/>
+          <QRCode value={`${process.env.REACT_APP_URL_FRONT}/ticket/my-tickets/company/${id}`} id='mySVG'/>
         </DialogContent>
         <DialogActions sx={{padding: '50px'}}>
           <Button

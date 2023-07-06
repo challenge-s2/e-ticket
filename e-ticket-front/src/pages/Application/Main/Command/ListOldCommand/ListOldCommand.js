@@ -23,7 +23,6 @@ const ListOldCommand = () => {
         }
       });
       setCommands(productsRaw.data.message)
-      console.log(commands)
       setTotalItems(productsRaw.data.message.length)
     }
   

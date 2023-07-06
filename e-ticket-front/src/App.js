@@ -36,7 +36,7 @@ import NotFoundApp from "./pages/Application/Error/404/NotFound";
 import ListingContact from "./pages/Admin/Main/Company/ListingContact/ListingContact";
 import DetailContact from "./pages/Admin/Main/Company/DetailContact/DetailContact";
 
-axios.defaults.baseURL = 'http://localhost:3003'
+axios.defaults.baseURL = process.env.REACT_APP_URL_API
 axios.defaults.withCredentials = true;
 
 const App = () => {

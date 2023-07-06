@@ -12,7 +12,6 @@ import axios from "axios";
 import Moment from "moment"
 import { toast } from "react-toastify";
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import QRCode from "react-qr-code";
 
@@ -195,7 +194,7 @@ const MyInformations = () => {
       >
         <DialogContent sx={{padding: '50px'}}>
           <QRCode 
-            value={`http://localhost:3010/ticket/my-tickets/company/${localStorage.getItem('companyId')}`} 
+            value={`${process.env.REACT_APP_URL_FRONT}/ticket/my-tickets/company/${localStorage.getItem('companyId')}`} 
             id='mySVG'
             onClick={() => printQRCode()}
             style={{cursor: 'pointer'}}

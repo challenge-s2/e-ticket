@@ -34,12 +34,9 @@ const Admin = () => {
           })
           .then((res) => {
             if(res.data.message.roles.includes('ADMIN')){
-              console.log("ok valid")
               setReadyChecked(true);
-              console.log("ready")
             }
             else {
-              console.log("pas ok pas admin")
               setRedirection(true)
               toast.error("Vous n'avez pas l'autorisation d'accéderà cette interface", {
                 position: "bottom-left",
@@ -57,7 +54,6 @@ const Admin = () => {
         
     }
     catch (err) {
-      console.log("pas ok pas valid")
       setRedirection(true)
       toast.error("Vous n'avez pas l'autorisation d'accéderà cette interface", {
         position: "bottom-left",
