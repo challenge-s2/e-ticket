@@ -3,7 +3,6 @@ import styles from "./ListingUsers.module.scss";
 import TablePagination from "@mui/material/TablePagination";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
-import Moment from "moment";
 import axios from "axios";
 import LastPageIcon from "@mui/icons-material/LastPage";
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
@@ -23,7 +22,6 @@ const ListingUsers = () => {
         }
       });
       setUsers(usersRaw.data.message)
-      console.log(users)
       setTotalItems(usersRaw.data.message.length)
     }
   

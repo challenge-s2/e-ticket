@@ -73,10 +73,8 @@ const NewCompany = () => {
         companyInfo.companyType !== '' && 
         companyInfo.mail !== '' && 
         companyInfo.address !== '' &&
-        //companyInfo.phone !== '' &&
         companyInfo.password !== ''
       ){
-        console.log(companyInfo); /* TODO Enregistrer dans la BDD */
         await axios.post(`/users/company/`, {
           email: companyInfo.mail,
           password: companyInfo.password

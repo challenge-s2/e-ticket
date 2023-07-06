@@ -24,7 +24,6 @@ const MyProfil = () => {
 
   const handleSubmitChanges = () => {
     setErrorPassword('')
-    console.log(user)
     if(user.password !== ''){
       if(user.password !== user.confirmPassword) {
         setErrorPassword('not the same')
@@ -33,7 +32,6 @@ const MyProfil = () => {
         setErrorPassword('not strong enough')
       }
       else if(user.email !== emailGet){
-        console.log("first")
         axios.patch(`/users/${localStorageData.userId}`, {
           email: user.email,
           password: user.password
@@ -42,7 +40,6 @@ const MyProfil = () => {
             Authorization: `Bearer ${localStorage.getItem('user')}`
           }
         }).then(() => {
-          console.log('patched');
           toast.success('Informations modifiés', {
             position: "bottom-left",
             autoClose: 3000,
@@ -56,7 +53,6 @@ const MyProfil = () => {
         })
       }
       else {
-        console.log("second")
         axios.patch(`/users/${localStorageData.userId}`, {
           password: user.password
         }, {
@@ -64,7 +60,6 @@ const MyProfil = () => {
             Authorization: `Bearer ${localStorage.getItem('user')}`
           }
         }).then(() => {
-          console.log('patched');
           toast.success('Informations modifiés', {
             position: "bottom-left",
             autoClose: 3000,
@@ -79,7 +74,6 @@ const MyProfil = () => {
       }
     }
     else if(user.email !== emailGet){
-      console.log("third")
       axios.patch(`/users/${localStorageData.userId}`, {
         email: user.email,
       }, {
@@ -87,7 +81,6 @@ const MyProfil = () => {
           Authorization: `Bearer ${localStorage.getItem('user')}`
         }
       }).then(() => {
-        console.log('patched');
         toast.success('Informations modifiés', {
           position: "bottom-left",
           autoClose: 3000,
@@ -135,7 +128,6 @@ const MyProfil = () => {
         })
         .then((res) => {
           setFidelityInfo(res.data.message)
-          console.log(res.data.message)
         })
       }
       catch (err) {
@@ -151,7 +143,6 @@ const MyProfil = () => {
       user: localStorage.getItem('user'),
       userId: localStorage.getItem('userId')
     })
-    console.log(localStorageData)
   }, [localStorage.getItem('userId')])
 
 

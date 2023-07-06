@@ -13,20 +13,15 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Navigate } from "react-router-dom"
-import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 
 
-import CircularProgress from '@mui/material/CircularProgress';
 import HourglassEmptyRoundedIcon from '@mui/icons-material/HourglassEmptyRounded';
 import TaskAltRoundedIcon from '@mui/icons-material/TaskAltRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 
 const NewCommand = () => {
-  const [openModal, setOpenModal] = useState(false);
   const [emailToSearch, setEmailToSearch] = useState('')
 
   const [listOfAllProducts, setListOfAllProducts] = useState([]);
@@ -58,7 +53,6 @@ const NewCommand = () => {
   }, [])
 
   useEffect(() => {
-    console.log(listOfProducts);
     let total = 0;
     for (
       let productInArray = 0;
@@ -70,10 +64,6 @@ const NewCommand = () => {
     }
     setTotalPrice(total);
   }, [listOfProducts]);
-
-  useEffect(() => {
-    console.log(totalPrice);
-  }, [totalPrice]);
 
   const handleChange = (event) => {
     setProduct(event.target.value);
@@ -97,10 +87,8 @@ const NewCommand = () => {
           })
           .then((res) => {
             setFidelityId(res.data.message._id)
-            console.log(res.data.message._id)
             setStepToSearchEmail('valid')
             setPromotion(res.data.message.points)
-            console.log(res.data.message.points)
 
           })
           .catch(() => {
@@ -133,8 +121,6 @@ const NewCommand = () => {
 
 
   const handleSubmit = async () => {
-    console.log(listOfProducts)
-    console.log(totalPrice)
     const arrayOfProducts = []
     listOfProducts.map((item) => (
       arrayOfProducts.push({
@@ -143,16 +129,12 @@ const NewCommand = () => {
         price: listOfAllProducts.filter((prod) => prod._id === item)[0].price
       })
     ))
-    console.log(arrayOfProducts)
     await axios.get(`/company/${localStorage.getItem('companyId')}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('user')}`
       }
     }).then((res) => 
     {
-      console.log(`companyInformations: ${res.data.message.name} - ${res.data.message.address}`);
-      console.log(parseInt(totalPrice - promotion).toFixed(2));
-      console.log(typeof (totalPrice.toFixed(2) - promotion.toFixed(2)));
       axios.post('/ticket/', {
         companyId: localStorage.getItem('companyId'),
         listProducts: arrayOfProducts,

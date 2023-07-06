@@ -33,7 +33,6 @@ const Application = () => {
           })
           .then((res) => {
             if(res.data.message.roles.includes('COMPANY')){
-              console.log("ok valid")
               axios
                 .get(`/company/user/${localStorage.getItem('userId')}`, {
                   headers: {
@@ -42,11 +41,9 @@ const Application = () => {
                 })
                 .then((res) => {
                   if(res.data.message._id === localStorage.getItem('companyId') && localStorage.getItem('companyId') !== ''){
-                    console.log("double ok valid")
                     setReadyChecked(true)
                   }
                   else {
-                    console.log("pas ok pas valid 1")
                     localStorage.setItem("userId", '')
                     localStorage.setItem("user", '')
                     localStorage.setItem("companyId", '')
@@ -66,7 +63,6 @@ const Application = () => {
                 })
             }
             else {
-              console.log("pas ok pas entreprise")
               setRedirection(true)
               toast.error("Vous n'avez pas l'autorisation d'accéderà cette interface", {
                 position: "bottom-left",
@@ -83,7 +79,6 @@ const Application = () => {
           })
       }
       catch (err) {
-        console.log("pas ok pas valid")
         setRedirection(true)
         toast.error("Vous n'avez pas l'autorisation d'accéderà cette interface", {
           position: "bottom-left",

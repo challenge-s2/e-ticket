@@ -23,7 +23,7 @@ const Signin = ({ changePage }) => {
   }, []);
 
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setErrorPassword('')
     if(userInfo.password !== userInfo.confirmPassword) {
       setErrorPassword('not the same')
@@ -31,61 +31,55 @@ const Signin = ({ changePage }) => {
     else if (!new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})').test(userInfo.password)){
       setErrorPassword('not strong enough')
     }
+    else if(!new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g).test(userInfo.email)){
+      setErrorPassword('incorrect email')
+    }
     else {
-      console.log(userInfo)
-        axios.post('/users/',
+      try {
+        await axios.post('/users/',
         {
           email: userInfo.email,
           password: userInfo.password
         })
-          .then((res) => {
-            console.log(res)
-            if(res.status === 201) {
-              console.log('first')
-              toast.success('Compte créé', {
-                position: "bottom-left",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              theme: "dark",
-              })
-            }
-          })
-          .then(() => {
-            try {
-              axios.post('/auth/login', {
-                email: userInfo.email,
-                password: userInfo.password
-              })
-                .then((res) => {
-                  localStorage.setItem('user', res.data.message.jwt)
-                  localStorage.setItem('userId', res.data.message.user._id)
-                  console.log("ok")
-                })
-                .then(() => {
-                  toast.success('Connecté', {
-                    position: "bottom-left",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
+        .then((res) => {
+          if(res.status === 201) {
+            toast.success('Compte créé', {
+              position: "bottom-left",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            theme: "dark",
+            })
+            axios.post('/auth/login', {
+              email: userInfo.email,
+              password: userInfo.password
+            })
+              .then((res) => {
+                localStorage.setItem('user', res.data.message.jwt)
+                localStorage.setItem('userId', res.data.message.user._id)
+                toast.success('Connecté', {
+                  position: "bottom-left",
+                  autoClose: 3000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
                   theme: "dark",
-                  })
-                }
-                )
-                .then(() => setRedirection(true))
-              
-            }
-            catch (error) {
-              console.log(error)
-            }
-
-          })
+                })
+                setRedirection(true)
+              })
+          }
+        })
+      }
+      catch (error) {
+        if(error.response?.data.statusCode === 500){
+          setErrorPassword('email already used')
+        }
+      }
     }
 
   }
@@ -114,59 +108,6 @@ const Signin = ({ changePage }) => {
         <div className={styles.right}>
           <div className={styles.wrapper}>
             <h2>Créer votre compte</h2>
-            {/*{windowSize >= 600 ?
-              <div className={styles.name}>
-                <TextField
-                  sx={{ width: "48%", marginBottom: "2rem", marginRight: "4%" }}
-                  type={"text"}
-                  value={userInfo.firstname}
-                  onChange={(e) => setUserInfo((prevValue) => ({...prevValue, firstname: e.target.value}))}
-                  variant={"outlined"}
-                  className={"innput"}
-                  label={"Prénom"}
-                  placeholder={"John"}
-                />
-                <TextField
-                  sx={{ width: "48%", marginBottom: "2rem" }}
-                  type={"text"}
-                  value={userInfo.lastname}
-                  onChange={(e) => setUserInfo((prevValue) => ({...prevValue, lastname: e.target.value}))}
-                  variant={"outlined"}
-                  className={"innput"}
-                  label={"Nom"}
-                  placeholder={"Doe"}
-                />
-              </div>
-            :
-            <>
-              <div className={styles.name}>
-                  <TextField
-                    sx={{ width: "100%", marginBottom: "2rem" }}
-                    type={"text"}
-                    value={userInfo.firstname}
-                    onChange={(e) => setUserInfo((prevValue) => ({...prevValue, firstname: e.target.value}))}
-                    variant={"outlined"}
-                    className={"innput"}
-                    label={"Prénom"}
-                    placeholder={"John"}
-                  />
-              </div>
-              <div className={styles.name}>
-                <TextField
-                  sx={{ width: "100%", marginBottom: "2rem" }}
-                  type={"text"}
-                  value={userInfo.lastname}
-                  onChange={(e) => setUserInfo((prevValue) => ({...prevValue, lastname: e.target.value}))}
-                  variant={"outlined"}
-                  className={"innput"}
-                  label={"Nom"}
-                  placeholder={"Doe"}
-                />
-              </div>
-            </>
-
-            }*/}
-            
             <div className={styles.email}>
               <TextField
                 sx={{ width: "100%", marginBottom: "2rem" }}
@@ -232,8 +173,11 @@ const Signin = ({ changePage }) => {
                 <div style={{color: 'red'}}>Veuillez renseigner le même mot de passe</div>
                 : errorPassword === 'not strong enough' ?
                 <div style={{color: 'red'}}>Veuillez renseigner un mot de passe plus fort (au mois: 8 caractères, 1 majuscule, 1 minuscule, 1 caractère spécial )</div>
-                :
-                <></>
+                : errorPassword === 'incorrect email' ?
+                <div style={{color: 'red'}}>Veuillez renseigner un mail correct </div>
+                : errorPassword === 'email already used' ?
+                <div style={{color: 'red'}}>Ce mail existe déjà </div>
+                : <></>
 
               }
             </div>
