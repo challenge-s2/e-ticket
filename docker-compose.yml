@@ -15,7 +15,7 @@ services:
     build:
       context: ./e-ticket-back
       dockerfile: ./apps/auth/Dockerfile
-      target: development
+      target: production
     command: pnpm run start:dev auth
     env_file:
       - ./e-ticket-back/apps/auth/.env
@@ -28,7 +28,7 @@ services:
     build:
       context: ./e-ticket-back
       dockerfile: ./apps/gateway/Dockerfile
-      target: development
+      target: production
     command: pnpm run start:dev gateway
     ports:
       - "3003:3003"
@@ -39,7 +39,7 @@ services:
     build:
       context: ./e-ticket-back
       dockerfile: ./apps/company/Dockerfile
-      target: development
+      target: production
     command: pnpm run start:dev company
     ports:
       - "3004:3004"
@@ -50,7 +50,7 @@ services:
     build:
       context: ./e-ticket-back
       dockerfile: ./apps/products/Dockerfile
-      target: development
+      target: production
     command: pnpm run start:dev products
     ports:
       - "3005:3005"
@@ -61,7 +61,7 @@ services:
     build:
       context: ./e-ticket-back
       dockerfile: ./apps/ticket/Dockerfile
-      target: development
+      target: production
     command: pnpm run start:dev ticket
     ports:
       - "3006:3006"
@@ -72,7 +72,7 @@ services:
     build:
       context: ./e-ticket-back
       dockerfile: ./apps/fidelity/Dockerfile
-      target: development
+      target: production
     command: pnpm run start:dev fidelity
     ports:
       - "3007:3007"
@@ -83,7 +83,7 @@ services:
     build:
       context: ./e-ticket-back
       dockerfile: ./apps/contact/Dockerfile
-      target: development
+      target: production
     command: pnpm run start:dev contact
     ports:
       - "3008:3008"
