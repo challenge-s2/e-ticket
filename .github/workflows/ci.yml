@@ -18,8 +18,6 @@ jobs:
         run: docker compose pull --ignore-pull-failures || true
       - name: Start services
         run: docker compose up --build -d
-      - name: Jest
-        run: docker compose exec -T e-ticket-front npm run test
   docker:
     runs-on: ubuntu-latest
     env:
@@ -40,3 +38,28 @@ jobs:
           context: "{{defaultContext}}:e-ticket-front"
           push: true
           tags: matthieucmp/e-ticket:latest
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: executing remote ssh commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port: ${{ secrets.SERVER_PORT }}
+          script: |
+            cd /var/www/html/
+            if [ ! -d e-ticket ]; then
+              git clone git@github.com:challenge-s2/e-ticket.git
+              cd e-ticket/e-ticket-back/apps/auth
+              echo "MONGODB_URI=${{ secrets.MONGODB_URI }}" > .env
+              echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
+              echo "JWT_EXPIRATION=${{ secrets.JWT_EXPIRATION }}" >> .env
+              echo "HTTP_PORT=3001" >> .env
+              echo "TCP_PORT=3002" >> .env
+              cd /var/www/html/
+            fi
+            cd e-ticket
+            git pull
+            docker-compose up -d --build

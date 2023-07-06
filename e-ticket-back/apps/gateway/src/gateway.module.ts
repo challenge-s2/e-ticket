@@ -12,6 +12,8 @@ import { TicketController } from './ticket/ticket.controller';
 import { TicketService } from './ticket/ticket.service';
 import { FidelityController } from './fidelity/fidelity.controller';
 import { FidelityService } from './fidelity/fidelity.service';
+import { ContactController } from './contact/contact.controller';
+import { ContactService } from './contact/contact.service';
 
 @Module({
   imports: [
@@ -73,6 +75,7 @@ import { FidelityService } from './fidelity/fidelity.service';
     ProductsController,
     TicketController,
     FidelityController,
+    ContactController,
   ],
   providers: [
     AuthService,
@@ -81,6 +84,7 @@ import { FidelityService } from './fidelity/fidelity.service';
     ProductsService,
     TicketService,
     FidelityService,
+    ContactService,
   ],
 })
 export class GatewayModule {}
