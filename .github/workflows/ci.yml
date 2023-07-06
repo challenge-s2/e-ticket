@@ -20,7 +20,7 @@ jobs:
         run: docker compose up --build -d
       - name: Wait for services
         run: |
-          while status="$(docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" "$(docker compose ps -q php)")"; do
+          while status="$(docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" "$(docker compose ps -q e-ticket-front)")"; do
             case $status in
               starting) sleep 1;;
               healthy) exit 0;;
@@ -32,11 +32,9 @@ jobs:
             esac
           done
           exit 1
-      - name: Check HTTP reachability
-        run: curl -v -o /dev/null http://localhost:3003
       - name: Check API reachability
-        run: curl -vk -o /dev/null https://localhost:3003
-      - name: Check PWA reachability
+        run: curl -vk -o /dev/null http://localhost:3003
+      - name: Check FRONT reachability
         run: "curl -vk -o /dev/null -H 'Accept: text/html' https://localhost:3010"
       - name: Jest
         run: docker compose exec -T e-ticket-front npm run test
