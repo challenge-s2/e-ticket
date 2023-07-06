@@ -56,6 +56,14 @@ import { FidelityService } from './fidelity/fidelity.service';
           port: 3007,
         },
       },
+      {
+        name: 'CONTACT_SERVICE',
+        transport: Transport.TCP,
+        options: {
+          host: 'contact',
+          port: 3008,
+        },
+      },
     ]),
   ],
   controllers: [

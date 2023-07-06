@@ -70,6 +70,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/fidelity/tsconfig.app.json"
       }
+    },
+    "contact": {
+      "type": "application",
+      "root": "apps/contact",
+      "entryFile": "main",
+      "sourceRoot": "apps/contact/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/contact/tsconfig.app.json"
+      }
     }
   },
   "monorepo": true,
