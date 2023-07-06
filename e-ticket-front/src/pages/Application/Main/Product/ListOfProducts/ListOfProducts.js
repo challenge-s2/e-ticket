@@ -86,7 +86,7 @@ const ListOfProducts = () => {
   
                         <td>{item.price}€</td>
 
-                        <td>{Moment(item.creationDate).format("dddd MM YYYY").toLocaleString('fr-FR')}</td>
+                        <td>{Moment(item.creationDate).format("DD/MM/YYYY").toLocaleString('fr-FR')}</td>
                         
                         <td>
                           <Link to={`/app/edit-product/${item._id}`}>

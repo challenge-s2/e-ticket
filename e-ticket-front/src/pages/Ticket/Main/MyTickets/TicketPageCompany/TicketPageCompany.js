@@ -107,7 +107,7 @@ const TicketPageCompany = () => {
   const patchFidelity = async () => {
     try {
       axios.patch(`/fidelity/${fidelityInfo._id}`, {
-        points: fidelityInfo.points + (totalPrice * 0.05)
+        points: parseInt(fidelityInfo.points + (totalPrice * 0.05))
       },{
         headers: {
           Authorization: `Bearer ${localStorage.getItem('user')}`
@@ -142,7 +142,7 @@ const TicketPageCompany = () => {
 
   const patchTicket = async () => {
     await axios.patch(`/ticket/${ticketInfo._id}`, {
-      scanned : true, //TODO change to false
+      scanned : true
     }, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('user')}`
