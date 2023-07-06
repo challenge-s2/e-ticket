@@ -34,6 +34,7 @@ import NotFoundTicket from "./pages/Ticket/Error/404/NotFound";
 import NotFoundAdmin from "./pages/Admin/Error/404/NotFound";
 import NotFoundApp from "./pages/Application/Error/404/NotFound";
 import ListingContact from "./pages/Admin/Main/Company/ListingContact/ListingContact";
+import DetailContact from "./pages/Admin/Main/Company/DetailContact/DetailContact";
 
 axios.defaults.baseURL = 'http://localhost:3003'
 axios.defaults.withCredentials = true;
@@ -75,7 +76,7 @@ const App = () => {
             <Route path="company/not-found" element={<CompanyNotFound />} />
 
             <Route path="contact/list" element={<ListingContact />} />
-            <Route path="contact/:id" element={<DetailCompany />} /> {/*TODO change*/}
+            <Route path="contact/:id" element={<DetailContact />} /> {/*TODO change*/}
 
             <Route path="users/list" element={<ListingUsers />} />
             <Route path="users/:id" element={<DetailUser />} />

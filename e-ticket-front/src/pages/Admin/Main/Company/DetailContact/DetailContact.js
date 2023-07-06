@@ -1,33 +1,19 @@
 import React, { useEffect, useState } from "react";
-import styles from "./DetailCompany.module.scss";
+import styles from "./DetailContact.module.scss";
 import {
-  MenuItem,
-  FormControl,
-  Select,
-  InputLabel,
   Button,
   TextField,
 } from "@mui/material";
-import { DateField } from "@mui/x-date-pickers/DateField";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs from "dayjs";
-import { useParams } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
 import axios from "axios";
-import Moment from "moment";
-import QRCode from "react-qr-code";
-
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-
-import { toast } from 'react-toastify';
+import HourglassEmptyRoundedIcon from '@mui/icons-material/HourglassEmptyRounded';
+import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded';
+import DangerousRoundedIcon from '@mui/icons-material/DangerousRounded';
 
 
 const DetailCompany = () => {
   const { id } = useParams();
-  const [openQRCode, setOpenQRCode] = useState(false)
-  const [base64Value, setBase64Value] = useState('');
+  const [redirection, setRedirection] = useState(false)
   const [contactInfo, setContactInfo] = useState({
     firstname: '',
     lastname: '',
@@ -54,7 +40,7 @@ const DetailCompany = () => {
   }, [])
 
   const handleChange = (status) => {
-    axios.patch(`/cpntact/${id}`, 
+    axios.patch(`/contact/${id}`, 
       {
         status: status
       },
@@ -63,110 +49,133 @@ const DetailCompany = () => {
           Authorization: `Bearer ${localStorage.getItem('user')}`
         }
       }
-    )
+    ).then(() => setRedirection(true))
   };
 
   return (
-    <div className={styles.container}>
+    <>
+      {redirection ? <Navigate to={`/admin/contact/list`} replace /> : <></>}
+      <div className={styles.container}>
 
-      <div className={styles.company_description}>
-        <TextField
-          label="Description de l'entreprise"
-          value={
-            item.status === 'pending'
-        ?
-          <td><HourglassEmptyRoundedIcon color="warning"/></td>
-        :
-          item.status === 'valid'
-        ?
-        <td><VerifiedRoundedIcon color="success"/></td>
-        :
-        <td><DangerousRoundedIcon color="error"/></td>
+        <div className={styles.company_description}>
+          {
+            contactInfo.status === 'refused'
+          ?
+          <TextField
+            label="Statut de la demande"
+            value={'Demande Refusée'}
+            variant="outlined"
+            sx={{ width: "100%" }}
+            disabled
+          />
+          :
+          contactInfo.status === 'valid'
+          ?
+          <TextField
+            label="Statut de la demande"
+            value={"Demande acceptée"}
+            variant="outlined"
+            sx={{ width: "100%" }}
+            disabled
+          />
+          :
+          <TextField
+            label="Statut de la demande"
+            value={"Demande en attente"}
+            variant="outlined"
+            sx={{ width: "100%" }}
+            disabled
+          />
+          }
+        </div>
+
+        <div className={styles.company_description}>
+          <TextField
+            label="Type d'entreprise"
+            value={contactInfo?.type}
+            variant="outlined"
+            sx={{ width: "100%" }}
+            disabled
+          />
+        </div>
+
+        <div className={styles.input_duo}>
+          <TextField
+            label="Prénom du demandeur"
+            value={contactInfo.firstname}
+            variant="outlined"
+            sx={{ width: "100%" }}
+            disabled
+          />
+          <TextField
+            label="Nom du demandeur"
+            value={contactInfo.lastname}
+            variant="outlined"
+            sx={{ width: "100%" }}
+            disabled
+          />
+        </div>
+
+        <div className={styles.input_duo}>
+          <TextField
+            label="Numéro de téléphone du demandeur"
+            value={contactInfo.phone}
+            variant="outlined"
+            sx={{ width: "100%" }}
+            disabled
+          />
+          <TextField
+            label="Mail du demandeur"
+            value={contactInfo.email}
+            variant="outlined"
+            sx={{ width: "100%" }}
+            disabled
+          />
+        </div>
+
+        <div className={styles.input_duo}>
+          <TextField
+            label="Nom de l'entreprise"
+            value={contactInfo.companyName}
+            variant="outlined"
+            sx={{ width: "100%" }}
+            disabled
+          />
+          <TextField
+            label="Poste du demandeur"
+            value={contactInfo.position}
+            variant="outlined"
+            sx={{ width: "100%" }}
+            disabled
+          />
+        </div>
+
+        {
+          contactInfo.status === 'pending' 
+          ?
+            <div className={styles.button_submit}>
+              <Button
+                variant="contained"
+                color="success"
+                onClick={() => handleChange('valid')}
+                sx={{ width: "48%", marginRight: "4%" }}
+              >
+                Accepter
+              </Button>
+              <Button
+                variant="contained"
+                color="error"
+                onClick={() => handleChange('refused')}
+                sx={{ width: "48%" }}
+              >
+                Refuser
+              </Button>
+            </div>
+          :
+            <></>
         }
-          variant="outlined"
-          sx={{ width: "100%" }}
-        />
       </div>
-
-      <div className={styles.company_description}>
-        <TextField
-          label="Description de l'entreprise"
-          value={companyInfo?.type}
-          variant="outlined"
-          sx={{ width: "100%" }}
-        />
-      </div>
-
-      <div className={styles.input_duo}>
-        <TextField
-          label="Nom de l'entreprise"
-          value={companyInfo.firstname}
-          variant="outlined"
-          sx={{ width: "100%" }}
-          disabled
-        />
-        <TextField
-          label="Nom de l'entreprise"
-          value={companyInfo.lastname}
-          variant="outlined"
-          sx={{ width: "100%" }}
-          disabled
-        />
-      </div>
-
-      <div className={styles.input_duo}>
-        <TextField
-          label="Nom de l'entreprise"
-          value={companyInfo.phone}
-          variant="outlined"
-          sx={{ width: "100%" }}
-          disabled
-        />
-        <TextField
-          label="Nom de l'entreprise"
-          value={companyInfo.email}
-          variant="outlined"
-          sx={{ width: "100%" }}
-          disabled
-        />
-      </div>
-
-      <div className={styles.input_duo}>
-        <TextField
-          label="Nom de l'entreprise"
-          value={companyInfo.companyName}
-          variant="outlined"
-          sx={{ width: "100%" }}
-          disabled
-        />
-        <TextField
-          label="Nom de l'entreprise"
-          value={companyInfo.position}
-          variant="outlined"
-          sx={{ width: "100%" }}
-          disabled
-        />
-      </div>
-
-      <div className={styles.button_submit}>
-        <Button
-          variant="contained"
-          color="success"
-          onClick={() => handleChange('valid')}
-          sx={{ width: "48%", marginRight: "4%" }}
-        >
-          Modifier
-        </Button>
-        <Button
-          variant="contained"
-          color="error"
-          onClick={() => handleChange('valid')}
-          sx={{ width: "48%" }}
-        >
-          Modifier
-        </Button>
-      </div>
-    </div>
+    </>
   );
 };
 

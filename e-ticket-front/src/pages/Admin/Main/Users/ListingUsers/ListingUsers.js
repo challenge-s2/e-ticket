@@ -71,7 +71,7 @@ const ListingUsers = () => {
               <table>
                 <thead>
                   <tr>
-                    <th>ID</th>
+                    {/* <th>ID</th> */}
                     <th>Email</th>
                     <th>Roles</th>
                     <th>Actions</th>
@@ -81,14 +81,14 @@ const ListingUsers = () => {
                   {users
                     .map((item, index) => (
                       <tr key={index}>
-                        <td>{item._id}</td>
+                        {/* <td>{item._id}</td> */}
   
                         <td>{item.email}</td>
   
                         <td>{item.roles}</td>
 
 
-                        {/*<td>{Moment(item.registerDate).format("dddd MM YYYY").toLocaleString('fr-FR')}</td>*/}
+                        {/*<td>{Moment(item.registerDate).format("DD/MM/YYYY").toLocaleString('fr-FR')}</td>*/}
   
                         <td>
                           <Link to={`/admin/users/${item._id}`}>

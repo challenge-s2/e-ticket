@@ -79,7 +79,7 @@ const ListingCompany = () => {
               <table>
                 <thead>
                   <tr>
-                    <th>ID</th>
+                    {/* <th>ID</th> */}
                     <th>Nom de l'entreprise</th>
                     <th>Description</th>
                     <th>Type d'entreprise</th>
@@ -91,7 +91,7 @@ const ListingCompany = () => {
                   {companies
                     .map((item, index) => (
                       <tr key={index}>
-                        <td>{item._id}</td>
+                        {/* <td>{item._id}</td> */}
   
                         <td>{item.name}</td>
   
@@ -99,7 +99,7 @@ const ListingCompany = () => {
 
                         <td>{item.type}</td>
 
-                        <td>{Moment(item.registerDate).format("dddd MM YYYY").toLocaleString('fr-FR')}</td>
+                        <td>{Moment(item.registerDate).format("DD/MM/YYYY").toLocaleString('fr-FR')}</td>
   
                         <td>
                           <Link to={`/admin/company/${item._id}`}>
