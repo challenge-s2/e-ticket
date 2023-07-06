@@ -64,7 +64,10 @@ export class UsersService {
     return this.usersRepository.findAll({});
   }
 
-  update(id: string, updateUserDto: UpdateUserDto) {
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    if (updateUserDto.password) {
+      updateUserDto.password = await hash(updateUserDto.password, 10);
+    }
     return this.usersRepository.findOneAndUpdate(
       { _id: id },
       { $set: updateUserDto },
