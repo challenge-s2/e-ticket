@@ -22,10 +22,10 @@ export class FidelityService {
       .pipe(map((message: string) => ({ message })));
   }
 
-  async findOneByUserIdAndCompanyId(userId: string, companyId: string) {
+  async findOneByUserMailAndCompanyId(userMail: string, companyId: string) {
     return this.fidelityClient
-      .send('findOneFidelityByUserIdAndCompanyId', {
-        userId: userId,
+      .send('findOneFidelityByUserMailAndCompanyId', {
+        userMail: userMail,
         companyId: companyId,
       })
       .pipe(map((message: string) => ({ message })));

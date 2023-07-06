@@ -9,6 +9,10 @@ export class CreateFidelityDto {
   @IsNotEmpty()
   userId: string;
 
+  @IsString()
+  @IsNotEmpty()
+  userMail: string;
+
   @IsNumber()
   @IsNotEmpty()
   points: number;

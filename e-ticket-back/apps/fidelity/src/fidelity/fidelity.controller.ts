@@ -17,10 +17,10 @@ export class FidelityController {
     return this.fidelityService.findAll();
   }
 
-  @MessagePattern('findAllFidelityByUserIdAndCompanyId')
-  async findOneByUserIdAndCompanyId(@Payload() data: any) {
-    return this.fidelityService.findOneByUserIdAndCompanyId(
-      data.userId,
+  @MessagePattern('findOneFidelityByUserMailAndCompanyId')
+  async findOneByUserMailAndCompanyId(@Payload() data: any) {
+    return this.fidelityService.findOneByUserMailAndCompanyId(
+      data.userMail,
       data.companyId,
     );
   }

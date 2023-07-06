@@ -9,6 +9,9 @@ export class FidelityDocument extends AbstractDocument {
   userId: string;
 
   @Prop()
+  userMail: string;
+
+  @Prop()
   points: number;
 
   @Prop()

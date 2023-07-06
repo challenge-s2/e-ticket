@@ -15,8 +15,8 @@ export class FidelityService {
     return this.fidelityRepository.findAll({});
   }
 
-  findOneByUserIdAndCompanyId(userId: string, companyId: string) {
-    return this.fidelityRepository.findOne({ userId, companyId });
+  findOneByUserMailAndCompanyId(userMail: string, companyId: string) {
+    return this.fidelityRepository.findOne({ userMail, companyId });
   }
 
   findAllByUserId(userId: string) {

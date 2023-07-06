@@ -33,13 +33,16 @@ export class FidelityController {
     return this.fidelityService.findAll();
   }
 
-  @Get('one/:companyId/:userId')
+  @Get('one/:companyId/:userMail')
   @UseGuards(JwtAuthGuard)
   findOneByUserIdAndCompanyId(
     @Param('companyId') companyId: string,
-    @Param('userId') userId: string,
+    @Param('userMail') userMail: string,
   ) {
-    return this.fidelityService.findOneByUserIdAndCompanyId(userId, companyId);
+    return this.fidelityService.findOneByUserMailAndCompanyId(
+      userMail,
+      companyId,
+    );
   }
 
   @Get('byUser/:userId')
