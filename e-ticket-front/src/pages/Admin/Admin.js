@@ -14,6 +14,7 @@ import DetailUser from "./Main/Users/DetailUser/DetailUser";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import ListingContact from "./Main/Company/ListingContact/ListingContact";
 
 const Admin = () => {
   const [openLeftBoardMobile, setOpenLeftBoardMobile] = useState(false);
@@ -104,6 +105,9 @@ const Admin = () => {
                   <Route path="/company/new" element={<NewCompany />} />
                   <Route path="/company/:id" element={<DetailCompany />} />
                   <Route path="/company/not-found" element={<CompanyNotFound />} />
+                  
+                  <Route path="/contact/list" element={<ListingContact />} />
+                  <Route path="/contact/:id" element={<DetailCompany />} />
 
                   <Route path="/users/list" element={<ListingUsers />} />
                   <Route path="/users/:id" element={<DetailUser />} />

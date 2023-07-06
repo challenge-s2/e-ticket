@@ -46,6 +46,14 @@ const ItemCompanyLeftBoard = () => {
             <ListItemText primary="Liste des entreprises" />
           </ListItemButton>
         </Link>
+        <Link to={"/admin/contact/list"} className={styles.link}>
+          <ListItemButton sx={{borderRight: useLocation().pathname === '/admin/contact/list' ? '3px solid black' : ''}}>
+            <ListItemIcon>
+              <FormatListBulletedIcon />
+            </ListItemIcon>
+            <ListItemText primary="Liste des contacts" />
+          </ListItemButton>
+        </Link>
       </List>
     </div>
   );
