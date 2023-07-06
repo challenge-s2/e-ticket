@@ -41,7 +41,8 @@ export class AuthService {
       jwt: jwt,
     };
   }
-  getHello(): string {
-    return 'Hello World!';
+
+  async validate(token: string) {
+    return this.jwtService.verify(token);
   }
 }

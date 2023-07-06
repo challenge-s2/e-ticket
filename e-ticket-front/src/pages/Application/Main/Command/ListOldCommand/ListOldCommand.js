@@ -11,20 +11,24 @@ import { toast } from "react-toastify";
 
 
 const ListOldCommand = () => {
-    const [products, setProducts] = useState([]);
+    const [commands, setCommands] = useState([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
     
-    const fetchProducts = async () => {
-      const productsRaw = await axios.get('/ticket/');
-      setProducts(productsRaw.data.message)
-      console.log(products)
+    const fetchCommand = async () => {
+      const productsRaw = await axios.get(`/ticket/company/${localStorage.getItem('companyId')}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('user')}`
+        }
+      });
+      setCommands(productsRaw.data.message)
+      console.log(commands)
       setTotalItems(productsRaw.data.message.length)
     }
   
     useEffect(() => {
-      fetchProducts();
+      fetchCommand();
     },[])
 
   
@@ -38,7 +42,11 @@ const ListOldCommand = () => {
     };
 
     const deleteProduit = async (item) => {
-      await axios.delete(`/ticket/${item._id}`)
+      await axios.delete(`/ticket/${item._id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('user')}`
+        }
+      })
       .then(() => 
         toast.success('Commande supprimé !', {
           position: "bottom-left",
@@ -51,7 +59,7 @@ const ListOldCommand = () => {
           theme: "dark",
         })
       )
-      fetchProducts()
+      fetchCommand()
     }
   
     return (
@@ -68,7 +76,7 @@ const ListOldCommand = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {products
+                  {commands
                     .map((item, index) => (
                       <tr key={index}>
   
@@ -80,9 +88,9 @@ const ListOldCommand = () => {
                               <LastPageIcon />
                             </Button>
                           </Link>
-                          <Button variant="contained" color="error" onClick={() => deleteProduit(item)}>
+                          {/* <Button variant="contained" color="error" onClick={() => deleteProduit(item)}>
                             <DeleteRoundedIcon />
-                          </Button>
+                          </Button> */}
                         </td>
                       </tr>
                     ))}

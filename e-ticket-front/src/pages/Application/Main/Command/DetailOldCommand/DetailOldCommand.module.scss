@@ -8,11 +8,15 @@ div.container {
   box-shadow: 10px 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -4px rgba(0, 0, 0, 0.1);
 
+  display: flex;
+  flex-flow: column;
+
     div.top {
-      height: 80%;
+      flex: 1 1 auto;
+      max-height: 80%;
       margin-bottom: 2vh;
       div.list_container {
-        height: 100%;
+        max-height: 100%;
         overflow-y: auto;
         > div {
           width: auto;
@@ -32,6 +36,7 @@ div.container {
     }
   
     div.bottom {
+      flex: 0 1 auto;
       height: 15%;
       border-top: 1px solid black;
       padding-top: 1.5vh;

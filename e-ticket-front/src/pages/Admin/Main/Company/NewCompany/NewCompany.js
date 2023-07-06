@@ -20,7 +20,7 @@ const contentCompanyType = [
   },
   {
     key: 2,
-    name: "Institue de beauté",
+    name: "Institut de beauté",
     img: "https://placehold.co/400",
     alt: "image of the activity sector to choose",
     link: "",
@@ -57,47 +57,64 @@ const NewCompany = () => {
     companyType: '',
     mail: '',
     //phone: 'ipo',
-    password: ''
+    password: '',
+    address: ''
 
   });
   const [newCompanyId, setNewCompanyId] = useState('');
 
 
   const handleSumbit = async () => {
-    if(
-      companyInfo.name !== '' && 
-      companyInfo.description !== '' && 
-      companyInfo.companyType !== '' && 
-      companyInfo.mail !== '' && 
-      //companyInfo.phone !== '' &&
-      companyInfo.password !== ''
-    ){
-      console.log(companyInfo); /* TODO Enregistrer dans la BDD */
-      await axios.post(`/users/`, {
-        email: companyInfo.mail,
-        password: companyInfo.password
-      }).then((res) => 
-        axios.post('/company', {
-          name: companyInfo.name,
-          description: companyInfo.description,
-          type: companyInfo.companyType,
-          userId: res.data.message._id
-        })
-        .then((res) => setNewCompanyId(res.data.message._id))
-        .then(() => 
-          toast.success('Entreprise créée !', {
-            position: "bottom-left",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
+    try {
+
+      if(
+        companyInfo.name !== '' && 
+        companyInfo.description !== '' && 
+        companyInfo.companyType !== '' && 
+        companyInfo.mail !== '' && 
+        companyInfo.address !== '' &&
+        //companyInfo.phone !== '' &&
+        companyInfo.password !== ''
+      ){
+        console.log(companyInfo); /* TODO Enregistrer dans la BDD */
+        await axios.post(`/users/company/`, {
+          email: companyInfo.mail,
+          password: companyInfo.password
+        }, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('user')}`
+          }
+        }).then((res) => 
+          axios.post('/company/',  {
+            name: companyInfo.name,
+            description: companyInfo.description,
+            type: companyInfo.companyType,
+            address: companyInfo.address,
+            userId: res.data.message._id
+          },{
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('user')}`
+            }
           })
+          .then((res) => setNewCompanyId(res.data.message._id))
+          .then(() => 
+            toast.success('Entreprise créée !', {
+              position: "bottom-left",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            })
+          )
         )
-      )
-      .then(() => setRedirection(true))
+        .then(() => setRedirection(true))
+      }
+    }
+    catch (err) {
+      console.log(err)
     }
   }
 
@@ -136,7 +153,8 @@ const NewCompany = () => {
           </FormControl>  
         </div>
 
-        <div className={styles.input}>
+        <div className={styles.input_duo}>
+          <TextField label="Ville de l'entreprise" value={companyInfo.address} onChange={(e) => setCompanyInfo((prevValue) => ({...prevValue, address: e.target.value}) )} variant="outlined" sx={{width: '100%'}}/>
           <TextField label="Mail de l'entreprise" type="email" value={companyInfo.mail} onChange={(e) => setCompanyInfo((prevValue) => ({...prevValue, mail: e.target.value}) )} variant="outlined" sx={{width: '100%'}}/>
         </div>
 

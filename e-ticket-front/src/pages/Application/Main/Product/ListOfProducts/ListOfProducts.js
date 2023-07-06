@@ -17,9 +17,13 @@ const ListOfProducts = () => {
     const [totalItems, setTotalItems] = useState(0);
     
     const fetchProducts = async () => {
-      const productsRaw = await axios.get('/products');
+      const productsRaw =await axios
+      .get(`/products/company/${localStorage.getItem('companyId')}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('user')}`
+        }
+      })
       setProducts(productsRaw.data.message)
-      console.log(products)
       setTotalItems(productsRaw.data.message.length)
     }
   
@@ -38,7 +42,11 @@ const ListOfProducts = () => {
     };
 
     const deleteProduit = async (item) => {
-      await axios.delete(`/products/${item._id}`)
+      await axios.delete(`/products/${item._id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('user')}`
+        }
+      })
       .then(() => 
         toast.success('Produit supprimé !', {
           position: "bottom-left",
@@ -76,7 +84,7 @@ const ListOfProducts = () => {
   
                         <td>{item.name}</td>
   
-                        <td>{item.price}</td>
+                        <td>{item.price}€</td>
 
                         <td>{Moment(item.creationDate).format("dddd MM YYYY").toLocaleString('fr-FR')}</td>
                         

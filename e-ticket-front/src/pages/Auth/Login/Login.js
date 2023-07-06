@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import styles from "./Login.module.scss";
 import { Button, TextField } from "@mui/material";
 import axios from "axios";
-import { Navigate } from "react-router-dom"
+import { Navigate, useParams } from "react-router-dom"
 import { toast } from "react-toastify";
 
-const Login = () => {
-  
+const Login = ({changePage}) => {
+  const { path } = useParams()
+
   const [windowSize, setWindowSize] = useState(window.screen.width);
   const [redirection, setRedirection] = useState(false)
   const [userInfo, setUserInfo] = useState({
@@ -16,9 +17,13 @@ const Login = () => {
 
   const checkLoggedIn = async () => {
     if(localStorage.getItem('userId') !== ''){
-      await axios.get(`/company/user/${localStorage.getItem('userId')}`)
+      await axios.get(`/company/user/${localStorage.getItem('userId')}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('user')}`
+        }
+      })
         .then((res) => {
-          if(res.data.message._id !== localStorage.getItem('companyId')){
+          if(res.data.message._id === localStorage.getItem('companyId')){
             setRedirection(true) 
             toast.error('Vous êtes déjà connecté', {
               position: "bottom-left",
@@ -32,9 +37,9 @@ const Login = () => {
             })
           } 
           else{
-            localStorage.setItem('user')
-            localStorage.setItem('userId')
-            localStorage.setItem('companyId')
+            localStorage.setItem('user', '')
+            localStorage.setItem('userId', '')
+            localStorage.setItem('companyId', '')
             toast.error('Erreur dans les données', {
               position: "bottom-left",
               autoClose: 3000,
@@ -49,9 +54,9 @@ const Login = () => {
         }
       )
       .catch(() => {
-        localStorage.setItem('user')
-        localStorage.setItem('userId')
-        localStorage.setItem('companyId')
+        localStorage.setItem('user', '')
+        localStorage.setItem('userId', '')
+        localStorage.setItem('companyId', '')
         toast.error('Erreur dans les données', {
           position: "bottom-left",
           autoClose: 3000,
@@ -73,10 +78,14 @@ const Login = () => {
 
   const getCompany = async (userId) => {
     await axios
-        .get(`/company/user/${userId}`)
+        .get(`/company/user/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('user')}`
+          }
+        })
         .then((res) => localStorage.setItem('companyId', res.data.message._id))
         
-        .catch(() => localStorage.setItem('companyId', 'N/A'))
+        .catch(() => localStorage.setItem('companyId', ''))
   }
 
   const handleSubmit = async () => {
@@ -87,11 +96,15 @@ const Login = () => {
         email: userInfo.email,
         password: userInfo.password
       }).then((res) => {
+        console.log(res)
         localStorage.setItem('user', res.data.message.jwt)
         userId = res.data.message.user._id
         localStorage.setItem('userId', userId)
         console.log("ok")
-        getCompany(userId)
+        console.log(res.data.message.user.roles)
+        if(res.data.message.user.roles.includes('COMPANY')) {
+          getCompany(userId)
+        }
         setRedirection(true)
       })
         .then(() => 
@@ -111,21 +124,12 @@ const Login = () => {
     catch (error) {
       console.log(error)
     }
-
-    
-      /*.catch((err) => {
-        try {
-          setWarning(err.response.data.message);
-        } catch {
-          setWarning("Il semble que le serveur soit offline");
-        }
-      });*/
   }
 
 
   return (
     <>
-      {redirection ? <Navigate to='/app' replace /> : <></>}
+      {redirection ? <Navigate to={`/${path === 'home' ? '' : path}`} replace /> : <></>}
       <div className={styles.container}>
         <div className={styles.left}>
           <div className={styles.wrapper_left}>
@@ -133,6 +137,7 @@ const Login = () => {
             <div className={styles.mail}>
               <TextField
                 type={"text"}
+                id="login-email"
                 value={userInfo.email}
                 onChange={(e) => setUserInfo((prevValue) => ({...prevValue, email: e.target.value}))}
                 variant={"outlined"}
@@ -144,6 +149,7 @@ const Login = () => {
             <div className={styles.password}>
               <TextField
                 type={"password"}
+                id="login-password"
                 value={userInfo.password}
                 onChange={(e) => setUserInfo((prevValue) => ({...prevValue, password: e.target.value}))}
                 variant={"outlined"}
@@ -152,16 +158,16 @@ const Login = () => {
               />
             </div>
             <div className={styles.submit}>
-              <Button variant={"contained"} color={"success"} onClick={handleSubmit}>
+              <Button variant={"contained"} color={"success"} id="login-btn" onClick={handleSubmit}>
                 Connexion
               </Button>
             </div>
-            {/*<div
+            <div
               className={styles.change_to_signin}
               onClick={() => changePage("signin")}
             >
-              Vous n'avez pas de compte? Créé en un !
-            </div>*/}
+              Vous n'avez pas de compte? Créez-en un !
+            </div>
 
           </div>
         </div>

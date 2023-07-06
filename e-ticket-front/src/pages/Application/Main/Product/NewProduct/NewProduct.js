@@ -14,11 +14,14 @@ const NewProduct = () => {
 
   const handleSumbit = async () => {
     if(name !== '' && price !== null){
-      await axios.post('products', {
+      await axios.post('/products/',{
         name: name,
-        price: price,
-        companyId: localStorage.getItem('companyId'),
-        creationDate: new Date()
+        price: parseInt(price),
+        companyId: localStorage.getItem('companyId')
+      }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('user')}`
+        }
       }).then(() => 
       toast.success('Produit ajouté !', {
         position: "bottom-left",
@@ -46,7 +49,7 @@ const NewProduct = () => {
         </div>
 
         <div className={styles.product_price}>
-          <TextField label="Prix du produit (en €)" value={price} onChange={(e) => setPrice(e.target.value)} variant="outlined" sx={{width: '100%'}}/>
+          <TextField label="Prix du produit (en €)" type="number" value={price} onChange={(e) => setPrice(e.target.value)} variant="outlined" sx={{width: '100%'}}/>
         </div>
 
         <div className={styles.button_submit}>

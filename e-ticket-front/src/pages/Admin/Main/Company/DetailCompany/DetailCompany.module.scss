@@ -19,6 +19,17 @@ div.container {
     }
   }
 
+  div.input_duo{
+    margin-bottom: 5vh;
+    display: flex;
+    > {
+      width: 48%;
+    }
+    >:first-child {
+      margin-right: 4%;
+    }
+  }
+
   .button_generation {
     margin-left: auto;
     margin-right: 0;

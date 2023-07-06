@@ -13,6 +13,9 @@ export class CompanyDocument extends AbstractDocument {
   type: string;
 
   @Prop()
+  address: string;
+
+  @Prop()
   registerDate: Date;
 
   @Prop()

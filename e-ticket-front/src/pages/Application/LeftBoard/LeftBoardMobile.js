@@ -17,13 +17,13 @@ const LeftBoardMobile = ({ open, setOpen }) => {
   }
   return (
     <>
-      {redirection ? <Navigate to='/auth' replace /> : <></>}
+      {redirection ? <Navigate to='/auth/app' replace /> : <></>}
       <div className={styles.container}>
         <Drawer open={open} onClose={() => setOpen(false)}>
           <ItemCommandLeftBoard opened={true} />
           <ItemProductLeftBoard />
           <ItemSettingsLeftBoard />
-          <div className={styles.logout_button} style={{ display: "flex" }}>
+          <div className={styles.logout_button} style={{ display: "flex", margin: '50px 0' }}>
             <Button variant="contained" color="error" sx={{ margin: "0 auto" }} onClick={() => loggout()}>
               Déconnexion
             </Button>

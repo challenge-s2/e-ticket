@@ -9,8 +9,19 @@ div.container {
     0 4px 6px -4px rgba(0, 0, 0, 0.1);
 
 
-  div.input, div.input {
+  div.input{
     margin-bottom: 5vh;
+  }
+
+  div.input_duo{
+    margin-bottom: 5vh;
+    display: flex;
+    > {
+      width: 48%;
+    }
+    >:first-child {
+      margin-right: 4%;
+    }
   }
 
 }

@@ -1,28 +1,46 @@
-import {Injectable, UnauthorizedException, UnprocessableEntityException} from '@nestjs/common';
-import {CreateUserDto} from './dto/create-user.dto';
-import {UsersRepository} from './users.repository';
-import {compare, hash} from 'bcryptjs';
-import {GetUserDto} from './dto/get-user.dto';
+import {
+  Injectable,
+  UnauthorizedException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UsersRepository } from './users.repository';
+import { compare, hash } from 'bcryptjs';
+import { GetUserDto } from './dto/get-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
 
-  async create(createUserDto: CreateUserDto) {
+  async createUser(createUserDto: CreateUserDto) {
     await this.validateCreateUserDto(createUserDto);
     return this.usersRepository.create({
       ...createUserDto,
       password: await hash(createUserDto.password, 10),
+      roles: ['USER'],
+      ticketsScanned: [],
+    });
+  }
+
+  async createUserCompany(createUserDto: CreateUserDto) {
+    await this.validateCreateUserDto(createUserDto);
+    return this.usersRepository.create({
+      ...createUserDto,
+      password: await hash(createUserDto.password, 10),
+      roles: ['COMPANY'],
+      ticketsScanned: [],
     });
   }
 
   async validateCreateUserDto(createUserDto: CreateUserDto) {
-    try {
-      await this.usersRepository.findOne({ email: createUserDto.email });
-    } catch (e) {
-      return;
+    const user = await this.usersRepository.findOne({
+      email: createUserDto.email,
+    });
+    if (user) {
+      throw new UnprocessableEntityException('Email already exists.');
     }
-    throw new UnprocessableEntityException('Email already exists.');
+    return;
   }
 
   async verifyUser(email: string, password: string) {
@@ -44,5 +62,19 @@ export class UsersService {
 
   async getAllUsers() {
     return this.usersRepository.findAll({});
+  }
+
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    if (updateUserDto.password) {
+      updateUserDto.password = await hash(updateUserDto.password, 10);
+    }
+    return this.usersRepository.findOneAndUpdate(
+      { _id: id },
+      { $set: updateUserDto },
+    );
+  }
+
+  async delete(id: string) {
+    return this.usersRepository.findOneAndDelete({ _id: id });
   }
 }

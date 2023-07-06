@@ -30,6 +30,22 @@
         > div:last-child {
           border-bottom: 1px solid grey;
         }
+
+        .left > .left_item_article_title,
+        .middle > .middle_item_article_title,
+        .right > .right_item_article_title
+        {
+          margin:15px 0;
+        }
+
+        .left > .left_item_article_title:nth-child(2),
+        .middle > .middle_item_article_title:nth-child(2),
+        .right > .right_item_article_title:nth-child(2)
+        {
+          margin-bottom: 0px;
+        }
+
+
         .list_item,
         .articles,
         .pay,

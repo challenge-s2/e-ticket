@@ -2,6 +2,7 @@
 /dist
 /node_modules
 /.npm
+/.pnpm-store
 
 # Logs
 logs

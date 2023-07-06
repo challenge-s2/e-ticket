@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { CreateTicketDto } from './dto/create-ticket.dto';
 import { map } from 'rxjs';
+import { UpdateTicketDto } from './dto/update-ticket.dto';
 
 @Injectable()
 export class TicketService {
@@ -36,6 +37,18 @@ export class TicketService {
   async getLastByCompanyId(companyId: string) {
     return this.ticketClient
       .send('getLastTicketByCompanyId', companyId)
+      .pipe(map((message: string) => ({ message })));
+  }
+
+  async updateTicket(ticketId: string, updateTicketDto: UpdateTicketDto) {
+    return this.ticketClient
+      .send('updateTicket', { id: ticketId, update: updateTicketDto })
+      .pipe(map((message: string) => ({ message })));
+  }
+
+  async delete(ticketId: string) {
+    return this.ticketClient
+      .send('deleteTicket', ticketId)
       .pipe(map((message: string) => ({ message })));
   }
 }

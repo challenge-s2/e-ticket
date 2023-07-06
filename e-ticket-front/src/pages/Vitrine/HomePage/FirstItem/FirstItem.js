@@ -10,10 +10,10 @@ const FirstItem = () => {
       <div className={styles.container}>
 
         <div className={styles.left}>
-          <div className={styles.title}>L'outils révolutionnaire qui vous permet de fidéliser votre clientèle</div>
+          <div className={styles.title}>L'outil révolutionnaire qui vous permet de fidéliser votre clientèle</div>
           <div className={styles.description}>
             Grâce à eTickets, vous pouvez gérer vos processus de gestion de produits, de menus et de tickets dématérialisés.
-            Une solution personnalité qui s'adapte à tout type d'entreprise.
+            Une solution personnalisée qui s'adapte à tout type d'entreprise.
             </div>
           <div className={styles.button}>
             <a href="#form">

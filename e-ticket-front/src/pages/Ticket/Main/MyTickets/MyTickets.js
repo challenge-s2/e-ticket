@@ -1,50 +1,51 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./MyTickets.module.scss";
 import TicketItem from "../Home/TicketItem/TicketItem";
-
-const content = [
-  {
-    id: 1,
-    name: "Big Burgers",
-    place: "Paris",
-    date: "2023-05-02 12:20:00",
-  },
-  {
-    id: 2,
-    name: "Ensuite",
-    place: "Paris",
-    date: "2023-05-17 03:15:00",
-  },
-  {
-    id: 3,
-    name: "FNAC",
-    place: "Bordeaux",
-    date: "2023-05-10 17:00:00",
-  },
-];
-
-
-// for (let it = 0; it < content.length; it++) {
-//   const year = new Date().getFullYear()
-//   itemByYear[year]: { content[it]}
-  
-// }
+import axios from "axios";
 
 const MyTickets = () => {
+  const [users, setUserInfo] = useState([])
+  const [allTickets, setAllTickets] = useState([])
+
+
+  const fetchUser = async () => {
+    await axios.get(`/users/${localStorage.getItem('userId')}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user')}`
+      }
+    })
+     .then((res) => {
+        setUserInfo(res.data.message)
+        res.data.message.ticketsScanned?.reverse().map((item) => {
+          axios.get('/ticket/'+ item, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('user')}`
+            }
+          })
+            .then((res) => setAllTickets((prev) => ([...prev, res.data.message])))
+        })
+      })
+  }
+
+  useEffect(() => {
+    fetchUser();
+  }, [])
+
+
   return (
     <>
       <div className={styles.container}>
         <div className={styles.item_home}>
           <h3>Mes tickets</h3>
-          {content.map((item, index) => (
-            <TicketItem
-              key={index}
-              name={item.name}
-              place={item.place}
-              date={item.date}
-              id={item.id}
-            />
-          ))}
+          {allTickets.length > 0 ?
+            <>
+              {allTickets.map((item, index) => (
+                <TicketItem key={index} name={item.companyInformations} date={item.creationDate} id={item._id}/>
+              ))}
+            </>
+          :
+            <div>Vous n'avez pas encore de ticket enregistré</div>
+          }
         </div>
       </div>
     </>

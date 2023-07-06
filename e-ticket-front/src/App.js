@@ -24,8 +24,15 @@ import ListingCompany from "./pages/Admin/Main/Company/ListingCompany/ListingCom
 import NewCompany from "./pages/Admin/Main/Company/NewCompany/NewCompany"
 import DetailCompany from "./pages/Admin/Main/Company/DetailCompany/DetailCompany"
 import CompanyNotFound from "./pages/Admin/Error/404/CompanyNotFound";
+import TicketPageCompany from "./pages/Ticket/Main/MyTickets/TicketPageCompany/TicketPageCompany";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import ListingUsers from "./pages/Admin/Main/Users/ListingUsers/ListingUsers";
+import DetailUser from "./pages/Admin/Main/Users/DetailUser/DetailUser";
+import NotFound from "./pages/Vitrine/Error/404/NotFound";
+import NotFoundTicket from "./pages/Ticket/Error/404/NotFound";
+import NotFoundAdmin from "./pages/Admin/Error/404/NotFound";
+import NotFoundApp from "./pages/Application/Error/404/NotFound";
 
 axios.defaults.baseURL = 'http://localhost:3003'
 axios.defaults.withCredentials = true;
@@ -38,7 +45,7 @@ const App = () => {
         <Routes>
           <Route path="/" exact element={<ShowCase />} />
 
-          <Route path="/auth" exact element={<Auth />} />
+          <Route path="/auth/:path" exact element={<Auth />} />
 
           <Route path="/app" element={<Application />}>
             <Route path="list-old-commands" element={<ListOldCommand />} />
@@ -55,7 +62,9 @@ const App = () => {
           <Route path="/ticket" exact element={<Ticket />}>
             <Route path="my-tickets" element={<MyTickets />} />
             <Route path="my-tickets/page/:id" element={<TicketPage />} />
+            <Route path="my-tickets/company/:idCompany" element={<TicketPageCompany />} />
             <Route path="my-profil" element={<MyProfil />} />
+            
           </Route>
 
           <Route path="/admin" exact element={<Admin/>}>
@@ -63,7 +72,14 @@ const App = () => {
             <Route path="company/new" element={<NewCompany />} />
             <Route path="company/:id" element={<DetailCompany />} />
             <Route path="company/not-found" element={<CompanyNotFound />} />
+
+            <Route path="users/list" element={<ListingUsers />} />
+            <Route path="users/:id" element={<DetailUser />} />
           </Route>
+          <Route path="*" element={<NotFound />} />
+          <Route path="notticket" element={<NotFoundTicket />} />
+          <Route path="notadmin" element={<NotFoundAdmin />} />
+          <Route path="notapp" element={<NotFoundApp />} />
         </Routes>
       </div>
     </Router>

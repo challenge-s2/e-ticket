@@ -10,15 +10,18 @@ const Ticket = () => {
 
   const handleChangePage = (pageChanged) => {
     setPage(pageChanged)
-    //link TODO
   }
+
+
+
+
 
   return (
     <>
       <div className={styles.container}>
         <div className={styles.main}>
-          <Menu page={page}/>
-          <Main />
+          <Menu/>
+          <Main/>
         </div>
         <Footer handleChangePage={handleChangePage}/>
       </div>

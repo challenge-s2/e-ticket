@@ -68,5 +68,29 @@ services:
     volumes:
       - ./e-ticket-back:/usr/src/app
 
+  fidelity:
+    build:
+      context: ./e-ticket-back
+      dockerfile: ./apps/fidelity/Dockerfile
+      target: development
+    command: pnpm run start:dev fidelity
+    ports:
+      - "3007:3007"
+    volumes:
+      - ./e-ticket-back:/usr/src/app
+
+  contact:
+    build:
+      context: ./e-ticket-back
+      dockerfile: ./apps/contact/Dockerfile
+      target: development
+    command: pnpm run start:dev contact
+    ports:
+      - "3008:3008"
+    volumes:
+      - ./e-ticket-back:/usr/src/app
+
   mongo:
     image: mongo
+    ports:
+      - "27017:27017"

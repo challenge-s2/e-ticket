@@ -19,24 +19,6 @@ const links1 = [
   },
 ];
 
-const links2 = [
-  {
-    key: 1,
-    title: "Changer mes informations",
-    link: "/user/personal-data",
-  },
-  {
-    key: 2,
-    title: "Mes achats",
-    link: "/list-mypurchases",
-  },
-  {
-    key: 3,
-    title: "Notre politique de confidentialité",
-    link: "/user/confidentiality",
-  },
-];
-
 const Footer = (display) => {
 
   return (
@@ -48,13 +30,6 @@ const Footer = (display) => {
             <div className={styles.item_footer}>
               <ul className={styles.fl_ul}>
                 {links1.map((item) => (
-                  <div key={item.key}>{item.title}</div>
-                ))}
-              </ul>
-            </div>
-            <div className={styles.item_footer}>
-              <ul className={styles.fl_ul}>
-                {links2.map((item) => (
                   <div key={item.key}>{item.title}</div>
                 ))}
               </ul>

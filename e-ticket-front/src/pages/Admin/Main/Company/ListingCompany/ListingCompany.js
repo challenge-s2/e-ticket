@@ -6,18 +6,21 @@ import { Link } from "react-router-dom";
 import Moment from "moment";
 import axios from "axios";
 import LastPageIcon from "@mui/icons-material/LastPage";
-import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
-import { toast } from "react-toastify";
 
 
-const ListOldCommand = () => {
+const ListingCompany = () => {
     const [companies, setCompanies] = useState([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
     
     const fetchCompanies = async () => {
-      const companiesRaw = await axios.get('/company');
+      console.log("first")
+      const companiesRaw = await axios.get('/company', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('user')}`
+        }
+      });
       setCompanies(companiesRaw.data.message)
       console.log(companies)
       setTotalItems(companiesRaw.data.message.length)
@@ -37,8 +40,21 @@ const ListOldCommand = () => {
       setPage(0);
     };
 
-    const deleteCompany = async (id) => {
-      await axios.delete(`/company/${id}`)
+    /*const deleteCompany = async (id) => {
+      await axios.delete(`/company/${id}`,{
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('user')}`
+        }
+      })
+        .then(() =>
+          axios.post(`/users/${id}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('user')}`
+            }
+          }, {
+            roles: roles.splice(indexOf('COMPANY'))
+          })
+        )
         .then(() => 
         toast.success('Entreprise supprimée !', {
           position: "bottom-left",
@@ -52,7 +68,7 @@ const ListOldCommand = () => {
         })
         )
         fetchCompanies();
-    }
+    }*/
   
     return (
       <>
@@ -67,7 +83,7 @@ const ListOldCommand = () => {
                     <th>Nom de l'entreprise</th>
                     <th>Description</th>
                     <th>Type d'entreprise</th>
-                    <th>Date d'arrivé</th>
+                    <th>Date d'inscription</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -91,9 +107,9 @@ const ListOldCommand = () => {
                               <LastPageIcon />
                             </Button>
                           </Link>
-                          <Button variant="contained" color="error" onClick={() => deleteCompany(item._id)}>
+                          {/* <Button variant="contained" color="error" onClick={() => deleteCompany(item._id)}>
                             <DeleteRoundedIcon />
-                          </Button>
+                          </Button> */}
                         </td>
                       </tr>
                     ))}
@@ -116,4 +132,4 @@ const ListOldCommand = () => {
     );
   };
   
-  export default ListOldCommand;
+  export default ListingCompany;

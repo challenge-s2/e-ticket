@@ -9,9 +9,9 @@ nav.container {
 
     margin: auto;
     display: flex;
+    justify-content: space-between;
 
     div.left {
-      flex: 1;
       margin: auto 0;
       font-weight: bold;
       font-size: x-large;
@@ -19,7 +19,6 @@ nav.container {
     }
 
     div.middle {
-      flex: 5;
       margin: auto 0;
 
       div {
@@ -28,16 +27,21 @@ nav.container {
     }
 
     div.right {
-      flex: 1;
 
       div.rigth_button_container {
         margin: 1vh 0;
+        display: flex;
+        justify-content: space-between;
 
-        // a#login_button {
-        //   cursor: pointer;
-        //   padding-top: 1%;
-        //   width: 50%;
-        // }
+        >#login_button {
+          margin-right: 20px;
+        }
+
+        >#login_button:last-child {
+          margin-right: 0;
+        }
+
+
       }
     }
   }

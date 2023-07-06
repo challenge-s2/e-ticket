@@ -20,8 +20,6 @@ import QRCode from "react-qr-code";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 
 import { toast } from 'react-toastify';
 
@@ -35,7 +33,7 @@ const contentCompanyType = [
   },
   {
     key: 2,
-    name: "Institue de beauté",
+    name: "Institut de beauté",
     img: "https://placehold.co/400",
     alt: "image of the activity sector to choose",
     link: "",
@@ -73,17 +71,27 @@ const DetailCompany = () => {
     type: '',
     registerDate: '',
     email: '',
+    address: '',
   })
 
   const fetchData = async () => {
-    const companyRaw = await axios.get(`/company/${id}`);
+    const companyRaw = await axios.get(`/company/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user')}`
+      }
+    });
     setCompanyInfo({
       name: companyRaw.data.message.name,
       description : companyRaw.data.message.description,
       type : companyRaw.data.message.type,
-      registerDate : companyRaw.data.message.registerDate
+      registerDate : companyRaw.data.message.registerDate,
+      address : companyRaw.data.message.address
     })
-    const userInfoRaw = await axios.get(`/users/${companyRaw.data.message.userId}`)
+    const userInfoRaw = await axios.get(`/users/${companyRaw.data.message.userId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('user')}`
+      }
+    })
     setCompanyInfo((prevValue) => ({...prevValue, email: userInfoRaw.data.message.email}))
   }
 
@@ -93,15 +101,16 @@ const DetailCompany = () => {
 
   const handleSumbit = () => {
     console.log(companyInfo);
-
-    axios.post(`/company/${id}`, 
-      /*{
-          Header: "Bearer" + user.token
-      },*/
+    axios.patch(`/company/${id}`, 
       {
         name: companyInfo?.name,
         description: companyInfo?.description,
         type: companyInfo?.type,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('user')}`
+        }
       }
     )
   };
@@ -110,9 +119,12 @@ const DetailCompany = () => {
     const svgElement = document.getElementById('mySVG')
     const serializeSVG = new XMLSerializer().serializeToString(svgElement)
     const base64Value = window.btoa(serializeSVG)
-    console.log(base64Value)
-    await axios.patch(`/company/${id}`, {
+    await axios.patch('/company/' + id, {
       qrCode: base64Value
+    }, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem('user')
+      }
     })
     .then(() => setOpenQRCode(false))
     .then(() => 
@@ -146,7 +158,7 @@ const DetailCompany = () => {
         onClose={() => setOpenQRCode(false)}
       >
         <DialogContent sx={{padding: '50px'}}>
-          <QRCode value={`https://google.com/̀${id}`} id='mySVG'/>
+          <QRCode value={`http://localhost:3010/ticket/my-tickets/company/${id}`} id='mySVG'/>
         </DialogContent>
         <DialogActions sx={{padding: '50px'}}>
           <Button
@@ -200,7 +212,7 @@ const DetailCompany = () => {
 
       <div className={styles.company_start_date}>
         <TextField
-          label="Date d'arrivée"
+          label="Date d'inscription"
           value={Moment(companyInfo?.registerDate).format('DD/MM/YYYY')}
           disabled
           variant="outlined"
@@ -209,8 +221,9 @@ const DetailCompany = () => {
       </div>
 
 
-      <div className={styles.company_type}>
+      <div className={styles.input_duo}>
         <TextField label="Mail de l'entreprise" value={companyInfo?.email} disabled variant="outlined" sx={{width: '100%'}}/>
+        <TextField label="Ville de l'entreprise" value={companyInfo?.address} disabled variant="outlined" sx={{width: '100%'}}/>
       </div>
 
       <div className={styles.button_submit}>
