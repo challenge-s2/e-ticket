@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 const PageNotFound = () => {
   return (
     <>
-        <div style={{textAlign: 'center', padding:'2em'}} >
+        <div style={{textAlign: 'center', padding:'2em', minHeight:'100vh'}} >
             <h1>Erreur 404</h1>
             <div style={{paddingBottom:'1.5em'}}>
                 <h1>Page non trouvée</h1>
