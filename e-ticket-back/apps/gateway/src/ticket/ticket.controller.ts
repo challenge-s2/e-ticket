@@ -37,7 +37,7 @@ export class TicketController {
 
   @Get(':id')
   @UseGuards(JwtAuthGuard)
-  @Roles('COMPANY', 'ADMIN')
+  //@Roles('COMPANY', 'ADMIN')
   async getOne(@Param('id') id: string) {
     return this.ticketService.getOne(id);
   }

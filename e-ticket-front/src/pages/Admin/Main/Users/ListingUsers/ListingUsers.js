@@ -96,9 +96,15 @@ const ListingUsers = () => {
                               <LastPageIcon />
                             </Button>
                           </Link>
-                          <Button variant="contained" color="error" onClick={() => deleteUser(item._id)}>
+                          {
+                            item._id === localStorage.getItem('userId') ?
+                            <></>
+                            :
+                            <Button variant="contained" color="error" onClick={() => deleteUser(item._id)}>
                             <DeleteRoundedIcon />
                           </Button>
+                          }
+                          
                         </td>
                       </tr>
                     ))}

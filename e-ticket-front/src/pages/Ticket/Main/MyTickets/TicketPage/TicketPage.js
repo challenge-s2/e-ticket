@@ -63,18 +63,18 @@ const TicketPage = () => {
   }, [])
 
   const getTotalPrice = () => {
-    let price = 0
+  let price = 0
     ticketInfo?.listProducts?.map((item) => (
       price = price + item.price
     ))
-    setTotalPrice(price);
+    setTotalPrice(price - ticketInfo.promo);
   }
 
   
 
   useEffect(() => {
-    getTotalPrice();
     if(ticketInfo !== undefined){
+      getTotalPrice();
       ticketInfo.listProducts.sort((p1, p2) => {
         let fa = p1._id.toLowerCase();
         let fb = p2._id.toLowerCase();
@@ -150,10 +150,9 @@ const TicketPage = () => {
           <div className={styles.item}>
             <div className={styles.company_name}>{ticketInfo?.companyInformations}</div>
               <div className={styles.company_date}>
-              Le {Moment(ticketInfo?.creationDate).format("DD/MM/YYYY").toLocaleString('fr-FR')} à {Moment(ticketInfo?.creationDate).format("hh").toLocaleString('fr-FR')}h{Moment(ticketInfo?.creationDate).format("mm").toLocaleString('fr-FR')}
+              Le {Moment(ticketInfo?.creationDate).format("DD/MM/YYYY").toLocaleString('fr-FR')} à {Moment(ticketInfo?.creationDate).format("HH").toLocaleString('fr-FR')}h{Moment(ticketInfo?.creationDate).format("mm").toLocaleString('fr-FR')}
             </div>
             <div className={styles.menu}>
-
 
                 <div className={styles.list_item}>
                   <div className={styles.left}>
@@ -161,18 +160,21 @@ const TicketPage = () => {
                     {arrOfProductsSorted.map((item,index) => (
                       <div key={index} className={styles.left_item_article_title}>{item.name}</div>
                     ))}
+                    <div className={styles.left_item_article_title}>Promotion</div>
                   </div>
                   <div className={styles.middle}>
-                    <div className={styles.middle_item_article_title}>P.U. x QTE</div>
+                    <div className={styles.middle_item_article_title}>PxQ</div>
                     {arrOfProductsSorted.map((item,index) => (
                       <div key={index} className={styles.middle_item_article_title}>{item.price}€ x {item.totalCount}</div>
                     ))}
+                    <div className={styles.middle_item_article_title}>-</div>
                   </div>
                   <div className={styles.right}>
                     <div className={styles.right_item_article_title}>MONTANT</div>
                     {arrOfProductsSorted.map((item,index) => (
                       <div key={index} className={styles.right_item_article_title}>{item.price} €</div>
                     ))}
+                    <div className={styles.right_item_article_title} style={{color: 'red'}}>- {ticketInfo?.promo} €</div>
                   </div>
                 </div>
 
