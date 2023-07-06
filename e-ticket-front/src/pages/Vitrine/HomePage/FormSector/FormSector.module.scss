@@ -33,6 +33,11 @@ div.container {
             flex: 1;
           }
         }
+
+        .two {
+          display: flex;
+          justify-content: space-between;
+        }
       }
     }
   }
