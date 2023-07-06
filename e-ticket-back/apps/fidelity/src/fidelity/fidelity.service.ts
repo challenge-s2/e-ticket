@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnprocessableEntityException } from '@nestjs/common';
 import { FidelityRepository } from './fidelity.repository';
 import { CreateFidelityDto } from './dto/create-fidelity.dto';
 import { UpdateFidelityDto } from './dto/update-fidelity.dto';
@@ -7,8 +7,21 @@ import { UpdateFidelityDto } from './dto/update-fidelity.dto';
 export class FidelityService {
   constructor(private readonly fidelityRepository: FidelityRepository) {}
 
-  create(creatFidelityDto: CreateFidelityDto) {
+  async create(creatFidelityDto: CreateFidelityDto) {
+    await this.validateFidelity(creatFidelityDto);
     return this.fidelityRepository.create({ ...creatFidelityDto });
+  }
+
+  validateFidelity(createFidelityDto: CreateFidelityDto) {
+    const fidelity = this.fidelityRepository.findOne({
+      userId: createFidelityDto.userId,
+      companyId: createFidelityDto.companyId,
+    });
+    if (fidelity) {
+      throw new UnprocessableEntityException(
+        'Fidelity for this user/company already exists',
+      );
+    }
   }
 
   findAll() {
