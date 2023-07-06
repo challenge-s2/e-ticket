@@ -62,4 +62,8 @@ jobs:
             fi
             cd e-ticket
             git pull
+            cd e-ticket-back
+            pnpm i
+            cd ..
+            docker compose run -t e-ticket-front npm i
             docker compose up -d --build

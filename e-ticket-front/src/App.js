@@ -77,9 +77,6 @@ const App = () => {
             <Route path="users/:id" element={<DetailUser />} />
           </Route>
           <Route path="*" element={<NotFound />} />
-          <Route path="notticket" element={<NotFoundTicket />} />
-          <Route path="notadmin" element={<NotFoundAdmin />} />
-          <Route path="notapp" element={<NotFoundApp />} />
         </Routes>
       </div>
     </Router>
