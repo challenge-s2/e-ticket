@@ -210,18 +210,25 @@ const MyProfil = () => {
 
             <h3>Mes fidelités</h3>
             <Box>
-              {fidelityInfo?.map((item, index) => (
-                <div className={styles.fidelity}>
-                  <div className={styles.content}>
-                    <div className={styles.cmt}>
-                      {/* item.companyInformations */} Nike - Paris
+              {fidelityInfo.length > 0 ?
+                <>
+                  {fidelityInfo?.map((item, index) => (
+                    <div className={styles.fidelity}>
+                      <div className={styles.content}>
+                        <div className={styles.cmt}>
+                          {item.companyInformations}
+                        </div>
+                        <div className={styles.cmb}>
+                          Nombre de points: {item.points}
+                        </div>
+                      </div>
                     </div>
-                    <div className={styles.cmb}>
-                      Nombre de points: {item.points}
-                    </div>
-                  </div>
-                </div>
-              ))}
+                  ))}
+                
+                </>
+              :
+              <div>Vous n'avez pas de points de fidelité en cours</div>
+              }
             </Box>
           </div>
         :

@@ -54,10 +54,18 @@ const DetailOldCommand = () => {
         <div className={styles.bottom}>
           <h3 className={styles.title}>Résumé de la commande</h3>
           <div className={styles.content}>
+            <div className={styles.t}>Promotion</div>
+            <div className={styles.tr}>- {commandInfo?.promo.toFixed(2)} €</div>
+          </div>
+          <div className={styles.content}>
             <div className={styles.nbOfItem}>
               Nombre d'article : {commandInfo?.listProducts.length}
             </div>
             <div className={styles.totalPrice}>{totalPrice.toFixed(2)} €</div>
+          </div>
+          <div className={styles.content}>
+            <div className={styles.t}>Total</div>
+            <div className={styles.tr}>{(totalPrice - commandInfo?.promo).toFixed(2)} € </div>
           </div>
         </div>
       </div>

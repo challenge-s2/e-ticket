@@ -116,6 +116,14 @@ return (
               :
                 <>
                 {
+                  userRoles.includes('USER') ?
+                    <Link to="/ticket" id={styles.login_button}>
+                      <Button variant={"contained"} color={"primary"}>Tickets</Button>
+                    </Link>
+                  :
+                    <></>
+                }
+                {
                   userRoles.includes('COMPANY') ?
                     <Link to="/app" id={styles.login_button}>
                       <Button variant={"contained"} color={"success"}>Application</Button>

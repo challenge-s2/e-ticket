@@ -13,14 +13,32 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Navigate } from "react-router-dom"
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import TextField from "@mui/material/TextField";
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
+
+
+import CircularProgress from '@mui/material/CircularProgress';
+import HourglassEmptyRoundedIcon from '@mui/icons-material/HourglassEmptyRounded';
+import TaskAltRoundedIcon from '@mui/icons-material/TaskAltRounded';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 
 const NewCommand = () => {
-  const [listOfAllProducts, setListOfAllProducts] = useState([])
+  const [openModal, setOpenModal] = useState(false);
+  const [emailToSearch, setEmailToSearch] = useState('')
+
+  const [listOfAllProducts, setListOfAllProducts] = useState([]);
   const [product, setProduct] = useState();
   const [listOfProducts, setListOfProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [redirection, setRedirection] = useState()
-  const [idNewCommand, setIdNewCommand] = useState('')
+  const [redirection, setRedirection] = useState();
+  const [idNewCommand, setIdNewCommand] = useState('');
+  const [errorSearchEmail, setErrorSearchEmail] = useState('');
+  const [stepToSearchEmail, setStepToSearchEmail] = useState('');
+  const [promotion, setPromotion] = useState(0);
+  const [fidelityId, setFidelityId] = useState('');
 
   const fetchProduct = async () => {
     if(localStorage.getItem('companyId') !== ''){
@@ -61,6 +79,41 @@ const NewCommand = () => {
     setProduct(event.target.value);
   };
 
+  const changeEmailToSearch = async (e) => {
+    setEmailToSearch(e.target.value)
+  }
+
+  const searchForEmail = async () => {
+    setErrorSearchEmail('')
+    setPromotion(0)
+    setFidelityId('')
+    if(new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g).test(emailToSearch)){
+      setStepToSearchEmail('waiting')
+      await axios
+          .get(`/fidelity/one/${localStorage.getItem('companyId')}/${emailToSearch}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('user')}`
+            }
+          })
+          .then((res) => {
+            setFidelityId(res.data.message._id)
+            console.log(res.data.message._id)
+            setStepToSearchEmail('valid')
+            setPromotion(res.data.message.points)
+            console.log(res.data.message.points)
+
+          })
+          .catch(() => {
+            setStepToSearchEmail('error')
+            setErrorSearchEmail("Ce mail n'existe pas")
+          })
+        }
+        else {
+        setStepToSearchEmail('error')
+        setErrorSearchEmail("Ce n'est pas un mail valide")
+      }
+  }
+
   const addNewProductToList = (newProduct) => {
     if (newProduct === null) {
       setListOfProducts([...listOfProducts, product]);
@@ -97,18 +150,42 @@ const NewCommand = () => {
       }
     }).then((res) => 
     {
-      console.log(`companyInformations: ${res.data.message.name} - ${res.data.message.address}`)
+      console.log(`companyInformations: ${res.data.message.name} - ${res.data.message.address}`);
+      console.log(parseInt(totalPrice - promotion).toFixed(2));
+      console.log(typeof (totalPrice.toFixed(2) - promotion.toFixed(2)));
       axios.post('/ticket/', {
         companyId: localStorage.getItem('companyId'),
         listProducts: arrayOfProducts,
         companyInformations: `${res.data.message.name} - ${res.data.message.address}`,
-        promo: parseInt(0)
+        promo: parseInt(promotion.toFixed(2))
       }, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('user')}`
         }
       }).then((rs) => {
         setIdNewCommand(rs.data.message._id)
+      }).then(() => {
+        if(fidelityId !== '' && promotion > 0){
+          axios.patch(`/fidelity/${fidelityId}`, {
+            points: 0,
+          }, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('user')}`
+            }
+          }).then(() => {
+            toast.success('Promotion ajouté !', {
+              position: "bottom-left",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            })
+          })
+        }
+        
       }).then(() => 
           toast.success('Commande ajouté !', {
             position: "bottom-left",
@@ -208,14 +285,59 @@ const NewCommand = () => {
           </div>
         </div>
         <div className={styles.bottom}>
+          <FormControl sx={{width: '100%'}}>
+            <Box sx={{ minWidth: '100%', marginTop: "20px", display: 'flex' }}>
+              {
+                stepToSearchEmail === 'waiting' ?
+                  <Button disabled><HourglassEmptyRoundedIcon color="warning"/></Button>
+                :
+                stepToSearchEmail === "error" ?
+                  <Button disabled><CloseRoundedIcon color="error"/></Button>
+                :
+                stepToSearchEmail === "valid" ?
+                  <Button disabled><TaskAltRoundedIcon color="success"/></Button>
+                :
+                  <Button disabled></Button>
+
+              }
+                <TextField
+                  id="outlined-multiline-flexible"
+                  label="Renseigner le mail"
+                  value={emailToSearch}
+                  onChange={(e) => changeEmailToSearch(e)}
+                  sx={{ margin: "auto 0", width: "100%"}}
+                  variant="standard"
+                />
+                <Button
+                  onClick={searchForEmail}
+                  color="warning"
+                  variant="contained"
+                  sx={{ margin: "0 0 0 20px" }}
+                >
+                  <SearchRoundedIcon/>
+                </Button>
+            </Box>
+          </FormControl>
+          <div style={{marginTop: '10px', color:'red'}}>{errorSearchEmail}</div>
           <h3 className={styles.title}>Résumé de la commande</h3>
+          <div className={styles.content}>
+            <div className={styles.t}>Promotion</div>
+            <div className={styles.tr}>- {promotion.toFixed(2)} €</div>
+          </div>
           <div className={styles.content}>
             <div className={styles.nbOfItem}>
               Nombre d'article : {listOfProducts.length}
             </div>
             <div className={styles.totalPrice}>{totalPrice.toFixed(2)} €</div>
           </div>
+          <div className={styles.content}>
+            <div className={styles.t}>Total</div>
+            <div className={styles.tr}>{(totalPrice - promotion).toFixed(2)} € </div>
+          </div>
           <div className={styles.complete_command}>
+            {
+              listOfAllProducts.length > 0 && (totalPrice - promotion).toFixed(2) > 0
+            ?
             <Box>
               <Button
                 variant="contained"
@@ -227,8 +349,48 @@ const NewCommand = () => {
                 Finaliser la commande
               </Button>
             </Box>
+            :
+            <Box>
+              <Button
+                variant="contained"
+                color="success"
+                size="large"
+                sx={{ width: "100%", marginTop: "2vh" }}
+                disabled
+              >
+                Finaliser la commande
+              </Button>
+            </Box>
+            }
           </div>
         </div>
+        {/* <Dialog
+          open={openModal}
+          onClose={() => setOpenModal(false)}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogContent>
+              <Box sx={{ minWidth: 120, marginTop: "1vh" }}>
+                <TextField
+                  id="outlined-multiline-flexible"
+                  label="Renseigner le mail"
+                  value={emailToSearch}
+                  onChange={(e) => changeEmailToSearch(e)}
+                  sx={{ marginTop: "2vh", width: "100%" }}
+                />
+                <Button
+                  onClick={handleSubmit}
+                  color="error"
+                  variant="contained"
+                  autoFocus
+                  sx={{ padding: "1vh 1vw", margin: "1vh 1vw" }}
+                >
+                  Envoyer
+                </Button>
+              </Box>
+          </DialogContent>
+        </Dialog> */}
       </div>
     </>
   );

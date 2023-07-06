@@ -16,7 +16,7 @@ const MyTickets = () => {
     })
      .then((res) => {
         setUserInfo(res.data.message)
-        res.data.message.ticketsScanned.reverse().map((item) => {
+        res.data.message.ticketsScanned?.reverse().map((item) => {
           axios.get('/ticket/'+ item, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('user')}`
@@ -35,11 +35,17 @@ const MyTickets = () => {
   return (
     <>
       <div className={styles.container}>
-      <div className={styles.item_home}>
+        <div className={styles.item_home}>
           <h3>Mes tickets</h3>
-          {allTickets.map((item, index) => (
-            <TicketItem key={index} name={item.companyInformations} date={item.creationDate} id={item._id}/>
-          ))}
+          {allTickets.length > 0 ?
+            <>
+              {allTickets.map((item, index) => (
+                <TicketItem key={index} name={item.companyInformations} date={item.creationDate} id={item._id}/>
+              ))}
+            </>
+          :
+            <div>Vous n'avez pas encore de ticket enregistré</div>
+          }
         </div>
       </div>
     </>

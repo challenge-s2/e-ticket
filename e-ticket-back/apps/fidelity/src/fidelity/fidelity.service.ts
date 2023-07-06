@@ -12,11 +12,12 @@ export class FidelityService {
     return this.fidelityRepository.create({ ...creatFidelityDto });
   }
 
-  validateFidelity(createFidelityDto: CreateFidelityDto) {
-    const fidelity = this.fidelityRepository.findOne({
+  async validateFidelity(createFidelityDto: CreateFidelityDto) {
+    const fidelity = await this.fidelityRepository.findOne({
       userId: createFidelityDto.userId,
       companyId: createFidelityDto.companyId,
     });
+    console.log(fidelity)
     if (fidelity) {
       throw new UnprocessableEntityException(
         'Fidelity for this user/company already exists',
