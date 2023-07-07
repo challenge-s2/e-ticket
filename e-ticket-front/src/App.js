@@ -46,7 +46,7 @@ const App = () => {
       <TrackingProvider
         appId="8f8b0fa4-0d75-4af9-9b28-3d77f016d46b"
         withTrackingSession={true}
-        withTrackingMouse={true}
+        withTrackingMouse={false}
       >
         <div className="App">
           <ToastContainer />
