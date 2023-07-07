@@ -4,18 +4,11 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
-import { TrackingProvider } from "./sdk.es";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   // <React.StrictMode>
-  <TrackingProvider
-    appId="0c65110c-9062-4695-a4b7-e4bbb2e2cfa2"
-    withTrackingSession={false}
-    withTrackingMouse={false}
-  >
-    <App />
-  </TrackingProvider>
+  <App />
   //</React.StrictMode>
 );
 
