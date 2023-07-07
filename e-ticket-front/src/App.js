@@ -44,9 +44,9 @@ const App = () => {
   return (
     <Router>
       <TrackingProvider
-        appId="0c65110c-9062-4695-a4b7-e4bbb2e2cfa2"
-        withTrackingSession={false}
-        withTrackingMouse={false}
+        appId="8f8b0fa4-0d75-4af9-9b28-3d77f016d46b"
+        withTrackingSession={true}
+        withTrackingMouse={true}
       >
         <div className="App">
           <ToastContainer />
