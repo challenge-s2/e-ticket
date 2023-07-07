@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 const urlAPI = "http://151.80.32.111:5001";
 
 const generateId = (type) => {
-  return `${type}-${crypto.randomUUID()}`;
+  return `${type}-${Math.floor(Math.random() * 100000000000)}`;
 };
 
 const getScreenSize = (window2) => {
