@@ -2,10 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const urlAPI =
-  process.env.NODE_ENV === "production"
-    ? process.env.REACT_APP_URL_PROD
-    : process.env.REACT_APP_URL_DEV;
+const urlAPI = "http://151.80.32.111:5001";
 
 const generateId = (type) => {
   return `${type}-${crypto.randomUUID()}`;
