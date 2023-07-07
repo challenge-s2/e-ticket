@@ -184,7 +184,7 @@ const TicketPageCompany = () => {
   }, [])
 
   useEffect(() => {
-    if(Object.entries(ticketInfo).length > 0 && localStorage.getItem('userId') !== ''){
+    if(Object.entries(ticketInfo).length > 0){
       fetchUser();
       ticketInfo.listProducts.sort((p1, p2) => {
         let fa = p1._id.toLowerCase();
